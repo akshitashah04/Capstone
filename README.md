@@ -4,6 +4,8 @@ A working NYU Libraries capstone prototype for discovering **329 real NYU Press 
 
 ## Separate sponsor proposal
 
+Hosted private review copy: https://nyu-library-next-capstone.sound-park-7168.chatgpt.site
+
 [NYU Library Next](proposal/README.md) is a separate proposed library experience with Google Books discovery, advanced filters, optional neural reranking, a source-grounded services assistant, and an honest Bobst reservation handoff. The original OpenSquare prototype below remains preserved. The Pages workflow builds both apps, with the proposal at `/proposal/`.
 
 ## What works

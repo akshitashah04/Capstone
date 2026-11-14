@@ -2,6 +2,8 @@
 
 This is a **separate proposed site** alongside the original OpenSquare prototype at the repository root. It does not replace or modify NYU's production services.
 
+Hosted private review copy: https://nyu-library-next-capstone.sound-park-7168.chatgpt.site
+
 ## Experience
 
 - Broader discovery through the Google Books Volumes API, combined with the 329-book OpenSquare metadata snapshot.
