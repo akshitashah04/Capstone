@@ -36,14 +36,14 @@ The hosted Sites build includes a same-origin `/api/books` proxy. GitHub Pages c
 
 `src/discovery.js` implements normalization, API queries, deduplication, and ranking. Candidate acquisition is separate from reranking: a reranker cannot recover a relevant book absent from its candidate set.
 
-- Up to 40 Google Books candidates per call, 240 per session; up to 60 OpenSquare candidates.
+- OpenSquare is the default scope and ranks all 329 records. Google Books remains an optional scope (up to 40 candidates per call, 240 per session); combined searches retrieve up to 60 OpenSquare candidates alongside Google results.
 - Title/author/ISBN query operators; language and full-view constraints sent to Google.
 - Additional constraints applied to retrieved records. Counts are local matching-record counts, not exhaustive Google catalog counts.
 - Edition deduplication by ISBN or matching title and author. Records without an ISBN can still represent different editions.
 - Exact-title and ISBN matches receive priority independently of the blended score.
-- Default hybrid = 0.60 semantic cosine + 0.30 normalized BM25 + 0.10 provider-rank signal.
+- OpenSquare hybrid = (2/3) semantic cosine + (1/3) normalized BM25. Google-only records retain 0.60 semantic + 0.30 keyword + 0.10 provider rank. OpenSquare records do not receive a zero-valued, inapplicable Google component. Keyword-only OpenSquare scoring uses BM25 without a Google penalty.
 - BM25 `k1=1.2`, `b=0.75`; normalization `1-exp(-BM25/6)`.
-- Default semantics: the original 96-dimensional OpenSquare LSA projection. It is limited outside the original corpus vocabulary.
+- Default semantics: the original 96-dimensional OpenSquare LSA projection and its stored document vectors, generated from the same full metadata representation used in training. Google-only candidates are projected into that space separately, with limited vocabulary coverage outside the corpus.
 - Optional semantics: quantized `Xenova/all-MiniLM-L6-v2`, mean pooling and normalized embeddings in a Web Worker, reranking up to 60 candidates. Downloaded from Hugging Face via Transformers.js 3.7.3; the JavaScript module is delivered through jsDelivr. Browser network/storage/model support is required. It is English-oriented, not a validated multilingual model. Language filters do not imply equally good semantic quality in every language.
 
 Google may rank broadly related results that are not appropriate for a user's intent. Known sponsor regression topics (AI risk, global warming, classical music, architecture) use conservative metadata evidence checks. These can reduce recall and are not a general-purpose semantic safety guarantee. Ambiguous `911` searches ask for clarification rather than silently assuming a topic. The UI never displays similarity as confidence percentages.
@@ -100,3 +100,7 @@ The original application code license in the repository root applies; publisher 
 ### Google Books connection setup
 
 See [the Google Books setup guide](docs/GOOGLE_BOOKS_SETUP.md) for Google Cloud API enablement, a server-side secret, redeployment, and verification. The app now distinguishes missing/invalid keys, disabled APIs, key restrictions, quota errors, and network errors. Where no server key is configured, it may attempt the same public API directly from the visitor's browser; this is still subject to Google's access rules and quota. Google-only errors no longer claim that an empty result set contains OpenSquare records.
+
+### Score interpretation
+
+Scores remain raw retrieval signals and are not confidence or accuracy percentages. A high metadata overlap can produce a score above 0.9 (the tests cover a 300-character publisher-description excerpt), while a short topic query often has a lower cosine score even for a useful book. Exact titles and ISBNs are labeled separately and receive retrieval priority; their numeric score is not replaced with a fabricated 0.95 or 1.0. Results are not min-max rescaled to force a winner to 1.0. The UI, CSV, and local relevance-assessment export report the applicable scoring components and weights.
