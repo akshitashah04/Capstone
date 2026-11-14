@@ -1,0 +1,15 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {Matrix,EigenvalueDecomposition} from 'ml-matrix';
+import {tokenize,bookText,normalize} from '../src/search.js';
+const {books}=JSON.parse(readFileSync('public/data/books.json','utf8'));
+const docs=books.map(b=>tokenize(bookText(b))),dfMap=new Map();for(const d of docs)for(const t of new Set(d))dfMap.set(t,(dfMap.get(t)||0)+1);
+const terms=[...dfMap.keys()].filter(t=>dfMap.get(t)>=2).sort((a,b)=>dfMap.get(b)-dfMap.get(a)||a.localeCompare(b)).slice(0,6500),lookup=new Map(terms.map((t,i)=>[t,i]));
+const df=terms.map(t=>dfMap.get(t)),idf=df.map(n=>Math.log((1+books.length)/(1+n))+1);
+const A=new Matrix(books.length,terms.length);docs.forEach((d,i)=>{const tf={};for(const t of d)tf[t]=(tf[t]||0)+1;let norm=0;for(const [t,n]of Object.entries(tf)){const j=lookup.get(t);if(j===undefined)continue;const v=(1+Math.log(n))*idf[j];A.set(i,j,v);norm+=v*v;}norm=Math.sqrt(norm);for(let j=0;j<terms.length;j++)A.set(i,j,A.get(i,j)/norm);});
+console.log(`Training LSA on ${books.length} books, ${terms.length} terms`);
+const gram=A.mmul(A.transpose()),evd=new EigenvalueDecomposition(gram,{assumeSymmetric:true}),dims=Math.min(96,books.length-1),order=evd.realEigenvalues.map((v,i)=>({v,i})).sort((a,b)=>b.v-a.v).slice(0,dims);
+const U=new Matrix(books.length,dims);for(let j=0;j<dims;j++)for(let i=0;i<books.length;i++)U.set(i,j,evd.eigenvectorMatrix.get(i,order[j].i)/Math.sqrt(Math.max(order[j].v,1e-9)));
+const projection=A.transpose().mmul(U),round=x=>Math.round(x*1e6)/1e6;
+const vectors=A.mmul(projection).to2DArray().map(v=>normalize(v).map(round));
+const index={model:'TF-IDF + truncated SVD (latent semantic analysis)',version:1,dimensions:dims,terms,df,idf:idf.map(round),projection:projection.to2DArray().map(v=>v.map(round)),vectors,bookIds:books.map(b=>b.id),builtAt:new Date().toISOString()};
+writeFileSync('public/data/index.json',JSON.stringify(index));console.log(`Saved ${dims}-dimensional semantic index`);

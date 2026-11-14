@@ -1,0 +1,20 @@
+import {test,expect} from '@playwright/test';
+test('search, compare, refine, save, export, and mobile layout',async({page})=>{
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('/');await expect(page.locator('.book-card')).toHaveCount(8);await expect(page.locator('.collection-bar')).toContainText('329');
+ await page.locator('#query').fill('The Digital Edge');await page.locator('#search-form').evaluate(f=>f.requestSubmit());
+ await expect(page.locator('.book-card').first().locator('h3')).toHaveText('The Digital Edge');await expect(page.locator('.score').first()).toContainText('0.724');
+ await page.locator('.why').first().locator('summary').click();await expect(page.locator('.why').first()).toContainText('0.65 × semantic');
+ await page.locator('#compare').click();await expect(page.locator('.comparison section')).toHaveCount(3);await page.getByRole('button',{name:'Close dialog'}).click();
+ await page.locator('.save-button').first().click();await page.locator('[data-tab="saved"]').click();await expect(page.locator('#result-title')).toHaveText('Saved for a closer look');await expect(page.locator('.book-card')).toHaveCount(1);
+ await page.reload();await expect(page.locator('#saved-count')).toHaveText('1');
+ await page.locator('#query').fill('Climate change and urban futures');await page.locator('#search-form').evaluate(f=>f.requestSubmit());
+ await page.locator('[name="subject"][value="Environmental Studies"]').check();await expect(page.locator('.filter-chip')).toContainText('Environmental Studies');
+ await page.locator('[data-mode="semantic"]').click();await expect(page.locator('.score').first()).toContainText('SEMANTIC SCORE');
+ await page.locator('.book-card h3 button').first().click();await expect(page.locator('#dialog')).toBeVisible();await expect(page.locator('.primary-link')).toHaveAttribute('href',/https:\/\/opensquare.nyupress.org\/books\/\d+/);await page.keyboard.press('Escape');
+ const download=page.waitForEvent('download');await page.locator('#export').click();expect((await download).suggestedFilename()).toBe('opensquare-search-results.csv');
+ await page.locator('#query').fill('zzzzxxyyqq');await page.locator('#search-form').evaluate(f=>f.requestSubmit());await expect(page.locator('.empty')).toBeVisible();
+ await page.locator('#empty-reset').click();await expect(page.locator('.book-card')).toHaveCount(8);
+ await page.setViewportSize({width:390,height:844});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:'/workspace/work/opensquare-mobile.png',fullPage:true});
+ await page.setViewportSize({width:1440,height:1100});await page.screenshot({path:'/workspace/work/opensquare-desktop.png',fullPage:true});expect(errors).toEqual([]);
+});

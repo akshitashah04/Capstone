@@ -1,0 +1,654 @@
+{
+  "generatedAt": "2026-11-14T16:39:40.967Z",
+  "notice": "Author-created starter judgments based on book topics. Not independently validated or exhaustive. Replace with librarian judgments, add adversarial and paraphrase queries, then freeze a held-out test set before tuning weights.",
+  "queryCount": 6,
+  "k": 5,
+  "model": "TF-IDF + truncated SVD (latent semantic analysis)",
+  "results": [
+    {
+      "mode": "keyword",
+      "mean": {
+        "precisionAt5": 0.5333333333333333,
+        "recallAt5": 0.7083333333333334,
+        "mrrAt5": 1,
+        "ndcgAt5": 0.7986381052220212
+      },
+      "perQuery": [
+        {
+          "query": "Climate change and urban futures",
+          "precisionAt5": 0.8,
+          "recallAt5": 1,
+          "mrrAt5": 1,
+          "ndcgAt5": 1,
+          "topBooks": [
+            {
+              "id": "9781479850426",
+              "title": "Asia Roadmap for Urban Nature-based Solutions",
+              "score": 0.7590381421588686
+            },
+            {
+              "id": "9781479850464",
+              "title": "The Middle East and North Africa Roadmap for Urban Nature-based Solutions",
+              "score": 0.7557852351144188
+            },
+            {
+              "id": "9781479850624",
+              "title": "Europe Roadmap for Urban Nature-based Solutions",
+              "score": 0.7557852351144188
+            },
+            {
+              "id": "9780814724705",
+              "title": "Latino Urbanism",
+              "score": 0.6598117817738869
+            },
+            {
+              "id": "9781479863402",
+              "title": "Choosing the Future for American Juvenile Justice",
+              "score": 0.5276756212663688
+            }
+          ]
+        },
+        {
+          "query": "Technology and social inequality",
+          "precisionAt5": 0.2,
+          "recallAt5": 0.25,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.6467429303328278,
+          "topBooks": [
+            {
+              "id": "9781479888788",
+              "title": "The Digital Edge",
+              "score": 0.7099450186273193
+            },
+            {
+              "id": "9781479866748",
+              "title": "Heart-Sick",
+              "score": 0.5434479126907432
+            },
+            {
+              "id": "9781479868148",
+              "title": "Freezing Fertility",
+              "score": 0.5189781815078339
+            },
+            {
+              "id": "9781479832668",
+              "title": "The New Reproductive Order",
+              "score": 0.5037468418904847
+            },
+            {
+              "id": "9781479800223",
+              "title": "Democratizing Inequalities",
+              "score": 0.49964308521030654
+            }
+          ]
+        },
+        {
+          "query": "immigrant children education",
+          "precisionAt5": 0.4,
+          "recallAt5": 0.5,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.583594857110204,
+          "topBooks": [
+            {
+              "id": "9780814724354",
+              "title": "The Children of Immigrants at School",
+              "score": 0.7895079127827478
+            },
+            {
+              "id": "9780814771983",
+              "title": "Caring Across Generations",
+              "score": 0.7060147792776943
+            },
+            {
+              "id": "9780814786123",
+              "title": "Japanese Lessons",
+              "score": 0.625366043072292
+            },
+            {
+              "id": "9780814728598",
+              "title": "In a New Land",
+              "score": 0.5739989519816507
+            },
+            {
+              "id": "9781479802678",
+              "title": "Crossing the Water and Keeping the Faith",
+              "score": 0.5581873219738984
+            }
+          ]
+        },
+        {
+          "query": "disability representation in media",
+          "precisionAt5": 0.6,
+          "recallAt5": 0.75,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.8380542185117285,
+          "topBooks": [
+            {
+              "id": "9781479802340",
+              "title": "Disability Media Studies",
+              "score": 0.7630298677696375
+            },
+            {
+              "id": "9781479819386",
+              "title": "Crip Authorship",
+              "score": 0.634829759021017
+            },
+            {
+              "id": "9781479806294",
+              "title": "Chronic Youth",
+              "score": 0.6332896874901477
+            },
+            {
+              "id": "9781479855049",
+              "title": "Fantasies of Identification",
+              "score": 0.6291253056470539
+            },
+            {
+              "id": "9781479830909",
+              "title": "How to Be Disabled in a Pandemic",
+              "score": 0.6202262365425744
+            }
+          ]
+        },
+        {
+          "query": "religion and immigrant communities",
+          "precisionAt5": 0.6,
+          "recallAt5": 0.75,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.8206726450938913,
+          "topBooks": [
+            {
+              "id": "9780814733356",
+              "title": "God in Chinatown",
+              "score": 0.6636750541918233
+            },
+            {
+              "id": "9781479802678",
+              "title": "Crossing the Water and Keeping the Faith",
+              "score": 0.6632279228219675
+            },
+            {
+              "id": "9781479858279",
+              "title": "Immigrant Faith",
+              "score": 0.6163863733288164
+            },
+            {
+              "id": "9780814705452",
+              "title": "The Lebanese Diaspora",
+              "score": 0.6147241925137349
+            },
+            {
+              "id": "9780814733134",
+              "title": "Guadalupe in New York",
+              "score": 0.5736403922542549
+            }
+          ]
+        },
+        {
+          "query": "young people digital learning",
+          "precisionAt5": 0.6,
+          "recallAt5": 1,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.902763980283475,
+          "topBooks": [
+            {
+              "id": "9781479863570",
+              "title": "The Class",
+              "score": 0.8837588478144476
+            },
+            {
+              "id": "9781479888900",
+              "title": "Affinity Online",
+              "score": 0.8604653076313249
+            },
+            {
+              "id": "9781479888788",
+              "title": "The Digital Edge",
+              "score": 0.7433985639387906
+            },
+            {
+              "id": "9780814739006",
+              "title": "Deaf Subjects",
+              "score": 0.6883764305316606
+            },
+            {
+              "id": "9781479829712",
+              "title": "By Any Media Necessary",
+              "score": 0.6488313367869354
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "semantic",
+      "mean": {
+        "precisionAt5": 0.4666666666666666,
+        "recallAt5": 0.611111111111111,
+        "mrrAt5": 1,
+        "ndcgAt5": 0.7996825974413179
+      },
+      "perQuery": [
+        {
+          "query": "Climate change and urban futures",
+          "precisionAt5": 0.8,
+          "recallAt5": 1,
+          "mrrAt5": 1,
+          "ndcgAt5": 1,
+          "topBooks": [
+            {
+              "id": "9781479850464",
+              "title": "The Middle East and North Africa Roadmap for Urban Nature-based Solutions",
+              "score": 0.5954023847552065
+            },
+            {
+              "id": "9781479850426",
+              "title": "Asia Roadmap for Urban Nature-based Solutions",
+              "score": 0.5924522273599745
+            },
+            {
+              "id": "9781479850624",
+              "title": "Europe Roadmap for Urban Nature-based Solutions",
+              "score": 0.5922276969653926
+            },
+            {
+              "id": "9780814724705",
+              "title": "Latino Urbanism",
+              "score": 0.4711004080090085
+            },
+            {
+              "id": "9780814723890",
+              "title": "Inner City Kids",
+              "score": 0.38530680694141617
+            }
+          ]
+        },
+        {
+          "query": "Technology and social inequality",
+          "precisionAt5": 0.2,
+          "recallAt5": 0.25,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.6467429303328278,
+          "topBooks": [
+            {
+              "id": "9781479888788",
+              "title": "The Digital Edge",
+              "score": 0.5505042359428624
+            },
+            {
+              "id": "9781479832668",
+              "title": "The New Reproductive Order",
+              "score": 0.4973452389440606
+            },
+            {
+              "id": "9780814771525",
+              "title": "Breaking into the Lab",
+              "score": 0.425529930088444
+            },
+            {
+              "id": "9780814770153",
+              "title": "Feeling Mediated",
+              "score": 0.42430447706150803
+            },
+            {
+              "id": "9781479868148",
+              "title": "Freezing Fertility",
+              "score": 0.39783475115706296
+            }
+          ]
+        },
+        {
+          "query": "immigrant children education",
+          "precisionAt5": 0.6,
+          "recallAt5": 0.75,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.90906666971382,
+          "topBooks": [
+            {
+              "id": "9780814724354",
+              "title": "The Children of Immigrants at School",
+              "score": 0.6792885946406599
+            },
+            {
+              "id": "9780814705384",
+              "title": "The Next Generation",
+              "score": 0.5623934029394142
+            },
+            {
+              "id": "9780814728598",
+              "title": "In a New Land",
+              "score": 0.5294481807228519
+            },
+            {
+              "id": "9780814771983",
+              "title": "Caring Across Generations",
+              "score": 0.506386395537057
+            },
+            {
+              "id": "9780814786123",
+              "title": "Japanese Lessons",
+              "score": 0.43542826746025465
+            }
+          ]
+        },
+        {
+          "query": "disability representation in media",
+          "precisionAt5": 0.4,
+          "recallAt5": 0.5,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.6258764478439752,
+          "topBooks": [
+            {
+              "id": "9781479802340",
+              "title": "Disability Media Studies",
+              "score": 0.7447234481795147
+            },
+            {
+              "id": "9781479819386",
+              "title": "Crip Authorship",
+              "score": 0.5385587220531534
+            },
+            {
+              "id": "9781479830909",
+              "title": "How to Be Disabled in a Pandemic",
+              "score": 0.518429802661874
+            },
+            {
+              "id": "9781479806294",
+              "title": "Chronic Youth",
+              "score": 0.5168159111932097
+            },
+            {
+              "id": "9781479820108",
+              "title": "Bending Over Backwards",
+              "score": 0.4657158428504463
+            }
+          ]
+        },
+        {
+          "query": "religion and immigrant communities",
+          "precisionAt5": 0.4,
+          "recallAt5": 0.5,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.8034963425372434,
+          "topBooks": [
+            {
+              "id": "9781479858279",
+              "title": "Immigrant Faith",
+              "score": 0.6649458679474766
+            },
+            {
+              "id": "9780814733356",
+              "title": "God in Chinatown",
+              "score": 0.6354931999652176
+            },
+            {
+              "id": "9781479802678",
+              "title": "Crossing the Water and Keeping the Faith",
+              "score": 0.6296735870977833
+            },
+            {
+              "id": "9780814705452",
+              "title": "The Lebanese Diaspora",
+              "score": 0.5550318334607688
+            },
+            {
+              "id": "9780814759028",
+              "title": "Illegal, Alien, or Immigrant",
+              "score": 0.5181671930896222
+            }
+          ]
+        },
+        {
+          "query": "young people digital learning",
+          "precisionAt5": 0.4,
+          "recallAt5": 0.6666666666666666,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.8129131942200405,
+          "topBooks": [
+            {
+              "id": "9781479863570",
+              "title": "The Class",
+              "score": 0.8193019660309385
+            },
+            {
+              "id": "9781479888900",
+              "title": "Affinity Online",
+              "score": 0.7844598050327458
+            },
+            {
+              "id": "9781479888788",
+              "title": "The Digital Edge",
+              "score": 0.5877008076525462
+            },
+            {
+              "id": "9781479819164",
+              "title": "Digital Unsettling",
+              "score": 0.5374143939396325
+            },
+            {
+              "id": "9781479807185",
+              "title": "Beyond Hashtags",
+              "score": 0.468229290071277
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "hybrid",
+      "mean": {
+        "precisionAt5": 0.5666666666666668,
+        "recallAt5": 0.75,
+        "mrrAt5": 1,
+        "ndcgAt5": 0.8468455285076537
+      },
+      "perQuery": [
+        {
+          "query": "Climate change and urban futures",
+          "precisionAt5": 0.8,
+          "recallAt5": 1,
+          "mrrAt5": 1,
+          "ndcgAt5": 1,
+          "topBooks": [
+            {
+              "id": "9781479850464",
+              "title": "The Middle East and North Africa Roadmap for Urban Nature-based Solutions",
+              "score": 0.6515363823809308
+            },
+            {
+              "id": "9781479850426",
+              "title": "Asia Roadmap for Urban Nature-based Solutions",
+              "score": 0.6507572975395874
+            },
+            {
+              "id": "9781479850624",
+              "title": "Europe Roadmap for Urban Nature-based Solutions",
+              "score": 0.6494728353175517
+            },
+            {
+              "id": "9780814724705",
+              "title": "Latino Urbanism",
+              "score": 0.5371493888267159
+            },
+            {
+              "id": "9780814784891",
+              "title": "Everyday Courage",
+              "score": 0.4303365761609681
+            }
+          ]
+        },
+        {
+          "query": "Technology and social inequality",
+          "precisionAt5": 0.2,
+          "recallAt5": 0.25,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.6467429303328278,
+          "topBooks": [
+            {
+              "id": "9781479888788",
+              "title": "The Digital Edge",
+              "score": 0.6063085098824222
+            },
+            {
+              "id": "9781479832668",
+              "title": "The New Reproductive Order",
+              "score": 0.499585799975309
+            },
+            {
+              "id": "9780814770153",
+              "title": "Feeling Mediated",
+              "score": 0.44799153117910506
+            },
+            {
+              "id": "9781479868148",
+              "title": "Freezing Fertility",
+              "score": 0.44023495177983274
+            },
+            {
+              "id": "9781479866748",
+              "title": "Heart-Sick",
+              "score": 0.42773772496352547
+            }
+          ]
+        },
+        {
+          "query": "immigrant children education",
+          "precisionAt5": 0.6,
+          "recallAt5": 0.75,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.829925620522216,
+          "topBooks": [
+            {
+              "id": "9780814724354",
+              "title": "The Children of Immigrants at School",
+              "score": 0.7178653559903907
+            },
+            {
+              "id": "9780814771983",
+              "title": "Caring Across Generations",
+              "score": 0.5762563298462801
+            },
+            {
+              "id": "9780814705384",
+              "title": "The Next Generation",
+              "score": 0.559382382650204
+            },
+            {
+              "id": "9780814728598",
+              "title": "In a New Land",
+              "score": 0.5450409506634315
+            },
+            {
+              "id": "9780814786123",
+              "title": "Japanese Lessons",
+              "score": 0.5019064889244678
+            }
+          ]
+        },
+        {
+          "query": "disability representation in media",
+          "precisionAt5": 0.6,
+          "recallAt5": 0.75,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.8164639425123044,
+          "topBooks": [
+            {
+              "id": "9781479802340",
+              "title": "Disability Media Studies",
+              "score": 0.7511306950360577
+            },
+            {
+              "id": "9781479819386",
+              "title": "Crip Authorship",
+              "score": 0.5722535849919056
+            },
+            {
+              "id": "9781479806294",
+              "title": "Chronic Youth",
+              "score": 0.557581732897138
+            },
+            {
+              "id": "9781479830909",
+              "title": "How to Be Disabled in a Pandemic",
+              "score": 0.5540585545201191
+            },
+            {
+              "id": "9781479855049",
+              "title": "Fantasies of Identification",
+              "score": 0.49092691923689397
+            }
+          ]
+        },
+        {
+          "query": "religion and immigrant communities",
+          "precisionAt5": 0.6,
+          "recallAt5": 0.75,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.8851766973950987,
+          "topBooks": [
+            {
+              "id": "9781479858279",
+              "title": "Immigrant Faith",
+              "score": 0.6479500448309455
+            },
+            {
+              "id": "9780814733356",
+              "title": "God in Chinatown",
+              "score": 0.6453568489445296
+            },
+            {
+              "id": "9781479802678",
+              "title": "Crossing the Water and Keeping the Faith",
+              "score": 0.6414176046012479
+            },
+            {
+              "id": "9780814705452",
+              "title": "The Lebanese Diaspora",
+              "score": 0.575924159129307
+            },
+            {
+              "id": "9780814733134",
+              "title": "Guadalupe in New York",
+              "score": 0.5220776363903401
+            }
+          ]
+        },
+        {
+          "query": "young people digital learning",
+          "precisionAt5": 0.6,
+          "recallAt5": 1,
+          "mrrAt5": 1,
+          "ndcgAt5": 0.902763980283475,
+          "topBooks": [
+            {
+              "id": "9781479863570",
+              "title": "The Class",
+              "score": 0.8418618746551667
+            },
+            {
+              "id": "9781479888900",
+              "title": "Affinity Online",
+              "score": 0.8110617309422485
+            },
+            {
+              "id": "9781479888788",
+              "title": "The Digital Edge",
+              "score": 0.6421950223527317
+            },
+            {
+              "id": "9781479819164",
+              "title": "Digital Unsettling",
+              "score": 0.5355262185845818
+            },
+            {
+              "id": "9781479829712",
+              "title": "By Any Media Necessary",
+              "score": 0.5078985661091042
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
