@@ -96,3 +96,7 @@ The original six-query evaluation in the root project applies only to that origi
 `npm run build:worker`, after the frontend build, bundles the client assets and same-origin Google Books proxy into `dist/server/index.js` for Sites/Cloudflare Workers. `.openai/hosting.json` retains this proposal's Site identity. It is not shared with the original prototype. Configure server secrets in the host's environment settings. Never publish local `.env` files.
 
 The original application code license in the repository root applies; publisher records, descriptions, cover artwork, trademarks, and third-party model/software licenses retain their own terms.
+
+### Google Books connection setup
+
+See [the Google Books setup guide](docs/GOOGLE_BOOKS_SETUP.md) for Google Cloud API enablement, a server-side secret, redeployment, and verification. The app now distinguishes missing/invalid keys, disabled APIs, key restrictions, quota errors, and network errors. Where no server key is configured, it may attempt the same public API directly from the visitor's browser; this is still subject to Google's access rules and quota. Google-only errors no longer claim that an empty result set contains OpenSquare records.
