@@ -11,8 +11,8 @@ Hosted private review copy: https://nyu-library-next-capstone.sound-park-7168.ch
 - Exact title/ISBN priority; BM25 + corpus LSA; optional in-browser MiniLM neural reranking.
 - Source labels, metadata descriptions, score explanations, original-record links, and separate NYU catalog checks.
 - Browser-local bookshelf, basic citation copying, and CSV export.
-- A source-grounded **routing chatbot**, with retrieved book suggestions and NYU service links. It is not an LLM and does not invent a conversational answer to unsupported questions.
-- Policy-aware Bobst study planning, with a handoff to NYU LibCal for actual availability and NetID booking.
+- A contextual **student-helper chat** with free-text input, remembered room/date/time slots, book follow-ups, retrieved cards, and full-search redirection. Optional source-grounded Gemini wording is prepared but needs a separate key; the default contextual workflow is functional without it.
+- Policy-aware Bobst study planning and a prepared authenticated LibCal adapter for in-chat room availability, selection rechecks, and official NetID checkout. Live room lists require NYU API credentials; no sample availability is presented as real.
 - Local relevance-assessment form with 0–3 judgments, anonymous reviewer codes, notes, time-to-find, expected titles, and JSON export. Unjudged results remain null rather than being treated as irrelevant.
 - Sponsor brief explaining capabilities, remaining integrations, source limitations, and an evaluation plan.
 
@@ -104,3 +104,7 @@ See [the Google Books setup guide](docs/GOOGLE_BOOKS_SETUP.md) for Google Cloud 
 ### Score interpretation
 
 Scores remain raw retrieval signals and are not confidence or accuracy percentages. A high metadata overlap can produce a score above 0.9 (the tests cover a 300-character publisher-description excerpt), while a short topic query often has a lower cosine score even for a useful book. Exact titles and ISBNs are labeled separately and receive retrieval priority; their numeric score is not replaced with a fabricated 0.95 or 1.0. Results are not min-max rescaled to force a winner to 1.0. The UI, CSV, and local relevance-assessment export report the applicable scoring components and weights.
+
+### Conversational helper and sponsor integrations
+
+See [the assistant integration guide](docs/LIBRARY_ASSISTANT_INTEGRATION.md) for student conversation examples, prepared LibCal endpoints and required credentials, official checkout boundaries, optional Gemini wording, and verification limits. The user has requested preparation of the room integration until NYU supplies API access.
