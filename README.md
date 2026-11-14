@@ -2,6 +2,10 @@
 
 A working NYU Libraries capstone prototype for discovering **329 real NYU Press OpenSquare books** through semantic, keyword, and hybrid search. Independent student research prototype; not an official NYU service.
 
+## Separate sponsor proposal
+
+[NYU Library Next](proposal/README.md) is a separate proposed library experience with Google Books discovery, advanced filters, optional neural reranking, a source-grounded services assistant, and an honest Bobst reservation handoff. The original OpenSquare prototype below remains preserved. The Pages workflow builds both apps, with the proposal at `/proposal/`.
+
 ## What works
 
 - Natural-language thematic search using **latent semantic analysis (LSA)**, a real corpus-trained NLP model with 96-dimensional embeddings.

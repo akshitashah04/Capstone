@@ -1,0 +1,2 @@
+import {createServer} from 'node:http';import {api} from './api.mjs';
+createServer(async(req,res)=>{try{const r=await api(new Request(`http://localhost:3101${req.url}`,{method:req.method}),process.env);res.writeHead(r.status,Object.fromEntries(r.headers));res.end(await r.text());}catch{res.writeHead(500,{'Content-Type':'application/json'});res.end(JSON.stringify({error:'Request failed'}));}}).listen(3101,'127.0.0.1',()=>console.log('Library Next API on http://127.0.0.1:3101'));

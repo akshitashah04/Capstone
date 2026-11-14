@@ -23,6 +23,10 @@ jobs:
       - run: npm test
       - run: npm run evaluate
       - run: npm run build
+      - run: npm ci --prefix proposal
+      - run: npm --prefix proposal test
+      - run: npm --prefix proposal run build
+      - run: cp -R proposal/dist dist/proposal
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
