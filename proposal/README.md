@@ -108,3 +108,9 @@ Scores remain raw retrieval signals and are not confidence or accuracy percentag
 ### Conversational helper and sponsor integrations
 
 See [the assistant integration guide](docs/LIBRARY_ASSISTANT_INTEGRATION.md) for student conversation examples, prepared LibCal endpoints and required credentials, official checkout boundaries, optional Gemini wording, and verification limits. The user has requested preparation of the room integration until NYU supplies API access.
+
+### November 17 sponsor research follow-up
+
+Open **Research lab** for multilingual pilot records, side-by-side metadata / 10% / full-text retrieval, measured text coverage, the workflow diagram and exportable development evaluation. In discovery, choose **Research pilot + OpenSquare** to search the native Hindi and Chinese additions. **Rate results** now supports same-query local reranking with comparison, toggle, undo and reset.
+
+Rebuild the offline experiment with `npm run research:build`. See [sponsor changes, provenance, methodology and limitations](docs/SPONSOR_NOV17_CHANGES.md). Existing default OpenSquare search retains its original collection/model; no score inflation or large-model key is required.

@@ -1,6 +1,6 @@
 import {stemmer} from 'stemmer';
 const STOP=new Set('a an the and or but to of for in on at by with from as is are was were be been being it its this that these those i me my we our you your they their he she his her how what why when where which who about into through between among over under than then can could should would will do does did have has had not no all some any also more most such using use book books study studies explores examine examines new one two'.split(' '));
-export function tokenize(text){return (text.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().match(/[a-z]+/g)||[]).filter(x=>x.length>2&&!STOP.has(x)).map(stemmer);}
+export function tokenize(text){const normalized=String(text||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase();const out=[];for(const word of normalized.match(/[\p{L}\p{M}\p{N}]+/gu)||[]){if(/\p{Script=Han}/u.test(word)){const chars=[...word];for(let i=0;i<chars.length;i++){out.push(chars[i]);if(i+1<chars.length)out.push(chars[i]+chars[i+1]);}}else if(/^[a-z]+$/.test(word)){if(word.length>2&&!STOP.has(word))out.push(stemmer(word));}else if(word.length>1)out.push(word);}return out;}
 export function bookText(b){return `${b.title} ${b.title} ${b.subtitle} ${b.subtitle} ${b.authors} ${b.subjects.join(' ')} ${b.subjects.join(' ')} ${b.description}`;}
 export const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
 export function normalize(v){const n=Math.sqrt(dot(v,v));return n?v.map(x=>x/n):v;}

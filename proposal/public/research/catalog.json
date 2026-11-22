@@ -1,0 +1,150 @@
+{
+  "notice": "Small sponsor research pilot, separate from NYU OpenSquare. Annotations and aliases are curated by the capstone team. Hindi and Chinese records index metadata only; two English texts support the content comparison.",
+  "books": [
+    {
+      "id": "research:analects",
+      "isbn": "",
+      "title": "論語",
+      "subtitle": "Lun Yu · The Analects",
+      "authors": "孔子 · Confucius",
+      "language": "zh",
+      "source": "Project Gutenberg",
+      "sources": [
+        "Project Gutenberg"
+      ],
+      "sourceUrl": "https://www.gutenberg.org/ebooks/23839",
+      "previewUrl": "https://www.gutenberg.org/ebooks/23839",
+      "subjects": [
+        "中國哲學",
+        "伦理",
+        "倫理",
+        "Philosophy, Chinese",
+        "Ethics -- China"
+      ],
+      "description": "孔子的語錄，討論學習、教育、道德與領導。孔子的语录，讨论学习、教育、道德与领导。A Chinese-language collection of Confucian teachings on learning, ethics, and leadership.",
+      "descriptionOrigin": "Capstone catalog annotation; not publisher abstract",
+      "publisher": "",
+      "year": null,
+      "cover": "",
+      "providerRank": 999,
+      "fullView": true,
+      "accessStatus": "Read at original source",
+      "holdings": "NYU holdings not checked",
+      "aliases": [
+        "论语",
+        "Lun Yu",
+        "Analects",
+        "Kongzi"
+      ],
+      "verifiedOn": "2026-11-22"
+    },
+    {
+      "id": "research:nirmala",
+      "isbn": "",
+      "title": "निर्मला",
+      "subtitle": "Nirmala",
+      "authors": "प्रेमचंद · Premchand",
+      "language": "hi",
+      "source": "Hindi Wikisource",
+      "sources": [
+        "Hindi Wikisource"
+      ],
+      "sourceUrl": "https://hi.wikisource.org/wiki/निर्मला",
+      "previewUrl": "https://hi.wikisource.org/wiki/निर्मला",
+      "subjects": [
+        "हिन्दी उपन्यास",
+        "साहित्य",
+        "Hindi literature",
+        "Fiction"
+      ],
+      "description": "प्रेमचंद का हिन्दी उपन्यास। A Hindi novel by Premchand. This record links to the original Hindi Wikisource edition.",
+      "descriptionOrigin": "Capstone catalog annotation; not publisher abstract",
+      "publisher": "",
+      "year": null,
+      "cover": "",
+      "providerRank": 999,
+      "fullView": true,
+      "accessStatus": "Read at original source",
+      "holdings": "NYU holdings not checked",
+      "aliases": [
+        "Nirmala",
+        "Premchand",
+        "प्रेमचन्द"
+      ],
+      "verifiedOn": "2026-11-22"
+    },
+    {
+      "id": "research:art-of-war",
+      "isbn": "",
+      "title": "The Art of War",
+      "subtitle": "English translation by Lionel Giles",
+      "authors": "Sun Tzu",
+      "language": "en",
+      "source": "Project Gutenberg",
+      "sources": [
+        "Project Gutenberg"
+      ],
+      "sourceUrl": "https://www.gutenberg.org/ebooks/17405",
+      "previewUrl": "https://www.gutenberg.org/ebooks/17405",
+      "subjects": [
+        "Military strategy",
+        "Leadership"
+      ],
+      "description": "A work on military strategy, planning, and leadership.",
+      "descriptionOrigin": "Capstone catalog annotation; not publisher abstract",
+      "publisher": "",
+      "year": null,
+      "cover": "",
+      "providerRank": 999,
+      "fullView": true,
+      "accessStatus": "Read at original source",
+      "holdings": "NYU holdings not checked",
+      "aliases": [
+        "Sunzi",
+        "Sun Tzu"
+      ],
+      "textFile": "research/texts/pg17405.txt",
+      "verifiedOn": "2026-11-22",
+      "textSha256": "502e936a9189ebcf1a32256c712463771c3b7950e3fbed8e460d3d521252ee11",
+      "mirrorUrl": "https://raw.githubusercontent.com/GITenberg/The-Art-of-War_17405/master/17405.txt",
+      "rights": "Public domain in the USA; complete Project Gutenberg license retained in source file."
+    },
+    {
+      "id": "research:management",
+      "isbn": "",
+      "title": "The Principles of Scientific Management",
+      "subtitle": "",
+      "authors": "Frederick Winslow Taylor",
+      "language": "en",
+      "source": "Project Gutenberg",
+      "sources": [
+        "Project Gutenberg"
+      ],
+      "sourceUrl": "https://www.gutenberg.org/ebooks/6435",
+      "previewUrl": "https://www.gutenberg.org/ebooks/6435",
+      "subjects": [
+        "Management",
+        "Business",
+        "Industrial efficiency"
+      ],
+      "description": "A work on management, industrial organization, and efficiency.",
+      "descriptionOrigin": "Capstone catalog annotation; not publisher abstract",
+      "publisher": "",
+      "year": null,
+      "cover": "",
+      "providerRank": 999,
+      "fullView": true,
+      "accessStatus": "Read at original source",
+      "holdings": "NYU holdings not checked",
+      "aliases": [
+        "Taylor",
+        "Scientific Management"
+      ],
+      "textFile": "research/texts/pg6435.txt",
+      "verifiedOn": "2026-11-22",
+      "textSha256": "f44094afc0b9fb5b9f05fa991e8d51ba871be15a7f66ef3a63aceb3dde3c3e5b",
+      "mirrorUrl": "https://raw.githubusercontent.com/GITenberg/The-Principles-of-Scientific-Management_6435/master/6435.txt",
+      "rights": "Public domain in the USA; complete Project Gutenberg license retained in source file."
+    }
+  ]
+}
