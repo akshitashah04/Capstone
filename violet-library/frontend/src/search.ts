@@ -115,16 +115,22 @@ export function rankBooks(
     throw new Error('The selected model and book vectors have different dimensions.');
   }
 
+  const queryNorm = Math.sqrt(queryVector.reduce((sum, value) => sum + value ** 2, 0));
   const positions = eligiblePositions(index, language);
   const keywords = mode === 'hybrid' ? keywordScores(query, index, positions) : new Map<number, number>();
   const strongestKeyword = Math.max(0, ...keywords.values());
   const bonusLimit = MAX_KEYWORD_BONUS * Math.min(2, Math.max(0, keywordWeight));
   return searchHits(positions.map(position => {
-    let similarity = 0;
+    let dotProduct = 0;
+    let bookSquaredNorm = 0;
     const start = position * dimensions;
     for (let column = 0; column < dimensions; column += 1) {
-      similarity += queryVector[column] * vectors[start + column];
+      const value = vectors[start + column];
+      dotProduct += queryVector[column] * value;
+      bookSquaredNorm += value ** 2;
     }
+    const denominator = queryNorm * Math.sqrt(bookSquaredNorm);
+    const similarity = denominator ? Math.max(-1, Math.min(1, dotProduct / denominator)) : 0;
     const bonus = strongestKeyword ? bonusLimit * (keywords.get(position) ?? 0) / strongestKeyword : 0;
     return { position, relevance: similarity + bonus, semanticSimilarity: similarity };
   }), index);
@@ -136,4 +142,10 @@ export function rankKeywordBooks(query: string, index: SearchIndex, language?: s
   return searchHits([...scores].map(([position, relevance]) => ({
     position, relevance, semanticSimilarity: 0,
   })), index);
+}
+
+/** Keep display rounding separate from ranking. Keyword scores have no fixed scale. */
+export function displayRelevance(score: number, keywordTopScore?: number): string {
+  const scaled = keywordTopScore === undefined ? score : keywordTopScore > 0 ? score / keywordTopScore : 0;
+  return (100 * Math.max(0, Math.min(1, scaled))).toFixed(1);
 }

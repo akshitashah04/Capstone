@@ -88,7 +88,13 @@ h2 { margin: 0; font-size: clamp(23px, 2.7vw, 30px); font-weight: 720; letter-sp
 .book-summary { color: #514b57; font-size: 14px; line-height: 1.58; margin: 0 0 14px; max-width: 670px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
 .book-tags { display: flex; gap: 6px; flex-wrap: wrap; }
 .book-tag { color: #62516f; background: #f4eff7; padding: 5px 8px; border-radius: 5px; font-size: 11px; font-weight: 600; }
-.book-side { display: flex; }
+.book-side { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 12px; }
+.book-score { display: grid; gap: 3px; color: var(--deep-violet); text-align: right; }
+.book-score span { font-size: 12px; color: var(--muted); }
+.book-score strong { font-size: 14px; font-variant-numeric: tabular-nums; }
+.score-help { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+.score-help summary { width: fit-content; cursor: pointer; color: var(--violet); }
+.score-help p { max-width: 68ch; margin-bottom: 0; line-height: 1.5; }
 .book-link { color: var(--violet); text-decoration: none; font-size: 13px; font-weight: 700; border: 1px solid #ccb7db; border-radius: 5px; padding: 10px 13px; white-space: nowrap; }
 .book-link:hover { color: var(--deep-violet); background: var(--lavender); }
 .more-button { display: block; margin: 26px auto 0; min-height: 46px; padding: 0 22px; background: #fff; border: 1px solid #bc9cd0; border-radius: 8px; color: var(--violet); font-weight: 750; }
@@ -151,6 +157,8 @@ h2 { margin: 0; font-size: clamp(23px, 2.7vw, 30px); font-weight: 720; letter-sp
   .results-model { display: inline-block; margin-top: 12px; }
   .book-card { grid-template-columns: minmax(0, 1fr); gap: 13px; padding: 16px; }
   .book-title { font-size: 19px; }
+  .book-side { justify-content: space-between; }
+  .book-score { text-align: left; }
   .about-grid { grid-template-columns: minmax(0, 1fr); gap: 13px; }
   .footer-inner { display: block; }
   .footer-inner > div:last-child { margin-top: 16px; flex-wrap: wrap; }

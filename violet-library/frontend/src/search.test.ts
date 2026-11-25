@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildSearchIndex, rankBooks, rankKeywordBooks, tokens } from './search';
+import { buildSearchIndex, displayRelevance, rankBooks, rankKeywordBooks, tokens } from './search';
 import type { Book } from './types';
 import { cleanDescription } from './book-text';
 import base from '../public/data/catalog.json';
@@ -47,6 +47,16 @@ describe('browser ranking', () => {
     expect(hybrid[0].book.id).toBe('a');
     expect(hybrid[1].relevance).toBeCloseTo(0.85);
     expect(rankKeywordBooks('Business AI', index)[0].book.id).toBe('b');
+  });
+
+  it('computes cosine similarity regardless of vector norm and formats relevance by mode', () => {
+    const index = buildSearchIndex([book('a', 'Aligned', 'Description'), book('b', 'Partial', 'Description')]);
+    const hits = rankBooks('question', new Float32Array([2, 0]),
+      new Float32Array([0.5, 0, 3, 4]), index, 'semantic');
+    expect(hits.map(hit => displayRelevance(hit.relevance))).toEqual(['100.0', '60.0']);
+    expect(displayRelevance(-0.1)).toBe('0.0');
+    expect(displayRelevance(1.025)).toBe('100.0');
+    expect(displayRelevance(4, 5)).toBe('80.0');
   });
 
   it('uses key terms to resolve a close semantic match', () => {

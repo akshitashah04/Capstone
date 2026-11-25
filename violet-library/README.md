@@ -11,3 +11,7 @@ The feedback service is deployed independently at https://violet-library-capston
 Capstone's [libraries-updated branch](https://github.com/akshitashah04/Capstone/tree/libraries-updated) preserves the source and commit history of the updated standalone project. Branches prefixed with [libraries-upstream/](https://github.com/akshitashah04/Capstone/branches/all?query=libraries-upstream) preserve the original upstream commits. The `violet-library/` directory on Capstone's main branch contains the adapted source, tests, documentation, evaluation assets, and upstream workflow definitions.
 
 The Capstone Pages workflow compiles the demo into its deployment artifact and checks that the public route and catalog respond after deployment.
+
+## Relevance score
+
+Semantic search computes cosine similarity between the question and each book's metadata embedding. It displays the resulting score multiplied by 100, with values below 0 or above 100 capped at those bounds. Semantic + key terms adds a keyword bonus of up to 2.5 points before display. The keyword-only fallback displays its weighted term score relative to the highest result from that search. All modes rank before display rounding. Compare scores within the same search and model.

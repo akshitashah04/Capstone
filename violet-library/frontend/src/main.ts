@@ -1,7 +1,7 @@
 import './style.css';
 import { loadCatalog, loadVectors } from './catalog';
 import { DEFAULT_MODEL, MODELS } from './model-config';
-import { buildSearchIndex, rankBooks, rankKeywordBooks } from './search';
+import { buildSearchIndex, displayRelevance, rankBooks, rankKeywordBooks } from './search';
 import type { Catalog } from './catalog';
 import type { ModelKey, SearchHit, SearchMode } from './types';
 import { appendVectors, passageText } from './passages';
@@ -30,6 +30,8 @@ const results = byId<HTMLElement>('results');
 const status = byId<HTMLDivElement>('status');
 const list = byId<HTMLDivElement>('results-list');
 const subtitle = byId<HTMLParagraphElement>('results-subtitle');
+const scoreHelp = byId<HTMLDetailsElement>('score-help');
+const scoreMethod = byId<HTMLParagraphElement>('score-method');
 const modelLabel = byId<HTMLDivElement>('results-model');
 const more = byId<HTMLButtonElement>('more-button');
 const listFeedback = byId<HTMLDivElement>('list-feedback');
@@ -170,7 +172,16 @@ function renderCard(hit: SearchHit): HTMLElement {
   link.rel = 'noopener noreferrer';
   link.textContent = 'Open book';
   link.setAttribute('aria-label', `Open book: ${hit.book.title} (opens in a new tab)`);
-  side.append(link);
+  const keywordMode = activeMode === 'keyword-only';
+  const score = document.createElement('div');
+  score.className = 'book-score';
+  const scoreLabel = document.createElement('span');
+  scoreLabel.textContent = keywordMode ? 'Keyword relevance' : 'Relevance';
+  const scoreValue = document.createElement('strong');
+  const topKeywordScore = keywordMode ? currentHits[0].relevance : undefined;
+  scoreValue.textContent = `${displayRelevance(hit.relevance, topKeywordScore)} / 100`;
+  score.append(scoreLabel, scoreValue);
+  side.append(score, link);
   card.append(content, side, createFeedbackWidget(hit.book.id, feedbackState(hit.book.id), feedbackContext));
   return card;
 }
@@ -184,6 +195,13 @@ function renderHits(): void {
   subtitle.textContent = currentHits.length
     ? `Showing ${Math.min(visibleCount, currentHits.length)} recommendations${language}`
     : '';
+  scoreHelp.hidden = !currentHits.length;
+  if (activeMode === 'keyword-only') {
+    scoreMethod.textContent = 'This preview weights matched words by how rare they are and where they appear. The strongest keyword match in these results scores 100. Compare these scores within this search.';
+  } else {
+    const bonus = activeMode === 'hybrid' ? ' Key terms can add up to 2.5 points.' : '';
+    scoreMethod.textContent = `The model compares your question with each book’s metadata using cosine similarity. We scale the score from 0 to 100.${bonus} Use it to compare results within this search. It does not predict whether a book will meet your needs.`;
+  }
   if (!currentHits.length) {
     setStatus(activeLanguage
       ? `No matches in ${languageName(activeLanguage)}. Try different wording or select Any language.`
@@ -212,6 +230,8 @@ async function search(): Promise<void> {
   activeModel = model;
   activeMode = mode;
   subtitle.textContent = '';
+  scoreHelp.hidden = true;
+  scoreHelp.open = false;
   feedbackStates = new Map();
   results.hidden = false;
   currentHits = [];
