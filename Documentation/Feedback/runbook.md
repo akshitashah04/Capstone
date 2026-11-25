@@ -6,7 +6,7 @@ The public [Violet Library demo](https://veedantbrahmbhatt.github.io/Libraries/)
 
 ## What the service stores
 
-Each submission stores the query, shown book IDs and positions, one rating and optional reason, model and mode, release ID, catalog checksum, timestamps, and a daily keyed IP hash for abuse limits. It does not store raw IP, NYU email, or a persistent visitor ID. The receipt remains in the visitor's browser memory. The private D1 database is attached to the [Sites feedback service](https://violet-library-feedback.fabled-tetra-1279.chatgpt.site/health); the public API has no read endpoint. Raw feedback expires after 90 days when `/health` runs. The scheduled [retention workflow](../../.github/workflows/feedback-retention.yml) calls that endpoint daily.
+Each submission stores the query, shown book IDs and positions, one rating and optional reason, model, mode, and optional book-language filter, release ID, catalog checksum, timestamps, and a daily keyed IP hash for abuse limits. It does not store raw IP, NYU email, or a persistent visitor ID. The receipt remains in the visitor's browser memory. The private D1 database is attached to the [Sites feedback service](https://violet-library-feedback.fabled-tetra-1279.chatgpt.site/health); the public API has no read endpoint. Raw feedback expires after 90 days when `/health` runs. The scheduled [retention workflow](../../.github/workflows/feedback-retention.yml) calls that endpoint daily.
 
 ## Release order
 
@@ -33,7 +33,7 @@ Use a maintainer-only export of the current feedback rows. Export the following 
 
 ```sql
 SELECT query_text, results_json, target_book_id, rating, reason,
-       model_key, search_mode, release_id, catalog_sha
+       model_key, search_mode, release_id, catalog_sha, book_language
 FROM feedback
 ORDER BY created_at, id;
 ```
@@ -42,15 +42,15 @@ ORDER BY created_at, id;
 node feedback-api/scripts/prepare-ranking-review.mjs /private/export.json /private/review.json
 ```
 
-The script accepts a JSON row array or a D1 JSON result containing one `results` array. It groups reports by normalized question and keeps the display position, release, model, and catalog for each per-book rating. It counts whole-list reports separately. A `none_fit` count is a prompt to inspect coverage and may justify writing a new evaluation question. Anonymous votes can suggest which topics and books to review. They never supply grades automatically.
+The script accepts a JSON row array or a D1 JSON result containing one `results` array. It groups reports by normalized question and book-language filter and keeps the display position, release, model, and catalog for each per-book rating. It counts whole-list reports separately. A `none_fit` count is a prompt to inspect coverage and may justify writing a new evaluation question. Anonymous votes can suggest which topics and books to review. They never supply grades automatically.
 
-Prepare a private JSON array with entries such as `{"id":"dev-01","query":"A reviewed question","split":"development"}`. Use reviewed and de-identified questions inspired by reports for development. Add independently sourced questions with `"split":"holdout"`. The scorer rejects duplicate normalized questions. Include Chinese and Hindi queries and check them separately before release.
+Prepare a private JSON array with entries such as `{"id":"dev-01","query":"A reviewed question","split":"development"}`. Add an optional `"language":"hi"` field for a filtered query. Use reviewed and de-identified questions inspired by reports for development. Add independently sourced questions with `"split":"holdout"`. The scorer rejects duplicate normalized questions. Include Chinese and Hindi queries and check them separately before release.
 
 ```sh
 node frontend/scripts/review-ranking.mjs pool /private/questions.json /private/pool.json
 node frontend/scripts/review-ranking.mjs score /private/pool.json /private/metrics.json
 ```
 
-The pool command downloads the pinned browser GTE model and captures the top five for the same catalog under keyword weights 0.5, 1, 1.5 and 2. Weight 1 is the deployed baseline. For blind review, give reviewers only the question IDs, question texts, and sorted books under `grades`. Fill every blank with a human grade using the existing 0 (unhelpful), 1 (partially useful), or 2 (clearly useful) rubric. Run `score` on the completed pool. It chooses a weight using development labels alone, then reports clear top-five fits and NDCG@5 for that choice and the baseline on holdout.
+The pool command downloads the pinned browser GTE model and captures the top five for the same catalog under keyword weights 0, 0.5, 1, 1.5 and 2. Weight 0 is semantic search, the default baseline. For blind review, give reviewers only the question IDs, question texts, and sorted books under `grades`. Fill every blank with a human grade using the existing 0 (unhelpful), 1 (partially useful), or 2 (clearly useful) rubric. Run `score` on the completed pool. It chooses a weight using development labels alone, then reports clear top-five fits and NDCG@5 for that choice and the baseline on holdout.
 
 A passing report requires at least 50 holdout questions, clear top-five fit on at least 82%, more clear fits than the baseline, and no drop in NDCG@5. The report makes no deployment changes. Review query-level and language regressions before approving a weight for release. Keep raw feedback, question-level packets, and credentials out of Git and public deployment artifacts.

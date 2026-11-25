@@ -115,7 +115,7 @@ export function createFeedbackWidget(
       }
       const notice = document.createElement('p');
       notice.className = 'feedback-privacy';
-      notice.textContent = 'Sending shares your search words, shown book IDs, model choice and rating. Please avoid personal details.';
+      notice.textContent = 'Sending shares your search words, shown book IDs, search settings and rating. Please avoid personal details.';
       const send = button(busy ? 'Saving…' : 'Send feedback', 'feedback-send', () => { void save(); });
       send.disabled = busy;
       nodes.push(notice, send);

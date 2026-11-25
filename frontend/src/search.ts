@@ -1,8 +1,8 @@
 import type { Book, SearchHit, SearchMode } from './types';
 import { cleanDescription } from './book-text';
+import { bookLanguages } from './languages';
 
-const RRF_OFFSET = 60;
-const CANDIDATES = 500;
+const MAX_KEYWORD_BONUS = 0.025;
 const STOPWORDS = new Set([
   'a', 'about', 'an', 'and', 'are', 'as', 'at', 'be', 'book', 'books', 'but', 'can', 'do', 'for',
   'from', 'get', 'have', 'how', 'i', 'in', 'is', 'it', 'me', 'my', 'need', 'of', 'on',
@@ -28,6 +28,8 @@ export function tokens(text: string): string[] {
 interface IndexedBook {
   terms: Map<string, number>;
   length: number;
+  languages: string[];
+  hasDescription: boolean;
 }
 
 export interface SearchIndex {
@@ -51,90 +53,87 @@ export function buildSearchIndex(books: Book[]): SearchIndex {
     for (const term of termWeights.keys()) {
       frequency.set(term, (frequency.get(term) ?? 0) + 1);
     }
-    return { terms: termWeights, length: Array.from(termWeights.values()).reduce((a, b) => a + b, 0) };
+    return {
+      terms: termWeights,
+      length: Array.from(termWeights.values()).reduce((a, b) => a + b, 0),
+      languages: bookLanguages(book),
+      hasDescription: Boolean(cleanDescription(book.description)),
+    };
   });
   return { books, terms, frequency };
 }
 
-function keywordOrder(query: string, index: SearchIndex): number[] {
+function eligiblePositions(index: SearchIndex, language?: string): number[] {
+  return index.terms.flatMap((book, position) =>
+    book.hasDescription && (!language || book.languages.includes(language)) ? [position] : []);
+}
+
+function keywordScores(query: string, index: SearchIndex, positions: number[]): Map<number, number> {
   const terms = [...new Set(tokens(query))];
   const n = index.books.length;
-  return index.terms.map((book, position) => {
+  const scores = new Map<number, number>();
+  for (const position of positions) {
+    const book = index.terms[position];
     let score = 0;
     for (const term of terms) {
       const tf = book.terms.get(term) ?? 0;
       if (tf) score += (Math.log((n + 1) / ((index.frequency.get(term) ?? 0) + 1)) + 1) *
         (tf / (tf + 1.2 + 0.004 * book.length));
     }
-    return { position, score };
-  }).filter(item => item.score > 0)
-    .sort((a, b) => b.score - a.score || a.position - b.position)
-    .slice(0, CANDIDATES).map(item => item.position);
+    if (score > 0) scores.set(position, score);
+  }
+  return scores;
 }
 
-function semanticOrder(queryVector: Float32Array, vectors: Float32Array, count: number): {
-  order: number[]; similarities: Float32Array;
-} {
-  const dimensions = queryVector.length;
-  if (dimensions < 1 || vectors.length !== count * dimensions) {
-    throw new Error('The selected model and book vectors have different dimensions.');
+function searchHits(
+  ranked: Array<{ position: number; relevance: number; semanticSimilarity: number }>,
+  index: SearchIndex,
+): SearchHit[] {
+  ranked.sort((a, b) => b.relevance - a.relevance ||
+    b.semanticSimilarity - a.semanticSimilarity || a.position - b.position);
+  const seen = new Set<string>();
+  const hits: SearchHit[] = [];
+  for (const { position, relevance, semanticSimilarity } of ranked) {
+    const book = index.books[position];
+    const key = [book.title, book.authors[0] ?? ''].map(value =>
+      value.normalize('NFKC').toLowerCase().replace(/\s+/g, ' ').trim()).join('\u0000');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    hits.push({ book, rank: hits.length + 1, relevance, semanticSimilarity });
+    if (hits.length === 10) break;
   }
-  const similarities = new Float32Array(count);
-  for (let row = 0; row < count; row += 1) {
-    let score = 0;
-    const start = row * dimensions;
-    for (let column = 0; column < dimensions; column += 1) {
-      score += queryVector[column] * vectors[start + column];
-    }
-    similarities[row] = score;
-  }
-  const order = Array.from({ length: count }, (_, index) => index)
-    .sort((a, b) => similarities[b] - similarities[a] || a - b)
-    .slice(0, CANDIDATES);
-  return { order, similarities };
+  return hits;
 }
 
 export function rankBooks(
   query: string, queryVector: Float32Array, vectors: Float32Array,
-  index: SearchIndex, mode: SearchMode, keywordWeight = 1,
+  index: SearchIndex, mode: SearchMode, keywordWeight = 1, language?: string,
 ): SearchHit[] {
   if (!query.trim()) throw new Error('Enter a question to search.');
-  const { order: meaning, similarities } = semanticOrder(queryVector, vectors, index.books.length);
-  const keywords = mode === 'hybrid' ? keywordOrder(query, index) : [];
-  const scores = new Map<number, number>();
-  for (const [order, weight] of [[meaning, 1], [keywords, keywordWeight]] as const) {
-    order.forEach((position, indexInOrder) => {
-      scores.set(position, (scores.get(position) ?? 0) + weight / (RRF_OFFSET + indexInOrder + 1));
-    });
+  const dimensions = queryVector.length;
+  if (dimensions < 1 || vectors.length !== index.books.length * dimensions) {
+    throw new Error('The selected model and book vectors have different dimensions.');
   }
-  const ordered = [...scores.entries()].sort((a, b) => b[1] - a[1] || a[0] - b[0]);
-  const seenTitles = new Set<string>();
-  const hits: SearchHit[] = [];
-  for (const [position, relevance] of ordered) {
-    const book = index.books[position];
-    if (!cleanDescription(book.description)) continue;
-    const titleKey = book.title.normalize('NFKD').toLowerCase().replace(/\s+/g, ' ').trim();
-    if (seenTitles.has(titleKey)) continue;
-    seenTitles.add(titleKey);
-    hits.push({ book, rank: hits.length + 1, relevance, semanticSimilarity: similarities[position] });
-    if (hits.length === 10) break;
-  }
-  return hits;
+
+  const positions = eligiblePositions(index, language);
+  const keywords = mode === 'hybrid' ? keywordScores(query, index, positions) : new Map<number, number>();
+  const strongestKeyword = Math.max(0, ...keywords.values());
+  const bonusLimit = MAX_KEYWORD_BONUS * Math.min(2, Math.max(0, keywordWeight));
+  return searchHits(positions.map(position => {
+    let similarity = 0;
+    const start = position * dimensions;
+    for (let column = 0; column < dimensions; column += 1) {
+      similarity += queryVector[column] * vectors[start + column];
+    }
+    const bonus = strongestKeyword ? bonusLimit * (keywords.get(position) ?? 0) / strongestKeyword : 0;
+    return { position, relevance: similarity + bonus, semanticSimilarity: similarity };
+  }), index);
 }
 
-export function rankKeywordBooks(query: string, index: SearchIndex): SearchHit[] {
+export function rankKeywordBooks(query: string, index: SearchIndex, language?: string): SearchHit[] {
   if (!query.trim()) throw new Error('Enter a question to search.');
-  const seenTitles = new Set<string>();
-  const hits: SearchHit[] = [];
-  for (const [rank, position] of keywordOrder(query, index).entries()) {
-    const book = index.books[position];
-    if (!cleanDescription(book.description)) continue;
-    const titleKey = book.title.normalize('NFKD').toLowerCase().replace(/\s+/g, ' ').trim();
-    if (seenTitles.has(titleKey)) continue;
-    seenTitles.add(titleKey);
-    hits.push({ book, rank: hits.length + 1, relevance: 1 / (RRF_OFFSET + rank + 1),
-      semanticSimilarity: 0 });
-    if (hits.length === 10) break;
-  }
-  return hits;
+  const scores = keywordScores(query, index, eligiblePositions(index, language));
+  return searchHits([...scores].map(([position, relevance]) => ({
+    position, relevance, semanticSimilarity: 0,
+  })), index);
 }

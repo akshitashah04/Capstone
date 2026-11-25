@@ -6,6 +6,7 @@ import type { Catalog } from './catalog';
 import type { ModelKey, SearchHit, SearchMode } from './types';
 import { appendVectors, passageText } from './passages';
 import { cleanDescription } from './book-text';
+import { availableLanguages, bookLanguages, languageName } from './languages';
 import { createFeedbackWidget } from './feedback/widget';
 import type { FeedbackState } from './feedback/widget';
 import type { FeedbackContext } from './feedback/client';
@@ -19,6 +20,7 @@ function byId<T extends HTMLElement>(id: string): T {
 const form = byId<HTMLFormElement>('search-form');
 const query = byId<HTMLTextAreaElement>('query');
 const modelSelect = byId<HTMLSelectElement>('model');
+const languageSelect = byId<HTMLSelectElement>('language');
 const modeSelect = byId<HTMLSelectElement>('mode');
 const submit = byId<HTMLButtonElement>('search-button');
 const queryError = byId<HTMLParagraphElement>('query-error');
@@ -32,7 +34,7 @@ const modelLabel = byId<HTMLDivElement>('results-model');
 const more = byId<HTMLButtonElement>('more-button');
 const listFeedback = byId<HTMLDivElement>('list-feedback');
 const voice = byId<HTMLButtonElement>('voice-button');
-const languageLabels = new Intl.DisplayNames(['en'], { type: 'language' });
+const params = new URLSearchParams(window.location.search);
 
 let catalog: Catalog | null = null;
 let searchIndex: ReturnType<typeof buildSearchIndex> | null = null;
@@ -42,7 +44,8 @@ let currentHits: SearchHit[] = [];
 let visibleCount = 5;
 let activeQuery = '';
 let activeModel: ModelKey | 'keyword-only' = DEFAULT_MODEL;
-let activeMode: SearchMode | 'keyword-only' = 'hybrid';
+let activeMode: SearchMode | 'keyword-only' = 'semantic';
+let activeLanguage = '';
 let feedbackStates = new Map<string, FeedbackState>();
 
 function feedbackContext(): FeedbackContext {
@@ -51,6 +54,7 @@ function feedbackContext(): FeedbackContext {
     query: activeQuery,
     model: activeModel,
     mode: activeMode,
+    language: activeLanguage || undefined,
     release: import.meta.env.VITE_RELEASE_ID ?? 'local',
     catalogSha256: catalog.checksum,
     shownBooks: currentHits.slice(0, visibleCount).map(hit => ({ bookId: hit.book.id, rank: hit.rank })),
@@ -76,13 +80,24 @@ function setBusy(busy: boolean): void {
   submit.disabled = busy;
   modelSelect.disabled = busy;
   modeSelect.disabled = busy;
+  languageSelect.disabled = busy;
   form.setAttribute('aria-busy', String(busy));
   submit.querySelector('span')!.textContent = busy ? 'Searching…' : 'Find books';
 }
 
-function selectedModel(): ModelKey {
-  const value = modelSelect.value;
-  return value === 'auto' ? DEFAULT_MODEL : value as ModelKey;
+function setCatalog(loaded: Catalog): Catalog {
+  catalog = loaded;
+  badge.textContent = `${loaded.books.length.toLocaleString()} open-access books`;
+  if (languageSelect.options.length === 1) {
+    for (const code of availableLanguages(loaded.books)) {
+      languageSelect.add(new Option(languageName(code), code));
+    }
+    const initialLanguage = params.get('lang');
+    if (initialLanguage && Array.from(languageSelect.options).some(option => option.value === initialLanguage)) {
+      languageSelect.value = initialLanguage;
+    }
+  }
+  return loaded;
 }
 
 function embed(text: string, model: ModelKey, source: Catalog): Promise<{
@@ -121,10 +136,6 @@ function displaySummary(description: string): string {
 function renderCard(hit: SearchHit): HTMLElement {
   const card = document.createElement('article');
   card.className = 'book-card';
-  const number = document.createElement('div');
-  number.className = 'book-number';
-  number.textContent = String(hit.rank).padStart(2, '0');
-  number.setAttribute('aria-hidden', 'true');
 
   const content = document.createElement('div');
   const title = document.createElement('h3');
@@ -132,10 +143,13 @@ function renderCard(hit: SearchHit): HTMLElement {
   title.textContent = hit.book.title;
   const meta = document.createElement('p');
   meta.className = 'book-meta';
+  const languages = bookLanguages(hit.book);
+  if (hit.book.aliases && languages.length === 1) title.lang = languages[0];
   meta.textContent = [hit.book.authors.slice(0, 2).join(', ') || 'Author not listed',
-    hit.book.year, hit.book.languages.slice(0, 2).map(language => languageLabels.of(language) ?? language).join(', ')].filter(Boolean).join(' · ');
+    hit.book.year, languages.map(languageName).join(', ')].filter(Boolean).join(' · ');
   const summary = document.createElement('p');
   summary.className = 'book-summary';
+  if (title.lang) summary.lang = title.lang;
   summary.textContent = displaySummary(hit.book.description);
   const tags = document.createElement('div');
   tags.className = 'book-tags';
@@ -145,25 +159,19 @@ function renderCard(hit: SearchHit): HTMLElement {
     tag.textContent = subject.length > 45 ? `${subject.slice(0, 42)}…` : subject;
     tags.append(tag);
   }
-  content.append(title, meta, summary, tags,
-    createFeedbackWidget(hit.book.id, feedbackState(hit.book.id), feedbackContext));
+  content.append(title, meta, summary, tags);
 
   const side = document.createElement('div');
   side.className = 'book-side';
-  const relevance = document.createElement('div');
-  relevance.className = 'relevance';
-  relevance.textContent = String(Math.round(100 * hit.relevance / currentHits[0].relevance));
-  const scoreLabel = document.createElement('small');
-  scoreLabel.textContent = 'RELATIVE SCORE';
-  relevance.append(scoreLabel);
   const link = document.createElement('a');
   link.className = 'book-link';
   link.href = hit.book.url;
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
-  link.textContent = 'View open-access book ↗';
-  side.append(relevance, link);
-  card.append(number, content, side);
+  link.textContent = 'Open book';
+  link.setAttribute('aria-label', `Open book: ${hit.book.title} (opens in a new tab)`);
+  side.append(link);
+  card.append(content, side, createFeedbackWidget(hit.book.id, feedbackState(hit.book.id), feedbackContext));
   return card;
 }
 
@@ -172,11 +180,19 @@ function renderHits(): void {
   listFeedback.replaceChildren(...(currentHits.length
     ? [createFeedbackWidget(null, feedbackState('whole-list'), feedbackContext)] : []));
   more.hidden = currentHits.length <= visibleCount;
-  subtitle.textContent = `Showing ${Math.min(visibleCount, currentHits.length)} of ${currentHits.length} results from ${catalog?.books.length.toLocaleString() ?? 'the'} demo books. Top relative score = 100; these are not confidence percentages.`;
-  if (!currentHits.length) setStatus('No books in this sample matched. Try a broader request.', false);
+  const language = activeLanguage ? ` · ${languageName(activeLanguage)}` : '';
+  subtitle.textContent = currentHits.length
+    ? `Showing ${Math.min(visibleCount, currentHits.length)} recommendations${language}`
+    : '';
+  if (!currentHits.length) {
+    setStatus(activeLanguage
+      ? `No matches in ${languageName(activeLanguage)}. Try different wording or select Any language.`
+      : 'No matches in this collection. Try different wording.');
+  }
 }
 
 async function search(): Promise<void> {
+  if (submit.disabled) return;
   const text = query.value.trim();
   queryError.hidden = true;
   if (text.length < 3 && !/\p{Script=Han}{2}/u.test(text)) {
@@ -190,11 +206,12 @@ async function search(): Promise<void> {
     setStatus('You are offline. Connect to load the selected model and book sample.', true);
     return;
   }
-  const model = selectedModel();
+  const model = modelSelect.value as ModelKey;
   const mode = modeSelect.value as SearchMode;
   activeQuery = text;
   activeModel = model;
   activeMode = mode;
+  subtitle.textContent = '';
   feedbackStates = new Map();
   results.hidden = false;
   currentHits = [];
@@ -203,16 +220,16 @@ async function search(): Promise<void> {
   more.hidden = true;
   setBusy(true);
   setStatus(`Preparing ${MODELS[model].label}. First use may download about ${MODELS[model].downloadMb} MB.`);
-  modelLabel.textContent = `${MODELS[model].label} · ${mode === 'hybrid' ? 'Meaning + keywords' : 'Meaning only'}`;
+  modelLabel.textContent = `${MODELS[model].label} · ${mode === 'hybrid' ? 'Semantic + key terms' : 'Semantic search'}`;
   results.scrollIntoView({ behavior: 'smooth', block: 'start' });
   try {
-    catalog ??= await loadCatalog();
-    badge.textContent = `${catalog.books.length.toLocaleString()} open-access demo books`;
+    catalog ??= setCatalog(await loadCatalog());
+    activeLanguage = languageSelect.value;
     searchIndex ??= buildSearchIndex(catalog.books);
     const [{ vector, supplement }, bookVectors] = await Promise.all([
       embed(text, model, catalog), loadVectors(model, catalog),
     ]);
-    currentHits = rankBooks(text, vector, appendVectors(bookVectors, supplement), searchIndex, mode);
+    currentHits = rankBooks(text, vector, appendVectors(bookVectors, supplement), searchIndex, mode, 1, activeLanguage);
     visibleCount = 5;
     setStatus('');
     renderHits();
@@ -220,6 +237,8 @@ async function search(): Promise<void> {
     url.searchParams.set('q', text);
     url.searchParams.set('model', modelSelect.value);
     url.searchParams.set('mode', mode);
+    if (activeLanguage) url.searchParams.set('lang', activeLanguage);
+    else url.searchParams.delete('lang');
     history.replaceState(null, '', url);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Search could not finish.';
@@ -234,7 +253,7 @@ async function search(): Promise<void> {
       preview.className = 'fallback-button';
       preview.textContent = 'Show keyword-only preview';
       preview.addEventListener('click', () => {
-        currentHits = rankKeywordBooks(text, searchIndex!);
+        currentHits = rankKeywordBooks(text, searchIndex!, activeLanguage);
         visibleCount = 5;
         activeModel = 'keyword-only';
         activeMode = 'keyword-only';
@@ -264,6 +283,9 @@ more.addEventListener('click', () => {
 });
 document.querySelectorAll<HTMLButtonElement>('[data-query]').forEach(button => {
   button.addEventListener('click', () => {
+    if (button.dataset.language && Array.from(languageSelect.options).some(option => option.value === button.dataset.language)) {
+      languageSelect.value = button.dataset.language;
+    }
     query.value = button.dataset.query ?? '';
     query.dispatchEvent(new Event('input'));
     form.requestSubmit();
@@ -301,12 +323,10 @@ if (speech) {
   });
 }
 
-void loadCatalog().then(loaded => {
-  catalog = loaded;
-  badge.textContent = `${loaded.books.length.toLocaleString()} open-access demo books`;
-}).catch(() => { badge.textContent = 'Book sample unavailable · Search to retry'; });
+void loadCatalog().then(setCatalog).catch(() => {
+  badge.textContent = 'Collection unavailable. Search to retry.';
+});
 
-const params = new URLSearchParams(window.location.search);
 const initialQuery = params.get('q');
 if (initialQuery) {
   query.value = initialQuery.slice(0, 500);

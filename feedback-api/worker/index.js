@@ -81,10 +81,10 @@ async function submit(request, env, origin) {
   await env.DB.batch([
     env.DB.prepare('INSERT INTO feedback (id, payload_digest, query_text, results_json, '
       + 'target_book_id, rating, reason, model_key, search_mode, release_id, catalog_sha, '
-      + 'ip_hash, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+      + 'ip_hash, created_at, updated_at, book_language) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
       .bind(item.submissionId, payloadDigest, item.query, JSON.stringify(item.results),
         item.targetBookId, item.rating, item.reason, item.model, item.mode,
-        item.release, item.catalogSha256, rateKey, now, now),
+        item.release, item.catalogSha256, rateKey, now, now, item.language ?? null),
     env.DB.prepare('INSERT INTO feedback_events (feedback_id, action, rating, reason, created_at) '
       + 'VALUES (?, ?, ?, ?, ?)').bind(item.submissionId, 'created', item.rating, item.reason, now),
   ]);

@@ -8,6 +8,7 @@ export interface FeedbackContext {
   query: string;
   model: ModelKey | 'keyword-only';
   mode: SearchMode | 'keyword-only';
+  language?: string;
   release: string;
   catalogSha256: string;
   shownBooks: Array<{ bookId: string; rank: number }>;
@@ -22,6 +23,7 @@ export interface Submission {
   reason: Reason | null;
   model: FeedbackContext['model'];
   mode: FeedbackContext['mode'];
+  language?: string;
   release: string;
   catalogSha256: string;
 }
@@ -42,6 +44,7 @@ export function buildSubmission(
     submissionId: crypto.randomUUID(), query: context.query,
     results: context.shownBooks.map(book => ({ ...book })),
     targetBookId, rating, reason, model: context.model, mode: context.mode,
+    ...(context.language ? { language: context.language } : {}),
     release: context.release, catalogSha256: context.catalogSha256,
   };
 }

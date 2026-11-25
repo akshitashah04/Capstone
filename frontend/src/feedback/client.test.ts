@@ -22,12 +22,13 @@ describe('feedback submission', () => {
       results: context.shownBooks,
       targetBookId: 'second', rating: 'partial', reason: 'too_advanced',
     });
+    expect(item).not.toHaveProperty('language');
     expect(item.submissionId).toMatch(/^[0-9a-f-]{36}$/);
   });
 
   it('records a whole-list rejection without a book target', () => {
-    expect(buildSubmission(context, null, 'none_fit', null)).toMatchObject({
-      targetBookId: null, rating: 'none_fit', results: context.shownBooks,
+    expect(buildSubmission({ ...context, language: 'hi' }, null, 'none_fit', null)).toMatchObject({
+      targetBookId: null, rating: 'none_fit', language: 'hi', results: context.shownBooks,
     });
   });
 

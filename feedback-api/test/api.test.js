@@ -14,7 +14,7 @@ function database() {
       query_text TEXT NOT NULL, results_json TEXT NOT NULL, target_book_id TEXT,
       rating TEXT NOT NULL, reason TEXT, model_key TEXT NOT NULL, search_mode TEXT NOT NULL,
       release_id TEXT NOT NULL, catalog_sha TEXT NOT NULL, ip_hash TEXT NOT NULL,
-      created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL);
+      created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL, book_language TEXT);
     CREATE TABLE feedback_events (id INTEGER PRIMARY KEY AUTOINCREMENT,
       feedback_id TEXT NOT NULL, action TEXT NOT NULL, rating TEXT, reason TEXT,
       created_at INTEGER NOT NULL);
@@ -94,13 +94,14 @@ test('accepts short Chinese queries and keeps legacy submissions tied to legacy 
   const legacySha = [...CATALOG_BOOK_IDS.keys()].find(sha => sha !== CATALOG_SHA256);
   const newBook = 'gutenberg-23839';
   const chinese = {
-    ...payload(), query: '论语', results: [{ bookId: newBook, rank: 1 }], targetBookId: newBook,
+    ...payload(), query: '论语', language: 'zh', results: [{ bookId: newBook, rank: 1 }], targetBookId: newBook,
   };
   const mismatched = await worker.fetch(request('POST', '/v1/feedback',
     { ...chinese, catalogSha256: legacySha }), env);
   assert.equal(mismatched.status, 400);
   const combined = await worker.fetch(request('POST', '/v1/feedback', chinese), env);
   assert.equal(combined.status, 201);
+  assert.equal(env.DB.raw.prepare('SELECT book_language FROM feedback').get().book_language, 'zh');
   const legacy = await worker.fetch(request('POST', '/v1/feedback', {
     ...payload('44444444-4444-4444-8444-444444444444'), catalogSha256: legacySha,
   }), env);

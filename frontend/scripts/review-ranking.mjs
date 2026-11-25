@@ -2,7 +2,9 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { createServer } from 'vite';
 
-const WEIGHTS = [1, 0.5, 1.5, 2];
+const WEIGHTS = [0, 0.5, 1, 1.5, 2];
+const BASELINE = 0;
+const RANKER = 'semantic-cosine-v1';
 const MODEL = 'gte-base';
 const root = new URL('../public/data/', import.meta.url);
 const digest = data => createHash('sha256').update(data).digest('hex');
@@ -19,9 +21,10 @@ const catalog = manifest.catalog_sha256 ?? manifest.files['catalog.json'].sha256
 function validateQueries(queries) {
   const seen = new Set();
   if (!Array.isArray(queries)) throw new Error('Expected an array of queries.');
-  for (const { id, query, split } of queries) {
+  for (const { id, query, split, language } of queries) {
     if (typeof id !== 'string' || !id.trim() || typeof query !== 'string' || !query.trim() ||
-        !['development', 'holdout'].includes(split)) {
+        !['development', 'holdout'].includes(split) ||
+        (language != null && (typeof language !== 'string' || !/^[a-z]{2,3}$/.test(language)))) {
       throw new Error('Each query needs an ID, text, and development or holdout split.');
     }
     const key = query.normalize('NFKC').trim().replace(/\s+/g, ' ').toLowerCase();
@@ -55,8 +58,8 @@ async function generatePool(queries) {
   });
   try {
     // Vite loads the same TypeScript functions and ranker used by the browser.
-    const files = ['catalog', 'embedding', 'passages', 'search', 'book-text'];
-    const [codec, embedding, passages, search, bookText] = await Promise.all(
+    const files = ['catalog', 'embedding', 'passages', 'search', 'book-text', 'languages'];
+    const [codec, embedding, passages, search, bookText, languages] = await Promise.all(
       files.map(name => vite.ssrLoadModule(new URL(`../src/${name}.ts`, import.meta.url).pathname)),
     );
     const [rawBase, rawSupplement, rawVectors] = await Promise.all([
@@ -70,6 +73,7 @@ async function generatePool(queries) {
       ...book, description: bookText.cleanDescription(book.description),
     }));
     const index = search.buildSearchIndex(books);
+    const supportedLanguages = new Set(languages.availableLanguages(books));
     const { env } = await import('@huggingface/transformers');
     env.cacheDir = process.env.LIBRARIES_MODEL_CACHE ?? '/tmp/libraries-model-cache';
     const encoder = await embedding.loadEncoder(MODEL);
@@ -82,20 +86,23 @@ async function generatePool(queries) {
       );
       const vectors = passages.appendVectors(baseVectors, supplementalVectors);
       const rows = [];
-      for (const { id, query, split } of queries) {
+      for (const { id, query, split, language } of queries) {
+        if (language && !supportedLanguages.has(language)) {
+          throw new Error(`Unsupported book language for ${id}.`);
+        }
         const vector = await encoder.encode([query], 'query');
         const ranks = Object.fromEntries(WEIGHTS.map(weight => [
-          weight, search.rankBooks(query, vector, vectors, index, 'hybrid', weight)
+          weight, search.rankBooks(query, vector, vectors, index, weight === BASELINE ? 'semantic' : 'hybrid', weight, language)
             .slice(0, 5).map(hit => hit.book.id),
         ]));
         // A blinded review copy can use this sorted union without the ranks.
         const bookIds = [...new Set(Object.values(ranks).flat())].sort();
         rows.push({
-          id, query, split, ranks,
+          id, query, split, language: language ?? null, ranks,
           grades: Object.fromEntries(bookIds.map(bookId => [bookId, null])),
         });
       }
-      return { catalog, model: MODEL, weights: WEIGHTS, queries: rows };
+      return { catalog, model: MODEL, ranker: RANKER, weights: WEIGHTS, queries: rows };
     } finally {
       await encoder.dispose();
     }
@@ -120,7 +127,7 @@ function metrics(rows, weight) {
 }
 
 function scorePool(pool) {
-  if (pool.catalog !== catalog || pool.model !== MODEL ||
+  if (pool.catalog !== catalog || pool.model !== MODEL || pool.ranker !== RANKER ||
       JSON.stringify(pool.weights) !== JSON.stringify(WEIGHTS)) {
     throw new Error('Pool does not match this catalog, model, and ranking grid.');
   }
@@ -141,10 +148,10 @@ function scorePool(pool) {
   const holdout = pool.queries.filter(row => row.split === 'holdout');
   const development = WEIGHTS.map(weight => ({ weight, ...metrics(dev, weight) }));
   const candidate = [...development].sort((a, b) => b.clearFits - a.clearFits ||
-    b.ndcgAt5 - a.ndcgAt5 || Math.abs(a.weight - 1) - Math.abs(b.weight - 1))[0].weight;
-  const baseline = metrics(holdout, 1);
+    b.ndcgAt5 - a.ndcgAt5 || a.weight - b.weight)[0].weight;
+  const baseline = metrics(holdout, BASELINE);
   const proposed = metrics(holdout, candidate);
-  const passesHoldout = candidate !== 1 && holdout.length >= 50 &&
+  const passesHoldout = candidate !== BASELINE && holdout.length >= 50 &&
     proposed.clearFits / holdout.length >= 0.82 &&
     proposed.clearFits > baseline.clearFits && proposed.ndcgAt5 >= baseline.ndcgAt5;
   return { catalog, model: MODEL, candidate, development, holdout: { baseline, proposed }, passesHoldout };

@@ -16,7 +16,8 @@ for (const row of rows) {
   const bookIds = CATALOG_BOOK_IDS.get(row.catalog_sha);
   if (!bookIds || !['hybrid', 'semantic', 'keyword-only'].includes(row.search_mode)) continue;
   const query = row.query_text.normalize('NFKC').replace(/\s+/g, ' ').trim();
-  const key = query.toLowerCase();
+  const language = row.book_language ?? null;
+  const key = JSON.stringify([query.toLowerCase(), language]);
   const displayed = JSON.parse(row.results_json);
   if (!key || !Array.isArray(displayed) || displayed.length < 1 || displayed.length > 10 ||
       displayed.some((item, index) => !bookIds.has(item.bookId) || item.rank !== index + 1)) {
@@ -24,7 +25,7 @@ for (const row of rows) {
   }
 
   if (!groups.has(key)) {
-    groups.set(key, { query, shown: new Set(), signals: new Map(), listsWithoutFit: 0 });
+    groups.set(key, { query, language, shown: new Set(), signals: new Map(), listsWithoutFit: 0 });
   }
   const group = groups.get(key);
   for (const { bookId } of displayed) group.shown.add(bookId);
@@ -44,8 +45,8 @@ for (const row of rows) {
   });
 }
 
-const review = [...groups.values()].map(({ query, shown, signals, listsWithoutFit }) => ({
-  query,
+const review = [...groups.values()].map(({ query, language, shown, signals, listsWithoutFit }) => ({
+  query, language,
   listsWithoutFit,
   books: [...shown].map(bookId => ({ bookId, visitorSignals: signals.get(bookId) ?? [] })),
 }));

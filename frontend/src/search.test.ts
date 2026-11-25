@@ -5,6 +5,7 @@ import { cleanDescription } from './book-text';
 import base from '../public/data/catalog.json';
 import supplement from '../public/data/multilingual.json';
 import { appendVectors } from './passages';
+import { availableLanguages } from './languages';
 
 function book(id: string, title: string, description: string): Book {
   return { id, title, description, authors: [], subjects: [], languages: ['en'], year: 2024,
@@ -34,19 +35,39 @@ describe('browser ranking', () => {
       .toBe('wikisource-hi-godan');
   });
 
-  it('combines semantic and keyword ranks while preserving source alignment', () => {
-    const books = [book('a', 'Ocean science', 'marine biology'),
-      book('b', 'AI for business', 'A guide for managers'),
-      book('c', 'Machine learning', 'Technical algorithms')];
+  it('ranks by meaning even when a weaker book contains the exact query terms', () => {
+    const books = [book('a', 'Entry-level machine learning', 'Case studies for company leaders'),
+      book('b', 'Business AI engineering', 'Technical algorithms and programming')];
     const index = buildSearchIndex(books);
-    const vectors = new Float32Array([1, 0, 0, 1, 0.8, 0.2]);
-    const query = new Float32Array([0, 1]);
-    const meaning = rankBooks('AI for business', query, vectors, index, 'semantic');
-    const hybrid = rankBooks('AI for business', query, vectors, index, 'hybrid');
-    expect(meaning[0].book.id).toBe('b');
-    expect(hybrid[0].book.id).toBe('b');
-    expect(hybrid[0].relevance).toBeCloseTo(2 / 61);
-    expect(hybrid.every(hit => Number.isFinite(hit.relevance))).toBe(true);
+    const vectors = new Float32Array([1, 0, 0.8, 0.6]);
+    const query = new Float32Array([1, 0]);
+    const meaning = rankBooks('Business AI', query, vectors, index, 'semantic');
+    const hybrid = rankBooks('Business AI', query, vectors, index, 'hybrid', 2);
+    expect(meaning[0].book.id).toBe('a');
+    expect(hybrid[0].book.id).toBe('a');
+    expect(hybrid[1].relevance).toBeCloseTo(0.85);
+    expect(rankKeywordBooks('Business AI', index)[0].book.id).toBe('b');
+  });
+
+  it('uses key terms to resolve a close semantic match', () => {
+    const index = buildSearchIndex([book('a', 'Classical ethics', 'Teachings and sayings'),
+      book('b', 'The Analects', 'Early Chinese philosophy')]);
+    const vectors = new Float32Array([1, 0, 0.99, 0.14]);
+    const query = new Float32Array([1, 0]);
+    expect(rankBooks('The Analects', query, vectors, index, 'semantic')[0].book.id).toBe('a');
+    expect(rankBooks('The Analects', query, vectors, index, 'hybrid')[0].book.id).toBe('b');
+  });
+
+  it('filters the full catalog before ranking, including multilingual and lower-scoring books', () => {
+    const books = Array.from({ length: 501 }, (_, i) => book(String(i), 'Rural fiction', 'Farming'));
+    books.push({ ...book('hi', 'गोदान', 'Struggles of farmers'), languages: ['hin', 'eng'] });
+    const index = buildSearchIndex(books);
+    const vectors = new Float32Array([...Array(501).fill(1), 0.5]);
+    expect(rankBooks('Farming', new Float32Array([1]), vectors, index, 'semantic', 1, 'hi')
+      .map(hit => hit.book.id)).toEqual(['hi']);
+    expect(rankKeywordBooks('Farming farmers', index, 'hi').map(hit => hit.book.id)).toEqual(['hi']);
+    expect(rankKeywordBooks('Farming', index, 'zh')).toEqual([]);
+    expect(availableLanguages([...base, ...supplement])).toEqual(expect.arrayContaining(['en', 'zh', 'hi']));
   });
 
   it('shows only one copy of a repeated title and rejects mismatched vectors', () => {

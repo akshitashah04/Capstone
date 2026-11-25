@@ -1,6 +1,6 @@
 # Browser demo runbook
 
-## What is deployed
+## Browser search
 
 The public GitHub Pages site serves a static interface, metadata for 1,884 open-access DOAB books plus seven supplemental titles, and three compact vector files for the DOAB rows. The visitor's browser downloads one selected multilingual model and encodes the query and the supplemental records. Supplemental embeddings are reused while that model is loaded. Project-owned JavaScript ranks every book in the demo sample. No outside provider chooses candidates for a visitor's query. The full 91,667-book research index is **not** queried by the public demo.
 
@@ -33,22 +33,22 @@ The sample has thin coverage for topics outside those earlier questions. For exa
 ## Run it locally
 
 1. Clone the `build-nyu-search-demo` branch of `VeedantBrahmbhatt/Libraries`.
-2. Install Node 20 or later and run `npm ci --prefix frontend` from the repository root.
+2. Install Node 22 or later and run `npm ci --prefix frontend` from the repository root.
 3. Run `npm test --prefix frontend` and `npm run build --prefix frontend`.
 4. Run `npm run dev --prefix frontend` and open the localhost URL that Vite prints.
-5. Write a full-sentence request, leave **Best evaluated · GTE base** and **Meaning + keywords** selected, and select **Find books**.
+5. Write a full-sentence request, choose a book language if needed, and select **Find books**. GTE Base and semantic search are selected by default.
 6. The first query downloads the GTE model; later queries reuse its browser cache. Switch to E5 small or E5 base to compare them.
-7. Read five results; select **More options** for up to ten. Open a source link to inspect a book record.
+7. Read five results; select **Show more books** for up to ten. Open a source link to inspect a book record.
 
-The approximate first-use model downloads are E5 small 118 MB, E5 base 278 MB, and GTE base 340 MB. Browser cache behavior varies. Wait for the loading message before assuming the search has failed. A stable internet connection is required for the initial model download. The displayed relative score uses the ranking formula with the top result set to 100; it is not a confidence percentage or comparable across queries. Voice entry appears only where the browser supports its speech API.
+The approximate first-use model downloads are E5 small 118 MB, E5 base 278 MB, and GTE base 340 MB. Browser cache behavior varies. Wait for the loading message before assuming the search has failed. A stable internet connection is required for the initial model download. Voice entry appears only where the browser supports its speech API.
 
 If a model download is interrupted, the page offers an explicit **keyword-only preview** from the same book sample. This is a fallback for walking through the interface; it does not demonstrate semantic matching and must be described that way. Retry the chosen model when the connection is stable.
 
-The fallback was checked on the deployed page with `chinese culture`: five linked cards appeared, **More options** expanded to ten, and no card showed a placeholder summary. Its topic fit was weak, so it should not stand in for a successful semantic-search demonstration.
+The fallback was checked on the deployed page with `chinese culture`: five linked cards appeared, **Show more books** expanded to ten, and no card showed a placeholder summary. Its topic fit was weak, so it should not stand in for a successful semantic-search demonstration.
 
 ## Meeting demo
 
-Open `https://veedantbrahmbhatt.github.io/Libraries/` on a laptop with a current Chrome or Edge browser and stable internet. **Before the meeting, complete one actual model query in that same browser** so the default model is cached; a loaded page or the keyword-only preview does not prove semantic inference is ready. Explain that the first five results and their summaries come from metadata, the score is relative within a search, and the 1,891-book catalog is a limited prototype. Enter a new natural-language question live; the examples are optional. Compare models only if the meeting connection can handle their separate first-use downloads. The UI has no real student login, profile storage, or NYU catalog access.
+Open `https://veedantbrahmbhatt.github.io/Libraries/` on a laptop with a current Chrome or Edge browser and stable internet. **Before the meeting, complete one actual model query in that same browser** so the default model is cached; a loaded page or the keyword-only preview does not prove semantic inference is ready. Explain that the first five results and their summaries come from metadata and the 1,891-book catalog is a limited prototype. Enter a new natural-language question live; the examples are optional. Compare models only if the meeting connection can handle their separate first-use downloads. The UI has no real student login, profile storage, or NYU catalog access.
 
 ## Publish and maintain
 

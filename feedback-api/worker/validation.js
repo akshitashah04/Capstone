@@ -8,7 +8,7 @@ const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f
 const EMAIL = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i;
 const FIELDS = new Set([
   'submissionId', 'query', 'results', 'targetBookId', 'rating', 'reason',
-  'model', 'mode', 'release', 'catalogSha256',
+  'model', 'mode', 'release', 'catalogSha256', 'language',
 ]);
 
 export class ValidationError extends Error {
@@ -54,11 +54,14 @@ export function validateSubmission(raw, { catalogSha256, knownBookIds }) {
     : raw.mode === 'hybrid' || raw.mode === 'semantic', 'Invalid search mode.');
   requireCondition(typeof raw.release === 'string' &&
     /^[a-zA-Z0-9._-]{1,64}$/.test(raw.release), 'Invalid release.');
+  requireCondition(raw.language === undefined ||
+    (typeof raw.language === 'string' && /^[a-z]{2,3}$/.test(raw.language)), 'Invalid book language.');
   requireCondition(raw.catalogSha256 === catalogSha256, 'Catalog version has changed.');
   return {
     submissionId: raw.submissionId.toLowerCase(), query, results, targetBookId,
     rating: raw.rating, reason, model: raw.model, mode: raw.mode,
     release: raw.release, catalogSha256,
+    ...(raw.language ? { language: raw.language } : {}),
   };
 }
 

@@ -8,6 +8,13 @@
       "when": 1795118400000,
       "tag": "0000_feedback",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1795564800000,
+      "tag": "0001_book_language",
+      "breakpoints": true
     }
   ]
 }
