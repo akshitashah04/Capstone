@@ -19,8 +19,9 @@
           <span class="brand-name">Violet Library<small>Student research project</small></span>
         </a>
         <nav class="header-nav" aria-label="Main navigation">
-          <a href="#how-it-works">How it works</a>
-          <a href="https://www.doabooks.org/" target="_blank" rel="noopener noreferrer">About the books</a>
+          <a href="#search-title">Search</a>
+          <a href="#reading-list-title">Reading list <span id="saved-count" class="nav-count">0</span></a>
+          <a href="#how-it-works">Search help</a>
         </nav>
       </div>
     </header>
@@ -29,12 +30,12 @@
       <section class="discovery" aria-labelledby="hero-title">
         <div class="hero container">
           <h1 id="hero-title">Find open-access books</h1>
-          <p class="hero-subtitle">Search by topic or research question. Choose the language you want to read in.</p>
+          <p class="hero-subtitle">Search by topic or research question. Save books and export citations for assignments, research, and course reading lists.</p>
         </div>
         <div class="search-section container">
           <div class="search-panel">
             <div class="search-panel-head">
-              <h2 id="search-title">Search the collection</h2>
+              <h2 id="search-title" tabindex="-1">Search the collection</h2>
               <span class="sample-badge" id="sample-badge">Loading book sample…</span>
             </div>
             <form id="search-form" novalidate>
@@ -67,10 +68,21 @@
                   <span>Find books</span>
                 </button>
               </div>
-              <label class="access-option" for="full-text">
-                <input id="full-text" name="full-text" type="checkbox">
-                Direct full text only
-              </label>
+              <div class="search-refinements" aria-label="Limit results">
+                <label class="access-option" for="full-text">
+                  <input id="full-text" name="full-text" type="checkbox">
+                  Direct full text only
+                </label>
+                <label class="year-option" for="published-since">Published since
+                  <select id="published-since" name="year">
+                    <option value="">Any year</option>
+                    <option value="2020">2020</option>
+                    <option value="2015">2015</option>
+                    <option value="2010">2010</option>
+                    <option value="2000">2000</option>
+                  </select>
+                </label>
+              </div>
             </form>
             <div class="suggestions" aria-label="Example searches">
               <span class="suggestions-label">Try a search</span>
@@ -96,6 +108,19 @@
         <div id="results-list" class="results-list"></div>
         <button id="more-button" type="button" class="more-button" hidden>Show more books</button>
         <div id="list-feedback"></div>
+      </section>
+
+      <section class="reading-list-section container" aria-labelledby="reading-list-title">
+        <div class="reading-list-head">
+          <div>
+            <h2 id="reading-list-title" tabindex="-1">Reading list</h2>
+            <p class="results-subtitle">Save books to revisit in this browser or export for a course or bibliography.</p>
+          </div>
+          <button id="export-reading-list" type="button" class="secondary-button" disabled>Export citations (RIS)</button>
+        </div>
+        <p id="reading-list-empty">No saved books yet.</p>
+        <ul id="reading-list-items" class="reading-list-items"></ul>
+        <p id="reading-list-status" class="reading-list-status" role="status"></p>
       </section>
 
       <section id="how-it-works" class="about-section container" aria-labelledby="about-title">

@@ -65,6 +65,10 @@ jobs:
           grep -F 'For a required title or phrase, put it in quotation marks.' violet-index.html
           curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/data/manifest.json" -o violet-data.json
           grep -F 'Direct full text only' violet-index.html
+          grep -F 'Export citations (RIS)' violet-index.html
+          curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/data/prepared/gte-base.json" -o violet-prepared.json
+          curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/data/prepared/gte-base.f32" -o violet-vectors.f32
+          node -e 'const m=require("./violet-prepared.json"), b=require("fs").readFileSync("violet-vectors.f32"); if (m.catalog !== process.env.CATALOG_SHA || m.bytes !== b.length || m.sha256 !== require("crypto").createHash("sha256").update(b).digest("hex")) process.exit(1)'
           curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/reading/manhattan/13842-h.htm" -o manhattan.html
           grep -i -m 1 'the story of manhattan' manhattan.html
           curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/reading/new-york-metropolis/64572-h.htm" -o metropolis.html

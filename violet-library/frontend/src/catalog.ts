@@ -1,5 +1,6 @@
 import type { Book, ModelKey, SampleManifest } from './types';
 import { cleanDescription } from './book-text';
+import { MODELS } from './model-config';
 
 export interface Catalog {
   books: Book[];
@@ -103,4 +104,26 @@ export function loadVectors(model: ModelKey, catalog: Catalog): Promise<Float32A
   })().catch(error => { vectorPromises.delete(model); throw error; });
   vectorPromises.set(model, promise);
   return promise;
+}
+
+const preparedVectors = new Map<ModelKey, Promise<Float32Array | null>>();
+
+export function loadPreparedSupplement(model: ModelKey, catalog: Catalog): Promise<Float32Array | null> {
+  const prior = preparedVectors.get(model);
+  if (prior) return prior;
+  const pending = (async () => {
+    const descriptor = await fetch(`${root}prepared/${model}.json`);
+    if (!descriptor.ok) return null;
+    const entry = await descriptor.json();
+    const config = MODELS[model];
+    const count = catalog.books.length - catalog.manifest.books;
+    if (entry.catalog !== catalog.checksum || entry.model !== model || entry.revision !== config.revision ||
+        entry.encoding !== 'float32-le-row-major' || entry.bytes !== count * config.dimensions * 4) return null;
+    const data = new DataView(await fetchChecked(`prepared/${model}.f32`, entry));
+    const vectors = new Float32Array(count * config.dimensions);
+    for (let i = 0; i < vectors.length; i += 1) vectors[i] = data.getFloat32(i * 4, true);
+    return vectors.every(Number.isFinite) ? vectors : null;
+  })().catch(() => null);
+  preparedVectors.set(model, pending);
+  return pending;
 }

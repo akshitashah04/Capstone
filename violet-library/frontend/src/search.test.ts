@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { buildSearchIndex, displayRelevance, hasEligibleBooks, keepSemanticMatches, rankBooks, rankKeywordBooks, tokens } from './search';
 import type { Book } from './types';
+import { citationText, readingListRis } from './reading-list';
 import { bookAccess } from './book-access';
 import { cleanDescription } from './book-text';
 import base from '../public/data/catalog.json';
@@ -165,6 +166,29 @@ describe('browser ranking', () => {
     const hits = rankBooks('NYC and its history', new Float32Array([1, 0]),
       new Float32Array([1, 0, 1, 0, 0.6, 0.8]), index, 'semantic');
     expect(hits.map(hit => hit.book.id)).toEqual(['city']);
+  });
+
+  it('filters by publication year before semantic scoring, including undated entries only by default', () => {
+    const index = buildSearchIndex([
+      { ...book('old', 'Old edition', 'A relevant text'), year: 2001 },
+      { ...book('new', 'New edition', 'A relevant updated text'), year: 2024 },
+      { ...book('unknown', 'Undated text', 'A relevant text'), year: null },
+    ], false);
+    const vector = new Float32Array([1, 0]);
+    const books = new Float32Array([1, 0, 0.6, 0.8, 1, 0]);
+    expect(rankBooks('a question', vector, books, index, 'semantic', 0, 'en', false, 2020)
+      .map(hit => hit.book.id)).toEqual(['new']);
+    expect(rankBooks('a question', vector, books, index, 'semantic').length).toBe(3);
+  });
+
+  it('exports citations with the original reading source', () => {
+    const record = {
+      ...book('one', 'Example Book', 'A description'), authors: ['Ng, Alex'],
+      publisher: 'Example Press', year: 2025, sourceUrl: 'https://example.org/source',
+    };
+    expect(citationText(record)).toContain('Ng, Alex. Example Book. Example Press. 2025.');
+    expect(readingListRis([record])).toContain('AU  - Ng, Alex\r\nPY  - 2025\r\nPB  - Example Press');
+    expect(readingListRis([record])).toContain('UR  - https://example.org/source');
   });
 
   it('uses key terms to resolve a close semantic match', () => {

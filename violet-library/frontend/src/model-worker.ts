@@ -10,9 +10,17 @@ env.allowLocalModels = false;
 env.useBrowserCache = true;
 if (env.backends.onnx.wasm) env.backends.onnx.wasm.numThreads = 1;
 
-let activeKey: ModelKey | null = null;
-let activeEncoder: Awaited<ReturnType<typeof loadEncoder>> | null = null;
+let encoderPromise: ReturnType<typeof loadEncoder> | null = null;
 let activeSupplement: { catalog: string; vectors: Float32Array } | null = null;
+let lastQuery: { text: string; vector: Float32Array } | null = null;
+
+function encoderFor(model: ModelKey, onDownload?: () => void) {
+  encoderPromise ??= loadEncoder(model, onDownload).catch(error => {
+    encoderPromise = null;
+    throw error;
+  });
+  return encoderPromise;
+}
 
 async function loadSupplement(
   encoder: Awaited<ReturnType<typeof loadEncoder>>,
@@ -47,40 +55,39 @@ interface EncodeRequest {
   text: string;
   catalog: string;
   passages: string[];
+  prepared: boolean;
 }
 
-self.addEventListener('message', async (event: MessageEvent<EncodeRequest>) => {
-  const { id, model, text, catalog } = event.data;
-  if (!Object.hasOwn(MODELS, model) || !text?.trim()) {
-    self.postMessage({ type: 'error', id, message: 'A model and question are required.' });
+self.addEventListener('message', async (event: MessageEvent<EncodeRequest | { model: ModelKey; type: 'warm' }>) => {
+  const request = event.data;
+  if (!Object.hasOwn(MODELS, request.model)) return;
+  if ('type' in request) {
+    await encoderFor(request.model).catch(() => undefined);
+    return;
+  }
+  const { id, model, text, catalog, prepared } = request;
+  if (!text.trim()) {
+    self.postMessage({ type: 'error', id, message: 'A search question is required.' });
     return;
   }
   const { label } = MODELS[model];
   try {
-    if (activeKey !== model || !activeEncoder) {
-      const priorEncoder = activeEncoder;
-      activeEncoder = null;
-      activeKey = null;
-      activeSupplement = null;
-      await priorEncoder?.dispose();
-      self.postMessage({ type: 'progress', id, message: `Loading ${label}…` });
-      let downloadNoticeSent = false;
-      activeEncoder = await loadEncoder(model, () => {
-        if (downloadNoticeSent) return;
-        downloadNoticeSent = true;
-        self.postMessage({
-          type: 'progress', id,
-          message: `Downloading ${label} model files. This may take several minutes on first use.`,
-        });
-      });
-      activeKey = model;
-    }
-    if (activeSupplement?.catalog !== catalog) {
-      activeSupplement = { catalog, vectors: await loadSupplement(activeEncoder, event.data) };
+    self.postMessage({ type: 'progress', id, message: `Preparing ${label} search…` });
+    let downloadNoticeSent = false;
+    const encoder = await encoderFor(model, () => {
+      if (downloadNoticeSent) return;
+      downloadNoticeSent = true;
+      self.postMessage({ type: 'progress', id, message: `Downloading the ${label} model for first use…` });
+    });
+    if (!prepared && activeSupplement?.catalog !== catalog) {
+      activeSupplement = { catalog, vectors: await loadSupplement(encoder, request) };
     }
     self.postMessage({ type: 'progress', id, message: 'Understanding your question…' });
-    const vector = await encodeSemanticQuery(activeEncoder, text, model);
-    const supplement = activeSupplement.vectors.slice();
+    if (lastQuery?.text !== text) {
+      lastQuery = { text, vector: await encodeSemanticQuery(encoder, text, model) };
+    }
+    const vector = lastQuery.vector.slice();
+    const supplement = prepared ? new Float32Array() : activeSupplement!.vectors.slice();
     self.postMessage({ type: 'embedding', id, vector, supplement }, [vector.buffer, supplement.buffer]);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'The selected model could not be loaded.';

@@ -166,3 +166,61 @@ h2 { margin: 0; font-size: clamp(23px, 2.7vw, 30px); font-weight: 720; letter-sp
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+.nav-count {
+  display: inline-grid;
+  min-width: 1.35em;
+  place-items: center;
+  padding-inline: .25em;
+  margin-left: .2em;
+  border-radius: 4px;
+  background: #fff;
+  color: var(--violet);
+  font-variant-numeric: tabular-nums;
+}
+.search-refinements {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
+  margin-top: 13px;
+}
+.search-refinements .access-option { margin: 0; }
+.year-option { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.year-option select {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  padding: 6px 8px;
+  color: var(--ink);
+  font: inherit;
+}
+.secondary-button {
+  border: 1px solid #cdbbda;
+  border-radius: 7px;
+  padding: 7px 10px;
+  background: #fff;
+  color: var(--deep-violet);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+}
+.secondary-button:hover:not(:disabled), .secondary-button[aria-pressed="true"] { background: var(--lavender); }
+.secondary-button:disabled { opacity: .55; }
+.citation-control { display: grid; gap: 4px; justify-items: start; }
+.citation-control textarea { width: min(54ch, 100%); max-width: 100%; font: inherit; }
+.citation-feedback, .reading-list-status { color: var(--muted); font-size: 13px; }
+.citation-feedback:empty, .reading-list-status:empty { display: none; }
+.reading-list-section { border-block: 1px solid var(--line); padding-block: 28px; }
+.reading-list-head, .reading-list-items li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  flex-wrap: wrap;
+}
+.reading-list-items { padding: 0; margin: 12px 0 0; list-style: none; }
+.reading-list-items li { padding: 10px 0; border-top: 1px solid var(--line); }
+.reading-list-items li > a { font-weight: 650; color: var(--deep-violet); }
+.reading-actions { display: flex; align-items: start; flex-wrap: wrap; gap: 8px; }
+#reading-list-empty { color: var(--muted); font-size: 14px; }

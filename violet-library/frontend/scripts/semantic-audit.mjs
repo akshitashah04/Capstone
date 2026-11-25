@@ -39,11 +39,26 @@ try {
   const rawVectors = await readFile(new URL(`${model}.f16`, dir));
   const baseVectors = rawVectors.buffer.slice(rawVectors.byteOffset, rawVectors.byteOffset + rawVectors.byteLength);
   const indexStart = performance.now();
-  const extra = await embeddings.encodeCatalogPassages(
-    encoder, supplement.map(passage.passageText), manifest.models[model].dimensions,
-  );
+  const exporting = process.env.VIOLET_SAVE_SUPPLEMENT === '1';
+  const dimensions = manifest.models[model].dimensions;
+  let extra;
+  let precomputed = false;
+  if (!exporting) {
+    const descriptor = await read(`prepared/${model}.json`).catch(() => null);
+    if (descriptor) {
+      const bytes = await readFile(new URL(`prepared/${model}.f32`, dir));
+      assert.equal(descriptor.catalog, manifest.catalog_sha256);
+      assert.equal(descriptor.revision, config.MODELS[model].revision);
+      assert.equal(bytes.length, supplement.length * dimensions * 4);
+      assert.equal(descriptor.sha256, createHash('sha256').update(bytes).digest('hex'));
+      extra = Float32Array.from({ length: bytes.length / 4 }, (_, i) => bytes.readFloatLE(i * 4));
+      assert.ok(extra.every(Number.isFinite));
+      precomputed = true;
+    }
+  }
+  extra ??= await embeddings.encodeCatalogPassages(encoder, supplement.map(passage.passageText), dimensions);
   const supplementalEncodingMs = Math.round(performance.now() - indexStart);
-  if (process.env.VIOLET_SAVE_SUPPLEMENT === '1') {
+  if (exporting) {
     const output = new URL('prepared/', dir);
     await mkdir(output, { recursive: true });
     const bytes = Buffer.allocUnsafe(extra.length * 4);
@@ -92,7 +107,7 @@ try {
   const output = predicted.map(({ id, split, rankings }) => ({
     id, split, ...rankings[variants.indexOf(selected)],
   }));
-  console.log(JSON.stringify({ model, modelLoadMs, supplementalEncodingMs, deployedWeight: selected, bestDevelopmentWeight: scores[0].weight, scores, passed: output.filter(row => row.pass).length, output }));
+  console.log(JSON.stringify({ model, modelLoadMs, supplementalEncodingMs, precomputed, deployedWeight: selected, bestDevelopmentWeight: scores[0].weight, scores, passed: output.filter(row => row.pass).length, output }));
   if (!process.env.VIOLET_REPORT_ONLY) {
     assert.ok(output.every(row => row.pass), 'At least one semantic regression case failed.');
   }

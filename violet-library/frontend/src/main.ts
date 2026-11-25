@@ -1,11 +1,12 @@
 import './style.css';
-import { loadCatalog, loadVectors } from './catalog';
+import { loadCatalog, loadPreparedSupplement, loadVectors } from './catalog';
 import { DEFAULT_MODEL, MODELS } from './model-config';
 import { buildSearchIndex, displayRelevance, hasEligibleBooks, keepSemanticMatches, rankBooks } from './search';
 import type { Catalog } from './catalog';
-import type { ModelKey, SearchHit } from './types';
+import type { Book, ModelKey, SearchHit } from './types';
 import { appendVectors, passageText } from './passages';
 import { cleanDescription } from './book-text';
+import { citationText, loadReadingList, readingListRis, storeReadingList } from './reading-list';
 import { bookAccess } from './book-access';
 import { interpretQuery } from './query-intent';
 import { availableLanguages, bookLanguages, languageName } from './languages';
@@ -24,6 +25,12 @@ const query = byId<HTMLTextAreaElement>('query');
 const modelSelect = byId<HTMLSelectElement>('model');
 const languageSelect = byId<HTMLSelectElement>('language');
 const fullTextOnly = byId<HTMLInputElement>('full-text');
+const publishedSince = byId<HTMLSelectElement>('published-since');
+const savedCount = byId<HTMLSpanElement>('saved-count');
+const readingItems = byId<HTMLUListElement>('reading-list-items');
+const readingEmpty = byId<HTMLParagraphElement>('reading-list-empty');
+const readingStatus = byId<HTMLParagraphElement>('reading-list-status');
+const exportList = byId<HTMLButtonElement>('export-reading-list');
 const submit = byId<HTMLButtonElement>('search-button');
 const queryError = byId<HTMLParagraphElement>('query-error');
 const count = byId<HTMLSpanElement>('query-count');
@@ -43,6 +50,8 @@ const params = new URLSearchParams(window.location.search);
 let catalog: Catalog | null = null;
 let searchIndex: ReturnType<typeof buildSearchIndex> | null = null;
 let worker: Worker | null = null;
+let workerModel: ModelKey | null = null;
+let warmTimer: number | undefined;
 let nextId = 1;
 let currentHits: SearchHit[] = [];
 let visibleCount = 5;
@@ -50,6 +59,8 @@ let activeQuery = '';
 let activeModel: ModelKey = DEFAULT_MODEL;
 let activeLanguage = '';
 let activeFullText = false;
+let activeYear = 0;
+const savedIds = loadReadingList();
 let feedbackStates = new Map<string, FeedbackState>();
 
 function feedbackContext(): FeedbackContext {
@@ -85,6 +96,7 @@ function setBusy(busy: boolean): void {
   modelSelect.disabled = busy;
   languageSelect.disabled = busy;
   fullTextOnly.disabled = busy;
+  publishedSince.disabled = busy;
   form.setAttribute('aria-busy', String(busy));
   submit.querySelector('span')!.textContent = busy ? 'Searching…' : 'Find books';
 }
@@ -101,31 +113,69 @@ function setCatalog(loaded: Catalog): Catalog {
       languageSelect.value = initialLanguage;
     }
   }
+  renderReadingList();
   return loaded;
 }
 
-function embed(text: string, model: ModelKey, source: Catalog): Promise<{
+function workerFor(model: ModelKey): Worker {
+  if (worker && model === workerModel) return worker;
+  worker?.terminate();
+  workerModel = model;
+  const selected = new Worker(new URL('./model-worker.ts', import.meta.url), { type: 'module' });
+  selected.addEventListener('error', () => {
+    if (worker === selected) worker = null;
+    selected.terminate();
+  }, { once: true });
+  worker = selected;
+  return selected;
+}
+
+function embed(text: string, model: ModelKey, source: Catalog, prepared: boolean): Promise<{
   vector: Float32Array;
   supplement: Float32Array;
 }> {
-  worker ??= new Worker(new URL('./model-worker.ts', import.meta.url), { type: 'module' });
+  const selected = workerFor(model);
   const id = nextId++;
   return new Promise((resolve, reject) => {
+    const clean = () => {
+      selected.removeEventListener('message', onMessage);
+      selected.removeEventListener('error', onWorkerError);
+    };
+    const onWorkerError = () => {
+      clean();
+      worker = null;
+      selected.terminate();
+      reject(new Error('The semantic model could not start.'));
+    };
     const onMessage = (event: MessageEvent) => {
       if (event.data?.id !== id) return;
       if (event.data.type === 'progress') setStatus(event.data.message);
       if (event.data.type === 'embedding' || event.data.type === 'error') {
-        worker?.removeEventListener('message', onMessage);
+        clean();
         if (event.data.type === 'embedding') resolve({ vector: event.data.vector, supplement: event.data.supplement });
         else reject(new Error(event.data.message as string));
       }
     };
-    worker!.addEventListener('message', onMessage);
-    worker!.postMessage({
-      id, text, model, catalog: source.checksum,
-      passages: source.books.slice(source.manifest.books).map(passageText),
+    selected.addEventListener('message', onMessage);
+    selected.addEventListener('error', onWorkerError);
+    selected.postMessage({
+      id, text, model, prepared, catalog: source.checksum,
+      passages: prepared ? [] : source.books.slice(source.manifest.books).map(passageText),
     });
   });
+}
+
+function warmSearch(): void {
+  window.clearTimeout(warmTimer);
+  const connection = (navigator as Navigator & {
+    connection?: { saveData?: boolean; effectiveType?: string };
+  }).connection;
+  if (connection?.saveData || (connection?.effectiveType && connection.effectiveType !== '4g') ||
+      !navigator.onLine || submit.disabled || query.value.trim().length < 3) return;
+  warmTimer = window.setTimeout(() => {
+    const model = modelSelect.value as ModelKey;
+    workerFor(model).postMessage({ type: 'warm', model });
+  }, 350);
 }
 
 function displaySummary(description: string): string {
@@ -136,6 +186,102 @@ function displaySummary(description: string): string {
   const lastSpace = excerpt.lastIndexOf(' ');
   return `${excerpt.slice(0, lastSpace > 250 ? lastSpace : 320).trim()}…`;
 }
+
+function savedBooks(): Book[] {
+  return (catalog?.books ?? []).filter(book => savedIds.has(book.id));
+}
+
+function citationControl(book: Book): HTMLElement {
+  const group = document.createElement('div');
+  group.className = 'citation-control';
+  const copy = document.createElement('button');
+  copy.type = 'button';
+  copy.className = 'secondary-button';
+  copy.textContent = 'Copy citation';
+  copy.setAttribute('aria-label', `Copy citation for ${book.title}`);
+  const feedback = document.createElement('span');
+  feedback.className = 'citation-feedback';
+  feedback.setAttribute('role', 'status');
+  copy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(citationText(book));
+      feedback.textContent = 'Citation copied';
+    } catch {
+      const previous = group.querySelector('textarea');
+      if (previous) {
+        previous.focus();
+        previous.select();
+        return;
+      }
+      const field = document.createElement('textarea');
+      field.readOnly = true;
+      field.rows = 2;
+      field.value = citationText(book);
+      field.setAttribute('aria-label', `Citation for ${book.title}`);
+      group.append(field);
+      field.focus();
+      field.select();
+      feedback.textContent = 'Citation selected for copying';
+    }
+  });
+  group.append(copy, feedback);
+  return group;
+}
+
+function toggleSaved(book: Book): void {
+  const removed = savedIds.delete(book.id);
+  if (!removed) savedIds.add(book.id);
+  const persisted = storeReadingList(savedIds);
+  renderReadingList();
+  for (const button of Array.from(list.querySelectorAll<HTMLButtonElement>('[data-save-book]'))) {
+    if (button.dataset.saveBook !== book.id) continue;
+    button.textContent = removed ? 'Save to reading list' : 'Saved';
+    button.setAttribute('aria-pressed', String(!removed));
+  }
+  readingStatus.textContent = persisted
+    ? `${removed ? 'Removed' : 'Saved'} ${book.title}`
+    : 'This browser cannot keep the reading list after you leave.';
+}
+
+function renderReadingList(): void {
+  const books = savedBooks();
+  savedCount.textContent = String(books.length);
+  readingEmpty.hidden = books.length > 0;
+  exportList.disabled = books.length === 0;
+  readingItems.replaceChildren(...books.map(book => {
+    const item = document.createElement('li');
+    const title = document.createElement('a');
+    title.href = bookAccess(book).url;
+    title.referrerPolicy = 'no-referrer';
+    title.textContent = book.title;
+    const remove = document.createElement('button');
+    remove.className = 'secondary-button';
+    remove.type = 'button';
+    remove.textContent = 'Remove';
+    remove.setAttribute('aria-label', `Remove ${book.title} from reading list`);
+    remove.addEventListener('click', () => {
+      toggleSaved(book);
+      readingItems.querySelector<HTMLButtonElement>('button')?.focus();
+      if (!readingItems.hasChildNodes()) byId<HTMLElement>('reading-list-title').focus();
+    });
+    const buttons = document.createElement('div');
+    buttons.className = 'reading-actions';
+    buttons.append(citationControl(book), remove);
+    item.append(title, buttons);
+    return item;
+  }));
+}
+
+exportList.addEventListener('click', () => {
+  const books = savedBooks();
+  if (!books.length) return;
+  const url = URL.createObjectURL(new Blob([readingListRis(books)], { type: 'application/x-research-info-systems' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'violet-library-reading-list.ris';
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(url), 30000);
+});
 
 function renderCard(hit: SearchHit): HTMLElement {
   const card = document.createElement('article');
@@ -194,6 +340,14 @@ function renderCard(hit: SearchHit): HTMLElement {
   const scoreValue = document.createElement('strong');
   scoreValue.textContent = `${displayRelevance(hit.relevance)} / 100`;
   score.append(scoreLabel, scoreValue);
+  const save = document.createElement('button');
+  save.className = 'secondary-button';
+  save.type = 'button';
+  save.dataset.saveBook = hit.book.id;
+  save.textContent = savedIds.has(hit.book.id) ? 'Saved' : 'Save to reading list';
+  save.setAttribute('aria-pressed', String(savedIds.has(hit.book.id)));
+  save.addEventListener('click', () => toggleSaved(hit.book));
+  actions.append(save, citationControl(hit.book));
   side.append(score, actions);
   card.append(content, side, createFeedbackWidget(hit.book.id, feedbackState(hit.book.id), feedbackContext));
   return card;
@@ -204,9 +358,10 @@ function renderHits(): void {
   listFeedback.replaceChildren(...(currentHits.length
     ? [createFeedbackWidget(null, feedbackState('whole-list'), feedbackContext)] : []));
   more.hidden = currentHits.length <= visibleCount;
-  const language = activeLanguage ? ` · ${languageName(activeLanguage)}` : '';
+  const refinements = [activeLanguage ? languageName(activeLanguage) : '', activeYear ? `Since ${activeYear}` : '',
+    activeFullText ? 'Direct full text' : ''].filter(Boolean).map(label => ` · ${label}`).join('');
   subtitle.textContent = currentHits.length
-    ? `Showing ${Math.min(visibleCount, currentHits.length)} recommendations${language}`
+    ? `Showing ${Math.min(visibleCount, currentHits.length)} recommendations${refinements}`
     : '';
   scoreHelp.hidden = !currentHits.length;
   scoreMethod.textContent = 'The model compares the meaning of your question and each book’s metadata using cosine similarity. Use the displayed score to compare results within the same search.';
@@ -237,6 +392,7 @@ async function search(): Promise<void> {
     setStatus('You are offline. Connect to load the selected model and book sample.', true);
     return;
   }
+  window.clearTimeout(warmTimer);
   const model = modelSelect.value as ModelKey;
   activeQuery = text;
   activeModel = model;
@@ -257,7 +413,8 @@ async function search(): Promise<void> {
     catalog ??= setCatalog(await loadCatalog());
     activeLanguage = languageSelect.value;
     activeFullText = fullTextOnly.checked;
-    searchIndex ??= buildSearchIndex(catalog.books);
+    activeYear = Number(publishedSince.value);
+    searchIndex ??= buildSearchIndex(catalog.books, false);
     const url = new URL(window.location.href);
     url.searchParams.set('q', text);
     url.searchParams.set('model', modelSelect.value);
@@ -266,16 +423,25 @@ async function search(): Promise<void> {
     else url.searchParams.delete('lang');
     if (activeFullText) url.searchParams.set('access', 'full');
     else url.searchParams.delete('access');
+    if (activeYear) url.searchParams.set('year', String(activeYear));
+    else url.searchParams.delete('year');
     history.replaceState(null, '', url);
-    if (!hasEligibleBooks(text, searchIndex, activeLanguage, activeFullText)) {
+    if (!hasEligibleBooks(text, searchIndex, activeLanguage, activeFullText, activeYear)) {
       modelLabel.textContent = 'Catalog coverage';
       renderHits();
       return;
     }
-    const [{ vector, supplement }, bookVectors] = await Promise.all([
-      embed(interpretQuery(text).embeddingText, model, catalog), loadVectors(model, catalog),
+    const source = catalog;
+    const bookVectors = loadVectors(model, source);
+    // Start the model and the catalog requests together.
+    workerFor(model).postMessage({ type: 'warm', model });
+    const prepared = loadPreparedSupplement(model, source);
+    const [baseVectors, precomputed, { vector, supplement }] = await Promise.all([
+      bookVectors, prepared,
+      prepared.then(vectors => embed(interpretQuery(text).embeddingText, model, source, vectors !== null)),
     ]);
-    const hits = rankBooks(text, vector, appendVectors(bookVectors, supplement), searchIndex, 'semantic', 0, activeLanguage, activeFullText);
+    const hits = rankBooks(text, vector, appendVectors(baseVectors, precomputed ?? supplement),
+      searchIndex, 'semantic', 0, activeLanguage, activeFullText, activeYear);
     currentHits = keepSemanticMatches(hits, text, model);
     visibleCount = 5;
     setStatus('');
@@ -294,7 +460,11 @@ async function search(): Promise<void> {
 }
 
 form.addEventListener('submit', event => { event.preventDefault(); void search(); });
-query.addEventListener('input', () => { count.textContent = `${query.value.length} / 500`; });
+query.addEventListener('input', () => {
+  count.textContent = `${query.value.length} / 500`;
+  warmSearch();
+});
+modelSelect.addEventListener('change', warmSearch);
 query.addEventListener('keydown', event => {
   if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
     event.preventDefault(); form.requestSubmit();
@@ -352,6 +522,10 @@ void loadCatalog().then(setCatalog).catch(() => {
 });
 
 fullTextOnly.checked = params.get('access') === 'full';
+const initialYear = params.get('year');
+if (initialYear && Array.from(publishedSince.options).some(option => option.value === initialYear)) {
+  publishedSince.value = initialYear;
+}
 const initialQuery = params.get('q');
 if (initialQuery) {
   query.value = initialQuery.slice(0, 500);

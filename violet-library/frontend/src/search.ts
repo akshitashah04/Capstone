@@ -33,6 +33,7 @@ interface IndexedBook {
   languages: string[];
   hasDescription: boolean;
   fullText: boolean;
+  year: number | null;
   metadata: string;
 }
 
@@ -42,20 +43,22 @@ export interface SearchIndex {
   frequency: Map<string, number>;
 }
 
-export function buildSearchIndex(books: Book[]): SearchIndex {
+export function buildSearchIndex(books: Book[], includeKeywords = true): SearchIndex {
   const frequency = new Map<string, number>();
   const terms = books.map(book => {
     const termWeights = new Map<string, number>();
-    for (const [text, weight] of [
-      [book.title, 3], [(book.aliases ?? []).join(' '), 3],
-      [book.subjects.join(' '), 2], [cleanDescription(book.description), 1],
-    ] as const) {
-      for (const term of tokens(text)) {
-        termWeights.set(term, (termWeights.get(term) ?? 0) + weight);
+    if (includeKeywords) {
+      for (const [text, weight] of [
+        [book.title, 3], [(book.aliases ?? []).join(' '), 3],
+        [book.subjects.join(' '), 2], [cleanDescription(book.description), 1],
+      ] as const) {
+        for (const term of tokens(text)) {
+          termWeights.set(term, (termWeights.get(term) ?? 0) + weight);
+        }
       }
-    }
-    for (const term of termWeights.keys()) {
-      frequency.set(term, (frequency.get(term) ?? 0) + 1);
+      for (const term of termWeights.keys()) {
+        frequency.set(term, (frequency.get(term) ?? 0) + 1);
+      }
     }
     return {
       terms: termWeights,
@@ -63,22 +66,24 @@ export function buildSearchIndex(books: Book[]): SearchIndex {
       languages: bookLanguages(book),
       hasDescription: Boolean(cleanDescription(book.description)),
       fullText: bookAccess(book).type !== 'record',
+      year: book.year,
       metadata: [book.title, ...(book.aliases ?? []), ...book.subjects, cleanDescription(book.description)].join('; '),
     };
   });
   return { books, terms, frequency };
 }
 
-function eligiblePositions(query: string, index: SearchIndex, language?: string, fullTextOnly = false): number[] {
+function eligiblePositions(query: string, index: SearchIndex, language?: string, fullTextOnly = false, minYear = 0): number[] {
   const intent = interpretQuery(query);
   return index.terms.flatMap((book, position) =>
     book.hasDescription && (!fullTextOnly || book.fullText) &&
+    (!minYear || (book.year !== null && book.year >= minYear)) &&
     (!language || book.languages.includes(language)) &&
     supportsQueryIntent(book.metadata, intent) ? [position] : []);
 }
 
-export function hasEligibleBooks(query: string, index: SearchIndex, language?: string, fullTextOnly = false): boolean {
-  return eligiblePositions(query, index, language, fullTextOnly).length > 0;
+export function hasEligibleBooks(query: string, index: SearchIndex, language?: string, fullTextOnly = false, minYear = 0): boolean {
+  return eligiblePositions(query, index, language, fullTextOnly, minYear).length > 0;
 }
 
 function keywordScores(query: string, index: SearchIndex, positions: number[]): Map<number, number> {
@@ -120,7 +125,7 @@ function searchHits(
 
 export function rankBooks(
   query: string, queryVector: Float32Array, vectors: Float32Array,
-  index: SearchIndex, mode: SearchMode, keywordWeight = 1, language?: string, fullTextOnly = false,
+  index: SearchIndex, mode: SearchMode, keywordWeight = 1, language?: string, fullTextOnly = false, minYear = 0,
 ): SearchHit[] {
   if (!query.trim()) throw new Error('Enter a question to search.');
   const dimensions = queryVector.length;
@@ -129,7 +134,7 @@ export function rankBooks(
   }
 
   const queryNorm = Math.sqrt(queryVector.reduce((sum, value) => sum + value ** 2, 0));
-  const positions = eligiblePositions(query, index, language, fullTextOnly);
+  const positions = eligiblePositions(query, index, language, fullTextOnly, minYear);
   const keywords = mode === 'hybrid' ? keywordScores(interpretQuery(query).embeddingText, index, positions) : new Map<number, number>();
   const strongestKeyword = Math.max(0, ...keywords.values());
   const bonusLimit = MAX_KEYWORD_BONUS * Math.min(2, Math.max(0, keywordWeight));
