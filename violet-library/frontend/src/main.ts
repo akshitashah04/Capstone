@@ -375,8 +375,9 @@ function renderHits(): void {
   more.hidden = currentHits.length <= visibleCount;
   const refinements = [activeLanguage ? languageName(activeLanguage) : '', activeYear ? `Since ${activeYear}` : '',
     activeFullText ? 'Direct full text' : ''].filter(Boolean).map(label => ` · ${label}`).join('');
-  subtitle.textContent = currentHits.length
-    ? `Showing ${Math.min(visibleCount, currentHits.length)} recommendations${refinements}`
+  const visibleResults = Math.min(visibleCount, currentHits.length);
+  subtitle.textContent = visibleResults
+    ? `Showing ${visibleResults} ${visibleResults === 1 ? 'result' : 'results'}${refinements}`
     : '';
   scoreHelp.hidden = !currentHits.length;
   scoreMethod.textContent = 'The model compares the meaning of your question and each book’s metadata using cosine similarity. Use the displayed score to compare results within the same search.';
