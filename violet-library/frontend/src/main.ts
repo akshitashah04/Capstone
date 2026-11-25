@@ -1,9 +1,9 @@
 import './style.css';
 import { loadCatalog, loadVectors } from './catalog';
 import { DEFAULT_MODEL, MODELS } from './model-config';
-import { buildSearchIndex, displayRelevance, hasEligibleBooks, rankBooks, rankKeywordBooks } from './search';
+import { buildSearchIndex, displayRelevance, hasEligibleBooks, keepSemanticMatches, rankBooks } from './search';
 import type { Catalog } from './catalog';
-import type { ModelKey, SearchHit, SearchMode } from './types';
+import type { ModelKey, SearchHit } from './types';
 import { appendVectors, passageText } from './passages';
 import { cleanDescription } from './book-text';
 import { interpretQuery } from './query-intent';
@@ -22,7 +22,6 @@ const form = byId<HTMLFormElement>('search-form');
 const query = byId<HTMLTextAreaElement>('query');
 const modelSelect = byId<HTMLSelectElement>('model');
 const languageSelect = byId<HTMLSelectElement>('language');
-const modeSelect = byId<HTMLSelectElement>('mode');
 const submit = byId<HTMLButtonElement>('search-button');
 const queryError = byId<HTMLParagraphElement>('query-error');
 const count = byId<HTMLSpanElement>('query-count');
@@ -46,8 +45,7 @@ let nextId = 1;
 let currentHits: SearchHit[] = [];
 let visibleCount = 5;
 let activeQuery = '';
-let activeModel: ModelKey | 'keyword-only' = DEFAULT_MODEL;
-let activeMode: SearchMode | 'keyword-only' = 'semantic';
+let activeModel: ModelKey = DEFAULT_MODEL;
 let activeLanguage = '';
 let feedbackStates = new Map<string, FeedbackState>();
 
@@ -56,7 +54,7 @@ function feedbackContext(): FeedbackContext {
   return {
     query: activeQuery,
     model: activeModel,
-    mode: activeMode,
+    mode: 'semantic',
     language: activeLanguage || undefined,
     release: import.meta.env.VITE_RELEASE_ID ?? 'local',
     catalogSha256: catalog.checksum,
@@ -82,7 +80,6 @@ function setStatus(message: string, error = false): void {
 function setBusy(busy: boolean): void {
   submit.disabled = busy;
   modelSelect.disabled = busy;
-  modeSelect.disabled = busy;
   languageSelect.disabled = busy;
   form.setAttribute('aria-busy', String(busy));
   submit.querySelector('span')!.textContent = busy ? 'Searching…' : 'Find books';
@@ -174,14 +171,12 @@ function renderCard(hit: SearchHit): HTMLElement {
   const itemType = hit.book.format?.toLowerCase() ?? 'book';
   link.textContent = `Read ${itemType}`;
   link.setAttribute('aria-label', `Read ${itemType}: ${hit.book.title} (opens in a new tab)`);
-  const keywordMode = activeMode === 'keyword-only';
   const score = document.createElement('div');
   score.className = 'book-score';
   const scoreLabel = document.createElement('span');
-  scoreLabel.textContent = keywordMode ? 'Keyword relevance' : 'Relevance';
+  scoreLabel.textContent = 'Relevance';
   const scoreValue = document.createElement('strong');
-  const topKeywordScore = keywordMode ? currentHits[0].relevance : undefined;
-  scoreValue.textContent = `${displayRelevance(hit.relevance, topKeywordScore)} / 100`;
+  scoreValue.textContent = `${displayRelevance(hit.relevance)} / 100`;
   score.append(scoreLabel, scoreValue);
   side.append(score, link);
   card.append(content, side, createFeedbackWidget(hit.book.id, feedbackState(hit.book.id), feedbackContext));
@@ -198,12 +193,7 @@ function renderHits(): void {
     ? `Showing ${Math.min(visibleCount, currentHits.length)} recommendations${language}`
     : '';
   scoreHelp.hidden = !currentHits.length;
-  if (activeMode === 'keyword-only') {
-    scoreMethod.textContent = 'This preview weights matched words by how rare they are and where they appear. The strongest keyword match in these results scores 100. Compare these scores within this search.';
-  } else {
-    const bonus = activeMode === 'hybrid' ? ' Key terms can add up to 2.5 points.' : '';
-    scoreMethod.textContent = `The model compares your question with each book’s metadata using cosine similarity. We scale the score from 0 to 100.${bonus} Use it to compare results within this search. It does not predict whether a book will meet your needs.`;
-  }
+  scoreMethod.textContent = 'The model compares the meaning of your question and each book’s metadata using cosine similarity. Use the displayed score to compare results within the same search.';
   if (!currentHits.length) {
     const intent = interpretQuery(activeQuery);
     const languageNameSuffix = activeLanguage ? ` in ${languageName(activeLanguage)}` : '';
@@ -211,7 +201,6 @@ function renderHits(): void {
       ? `No books in this catalog${languageNameSuffix} directly cover the requested U.S. student visa topic.`
       : `No matching books in this catalog${languageNameSuffix}. Try a different search or book language.`;
     setStatus(message);
-
   }
 }
 
@@ -231,10 +220,8 @@ async function search(): Promise<void> {
     return;
   }
   const model = modelSelect.value as ModelKey;
-  const mode = modeSelect.value as SearchMode;
   activeQuery = text;
   activeModel = model;
-  activeMode = mode;
   subtitle.textContent = '';
   scoreHelp.hidden = true;
   scoreHelp.open = false;
@@ -246,7 +233,7 @@ async function search(): Promise<void> {
   more.hidden = true;
   setBusy(true);
   setStatus(`Preparing ${MODELS[model].label}. First use may download about ${MODELS[model].downloadMb} MB.`);
-  modelLabel.textContent = `${MODELS[model].label} · ${mode === 'hybrid' ? 'Semantic + key terms' : 'Semantic search'}`;
+  modelLabel.textContent = `${MODELS[model].label} · Semantic search`;
   results.scrollIntoView({ behavior: 'smooth', block: 'start' });
   try {
     catalog ??= setCatalog(await loadCatalog());
@@ -255,7 +242,7 @@ async function search(): Promise<void> {
     const url = new URL(window.location.href);
     url.searchParams.set('q', text);
     url.searchParams.set('model', modelSelect.value);
-    url.searchParams.set('mode', mode);
+    url.searchParams.set('mode', 'semantic');
     if (activeLanguage) url.searchParams.set('lang', activeLanguage);
     else url.searchParams.delete('lang');
     history.replaceState(null, '', url);
@@ -267,7 +254,8 @@ async function search(): Promise<void> {
     const [{ vector, supplement }, bookVectors] = await Promise.all([
       embed(interpretQuery(text).embeddingText, model, catalog), loadVectors(model, catalog),
     ]);
-    currentHits = rankBooks(text, vector, appendVectors(bookVectors, supplement), searchIndex, mode, 1, activeLanguage);
+    const hits = rankBooks(text, vector, appendVectors(bookVectors, supplement), searchIndex, 'semantic', 0, activeLanguage);
+    currentHits = keepSemanticMatches(hits, text, model);
     visibleCount = 5;
     setStatus('');
     renderHits();
@@ -275,26 +263,10 @@ async function search(): Promise<void> {
     const message = error instanceof Error ? error.message : 'Search could not finish.';
     const downloadInterrupted = /network error|failed to fetch/i.test(message);
     const guidance = downloadInterrupted
-      ? 'A download was interrupted. Check your connection, then try again.'
+      ? 'A download was interrupted. Check your connection or try the smaller E5 Small semantic model.'
       : `Search could not finish: ${message} Try again or choose another model.`;
     setStatus(guidance, true);
-    if (downloadInterrupted && searchIndex) {
-      const preview = document.createElement('button');
-      preview.type = 'button';
-      preview.className = 'fallback-button';
-      preview.textContent = 'Show keyword-only preview';
-      preview.addEventListener('click', () => {
-        currentHits = rankKeywordBooks(text, searchIndex!, activeLanguage);
-        visibleCount = 5;
-        activeModel = 'keyword-only';
-        activeMode = 'keyword-only';
-        feedbackStates = new Map();
-        modelLabel.textContent = 'Keyword-only preview · model unavailable';
-        setStatus('');
-        renderHits();
-      });
-      status.append(preview);
-    }
+
   } finally {
     setBusy(false);
   }
@@ -365,5 +337,3 @@ if (initialQuery) {
 }
 const initialModel = params.get('model');
 if (initialModel && Array.from(modelSelect.options).some(option => option.value === initialModel)) modelSelect.value = initialModel;
-const initialMode = params.get('mode');
-if (initialMode === 'semantic' || initialMode === 'hybrid') modeSelect.value = initialMode;

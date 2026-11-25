@@ -62,5 +62,6 @@ jobs:
           demo="${PAGE_URL%/}/libraries"
           curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 5 "$demo/" -o violet-index.html
           grep -F 'Find open-access books' violet-index.html
+          grep -F 'For a required title or phrase, put it in quotation marks.' violet-index.html
           curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/data/manifest.json" -o violet-data.json
           node -e 'const m=require("./violet-data.json"); if (!m.catalog_sha256 || m.catalog_sha256 !== process.env.CATALOG_SHA) process.exit(1)'

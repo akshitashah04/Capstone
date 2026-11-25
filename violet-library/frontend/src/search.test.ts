@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildSearchIndex, displayRelevance, hasEligibleBooks, rankBooks, rankKeywordBooks, tokens } from './search';
+import { buildSearchIndex, displayRelevance, hasEligibleBooks, keepSemanticMatches, rankBooks, rankKeywordBooks, tokens } from './search';
 import type { Book } from './types';
 import { cleanDescription } from './book-text';
 import base from '../public/data/catalog.json';
@@ -120,6 +120,29 @@ describe('browser ranking', () => {
       expect(hits.map(hit => hit.book.id)).toEqual(expected);
     }
     expect(hasEligibleBooks(query, index, 'hi')).toBe(false);
+  });
+
+  it('withholds generic books when the requested product manual is missing', () => {
+    const index = buildSearchIndex([
+      book('water', 'Water Treatment Engineering', 'A reference on pumps and water supplies'),
+      book('toyota', 'Toyota Corolla Workshop Manual', 'Toyota Corolla repair and parts'),
+    ]);
+    const query = 'I need a repair manual for the 2017 Toyota Corolla water pump.';
+    expect(rankBooks(query, new Float32Array([1, 0]), new Float32Array([1, 0, 0.6, 0.8]),
+      index, 'semantic').map(hit => hit.book.id)).toEqual(['toyota']);
+    expect(hasEligibleBooks(query, buildSearchIndex([index.books[0]]))).toBe(false);
+  });
+
+  it('drops the weaker GTE cluster while keeping direct matches on constrained queries', () => {
+    const index = buildSearchIndex([
+      book('a', 'First', 'A description'), book('b', 'Second', 'A different description'),
+      book('c', 'Third', 'Another description'),
+    ]);
+    const hits = rankBooks('cars', new Float32Array([1, 0]),
+      new Float32Array([1, 0, 0.98, 0.2, 0.6, 0.8]), index, 'semantic');
+    expect(keepSemanticMatches(hits, 'cars', 'gte-base').map(hit => hit.book.id)).toEqual(['a', 'b']);
+    expect(keepSemanticMatches(hits, 'cars', 'e5-small')).toEqual(hits);
+    expect(keepSemanticMatches(hits, 'F-1 visa', 'gte-base')).toEqual(hits);
   });
 
   it('uses key terms to resolve a close semantic match', () => {

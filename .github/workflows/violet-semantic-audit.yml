@@ -2,7 +2,11 @@ name: Violet Library semantic audit
 
 on:
   push:
-    branches: [violet-semantic-audit]
+    branches: [main, violet-semantic-audit]
+    paths:
+      - '.github/workflows/violet-semantic-audit.yml'
+      - 'violet-library/frontend/**'
+      - 'violet-library/evaluation/queries/browser-semantic-audit.json'
   workflow_dispatch:
 
 permissions:
@@ -20,4 +24,8 @@ jobs:
         with:
           node-version: 22
       - run: npm ci --prefix violet-library/frontend --ignore-scripts
+      - uses: actions/cache@v4
+        with:
+          path: /tmp/violet-library-audit-models
+          key: violet-browser-models-${{ runner.os }}-${{ hashFiles('violet-library/frontend/src/model-config.ts') }}
       - run: node violet-library/frontend/scripts/semantic-audit.mjs

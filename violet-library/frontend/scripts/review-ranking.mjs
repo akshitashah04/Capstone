@@ -2,9 +2,9 @@ import { createHash } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { createServer } from 'vite';
 
-const WEIGHTS = [0, 0.5, 1, 1.5, 2];
-const BASELINE = 0;
-const RANKER = 'semantic-cosine-intent-v2';
+const WEIGHTS = [0, 0.25, 0.5, 0.75, 1];
+const BASELINE = 0.25;
+const RANKER = 'semantic-query-focus-v3';
 const MODEL = 'gte-base';
 const root = new URL('../public/data/', import.meta.url);
 const digest = data => createHash('sha256').update(data).digest('hex');
@@ -58,8 +58,8 @@ async function generatePool(queries) {
   });
   try {
     // Vite loads the same TypeScript functions and ranker used by the browser.
-    const files = ['catalog', 'embedding', 'passages', 'search', 'book-text', 'languages', 'query-intent'];
-    const [codec, embedding, passages, search, bookText, languages, intent] = await Promise.all(
+    const files = ['catalog', 'embedding', 'passages', 'search', 'book-text', 'languages', 'query-intent', 'semantic-query'];
+    const [codec, embedding, passages, search, bookText, languages, intent, semantic] = await Promise.all(
       files.map(name => vite.ssrLoadModule(new URL(`../src/${name}.ts`, import.meta.url).pathname)),
     );
     const [rawBase, rawSupplement, rawVectors] = await Promise.all([
@@ -90,11 +90,15 @@ async function generatePool(queries) {
         if (language && !supportedLanguages.has(language)) {
           throw new Error(`Unsupported book language for ${id}.`);
         }
-        const vector = await encoder.encode([intent.interpretQuery(query).embeddingText], 'query');
-        const ranks = Object.fromEntries(WEIGHTS.map(weight => [
-          weight, search.rankBooks(query, vector, vectors, index, weight === BASELINE ? 'semantic' : 'hybrid', weight, language)
-            .slice(0, 5).map(hit => hit.book.id),
-        ]));
+        const original = intent.interpretQuery(query).embeddingText;
+        const focus = semantic.focusedQuery(original);
+        const originalVector = await encoder.encode([original], 'query');
+        const focusedVector = original === focus ? originalVector : await encoder.encode([focus], 'query');
+        const ranks = Object.fromEntries(WEIGHTS.map(weight => {
+          const vector = semantic.blendQueryVectors(originalVector, focusedVector, weight);
+          const hits = search.rankBooks(query, vector, vectors, index, 'semantic', 0, language);
+          return [weight, search.keepSemanticMatches(hits, query, MODEL).slice(0, 5).map(hit => hit.book.id)];
+        }));
         // A blinded review copy can use this sorted union without the ranks.
         const bookIds = [...new Set(Object.values(ranks).flat())].sort();
         rows.push({
@@ -148,7 +152,7 @@ function scorePool(pool) {
   const holdout = pool.queries.filter(row => row.split === 'holdout');
   const development = WEIGHTS.map(weight => ({ weight, ...metrics(dev, weight) }));
   const candidate = [...development].sort((a, b) => b.clearFits - a.clearFits ||
-    b.ndcgAt5 - a.ndcgAt5 || a.weight - b.weight)[0].weight;
+    b.ndcgAt5 - a.ndcgAt5 || Math.abs(a.weight - BASELINE) - Math.abs(b.weight - BASELINE))[0].weight;
   const baseline = metrics(holdout, BASELINE);
   const proposed = metrics(holdout, candidate);
   const passesHoldout = candidate !== BASELINE && holdout.length >= 50 &&

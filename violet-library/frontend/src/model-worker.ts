@@ -3,6 +3,7 @@
 import { env } from '@huggingface/transformers';
 import { encodeCatalogPassages, loadEncoder } from './embedding';
 import { MODELS } from './model-config';
+import { encodeSemanticQuery } from './semantic-query';
 import type { ModelKey } from './types';
 
 env.allowLocalModels = false;
@@ -78,7 +79,7 @@ self.addEventListener('message', async (event: MessageEvent<EncodeRequest>) => {
       activeSupplement = { catalog, vectors: await loadSupplement(activeEncoder, event.data) };
     }
     self.postMessage({ type: 'progress', id, message: 'Understanding your question…' });
-    const vector = await activeEncoder.encode([text], 'query');
+    const vector = await encodeSemanticQuery(activeEncoder, text, model);
     const supplement = activeSupplement.vectors.slice();
     self.postMessage({ type: 'embedding', id, vector, supplement }, [vector.buffer, supplement.buffer]);
   } catch (error) {

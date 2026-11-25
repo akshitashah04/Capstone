@@ -33,13 +33,14 @@ try {
   env.cacheDir = '/tmp/violet-library-audit-models';
   console.log(`Loading ${model}`);
   encoder = await embeddings.loadEncoder(model);
-  const baseVectors = new Uint8Array(await readFile(new URL(`${model}.f16`, dir))).buffer;
+  const rawVectors = await readFile(new URL(`${model}.f16`, dir));
+  const baseVectors = rawVectors.buffer.slice(rawVectors.byteOffset, rawVectors.byteOffset + rawVectors.byteLength);
   const extra = await embeddings.encodeCatalogPassages(
     encoder, supplement.map(passage.passageText), manifest.models[model].dimensions,
   );
   const vectors = passage.appendVectors(catalog.decodeHalfVectors(baseVectors), extra);
   const index = search.buildSearchIndex(books);
-  const variants = [0, 0.25, 0.5, 0.75, 1];
+  const variants = model === 'gte-base' ? [0, 0.25, 0.5, 0.75, 1] : [0];
   const predicted = [];
   for (const row of queries) {
     const original = intent.interpretQuery(row.query).embeddingText;
@@ -75,6 +76,8 @@ try {
     id, split, ...rankings[variants.indexOf(selected)],
   }));
   console.log(JSON.stringify({ model, selected, scores, passed: output.filter(row => row.pass).length, output }));
+  if (model === 'gte-base') assert.equal(selected, queryTools.GTE_FOCUS_WEIGHT);
+  assert.ok(output.every(row => row.pass), 'At least one semantic regression case failed.');
 
 } finally {
   await encoder?.dispose();

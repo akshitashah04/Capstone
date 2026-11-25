@@ -14,7 +14,7 @@ The Capstone Pages workflow compiles the demo into its deployment artifact and c
 
 ## Relevance score
 
-Semantic search computes cosine similarity between the question and each book's metadata embedding. It displays the resulting score multiplied by 100, with values below 0 or above 100 capped at those bounds. Semantic + key terms adds a keyword bonus of up to 2.5 points before display. The keyword-only fallback displays its weighted term score relative to the highest result from that search. All modes rank before display rounding. Compare scores within the same search and model.
+Semantic search computes cosine similarity between the question and each book's metadata embedding. It displays the resulting score multiplied by 100, with values below 0 or above 100 capped at those bounds. Ranking runs before display rounding. Compare scores within the same search and model.
 
 For a specific U.S. student-visa request, the search expands paraphrases and checks whether catalog metadata actually covers the requested visa or academic-student context. The same check applies in the keyword preview. When the chosen book language has no direct match, the interface reports the coverage gap. Ordinary topics continue to be ranked by the selected language model.
 
@@ -25,3 +25,11 @@ The demo indexes six freely readable publications on U.S. student visas, includi
 ## Broader open textbook coverage
 
 The catalog includes 52 OpenStax textbooks across computing, business, economics, social science, humanities, mathematics, science, nursing, and study skills. Book links open the free full-text editions on the publisher’s site, including a Spanish statistics textbook. The collection also includes two additional Chinese books from Project Gutenberg and two Hindi novels from Wikisource. Book descriptions in the demo are original summaries. The browser generates supplemental vectors in small batches and caches them for the current catalog and model revision.
+
+## Semantic relevance audit
+
+The demo always searches by meaning. If the selected language model cannot load, the page asks the visitor to retry or choose another semantic model. GTE Base combines the embedding of the full request (75%) with one that removes request wording (25%). Exact titles, specific visa classes, and identified repair manuals require evidence in the catalog. On broad GTE searches the result list stops at a gap of eight cosine points or more. The gap is a heuristic and is not a calibrated confidence threshold.
+
+The ten-query diagnostic is in [browser-semantic-audit.json](evaluation/queries/browser-semantic-audit.json). The [initial real-model run](https://github.com/akshitashah04/Capstone/actions/runs/45553402496) passed 9 of 10 cases, counting an expected empty result as a pass. The [tuned run](https://github.com/akshitashah04/Capstone/actions/runs/45553612143) passed 10 of 10. It put the target first on eight answerable requests and returned no book for the other two. The focus weight was selected on six labeled cases by summed reciprocal rank. The remaining four cases checked the changes, including the repair-manual regression. This is a small targeted audit, not a general search-quality estimate.
+
+To rerun the diagnostic, install the frontend dependencies and run `node violet-library/frontend/scripts/semantic-audit.mjs`. Private feedback review can use `review-ranking.mjs` to compare semantic focus weights using human grades and an independent holdout. Live ratings do not change the model or ranking on submission.
