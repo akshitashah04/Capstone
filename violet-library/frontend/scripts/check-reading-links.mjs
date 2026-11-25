@@ -6,7 +6,8 @@ const root = new URL('../public/data/', import.meta.url);
 const read = async name => JSON.parse(await readFile(new URL(name, root)));
 const books = [...await read('catalog.json'), ...await read('multilingual.json')];
 const ids = ['3907773b-6336-4d2c-9a7b-3b4a377f22a9', 'openstax-us-history',
-  'gutenberg-13842', 'gutenberg-64572', 'nyupress-9781479800575', 'nyupress-9781479891672'];
+  'gutenberg-13842', 'gutenberg-64572', 'nyupress-9781479800575', 'nyupress-9781479891672',
+  'gutenberg-14594', 'gutenberg-69812'];
 const vite = await createServer({
   configFile: false, root: new URL('..', import.meta.url).pathname,
   server: { middlewareMode: true, ws: false },

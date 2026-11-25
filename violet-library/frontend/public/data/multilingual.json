@@ -1494,5 +1494,51 @@
     "access": "pdf",
     "sourceUrl": "https://opensquare.nyupress.org/books/9781479891672/",
     "description": "A historical geography of lesbian and queer life in New York City. Gieseking follows changing neighborhoods, community spaces, and urban development through maps and oral histories."
+  },
+  {
+    "id": "gutenberg-14594",
+    "title": "Cassell’s Vegetarian Cookery",
+    "aliases": [
+      "Cassell’s Vegetarian Cookery: A Manual of Cheap and Wholesome Diet"
+    ],
+    "authors": [
+      "A. G. Payne"
+    ],
+    "publisher": "Project Gutenberg",
+    "subjects": [
+      "Vegetarian cooking",
+      "Meat-free recipes",
+      "Cookbooks"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://www.gutenberg.org/cache/epub/14594/pg14594-images.html",
+    "description": "A historical vegetarian cookbook with practical meat-free recipes for soups, vegetables, beans, grains, and desserts, with suggestions for inexpensive meals.",
+    "format": "Book",
+    "access": "web"
+  },
+  {
+    "id": "gutenberg-69812",
+    "title": "Practical Vegetarian Cookery",
+    "authors": [
+      "Kate Buffington Davis",
+      "Constance Wachtmeister"
+    ],
+    "publisher": "Project Gutenberg",
+    "subjects": [
+      "Vegetarian cooking",
+      "Meat-free recipes",
+      "Cookbooks"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": 1897,
+    "url": "https://www.gutenberg.org/cache/epub/69812/pg69812-images.html",
+    "description": "A historical cookbook of vegetarian recipes for everyday meals, covering vegetable dishes, soups, grains, breads, sauces, and desserts.",
+    "format": "Book",
+    "access": "web"
   }
 ]

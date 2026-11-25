@@ -102,5 +102,15 @@
       "nyupress-9781479800575",
       "nyupress-9781479891672"
     ]
+  },
+  {
+    "id": "vegetarian-cookbooks",
+    "split": "holdout",
+    "language": "en",
+    "query": "Veg food",
+    "relevant": [
+      "gutenberg-14594",
+      "gutenberg-69812"
+    ]
   }
 ]

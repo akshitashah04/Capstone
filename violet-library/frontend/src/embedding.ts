@@ -2,11 +2,12 @@ import { pipeline } from '@huggingface/transformers';
 import { MODELS } from './model-config';
 import type { ModelKey } from './types';
 
-export async function loadEncoder(model: ModelKey, progress?: () => void) {
+export async function loadEncoder(model: ModelKey, progress?: () => void, device?: 'wasm') {
   const config = MODELS[model];
   const extractor = await pipeline('feature-extraction', config.repo, {
     revision: config.revision,
     dtype: 'q8',
+    device,
     progress_callback: event => {
       if (event.status === 'progress') progress?.();
     },

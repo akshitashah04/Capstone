@@ -1,6 +1,6 @@
 import './style.css';
 import { loadCatalog, loadPreparedSupplement, loadVectors } from './catalog';
-import { DEFAULT_MODEL, MODELS } from './model-config';
+import { COMPACT_MODEL, DEFAULT_MODEL, MODELS, needsCompactModel, selectSearchModel } from './model-config';
 import { buildSearchIndex, displayRelevance, hasEligibleBooks, keepSemanticMatches, rankBooks } from './search';
 import type { Catalog } from './catalog';
 import type { Book, ModelKey, SearchHit } from './types';
@@ -46,6 +46,8 @@ const more = byId<HTMLButtonElement>('more-button');
 const listFeedback = byId<HTMLDivElement>('list-feedback');
 const voice = byId<HTMLButtonElement>('voice-button');
 const params = new URLSearchParams(window.location.search);
+const compactSearch = needsCompactModel(navigator);
+const modelInactivityMs = 60_000;
 
 let catalog: Catalog | null = null;
 let searchIndex: ReturnType<typeof buildSearchIndex> | null = null;
@@ -87,7 +89,7 @@ function feedbackState(key: string): FeedbackState {
 
 function setStatus(message: string, error = false): void {
   status.hidden = !message;
-  status.textContent = message;
+  if (status.textContent !== message) status.textContent = message;
   status.classList.toggle('error', error);
 }
 
@@ -137,19 +139,30 @@ function embed(text: string, model: ModelKey, source: Catalog, prepared: boolean
   const selected = workerFor(model);
   const id = nextId++;
   return new Promise((resolve, reject) => {
+    let timer: number;
     const clean = () => {
+      window.clearTimeout(timer);
       selected.removeEventListener('message', onMessage);
       selected.removeEventListener('error', onWorkerError);
+      selected.removeEventListener('messageerror', onWorkerError);
     };
-    const onWorkerError = () => {
+    const fail = (message: string) => {
       clean();
-      worker = null;
+      if (worker === selected) worker = null;
       selected.terminate();
-      reject(new Error('The semantic model could not start.'));
+      reject(new Error(message));
+    };
+    const onWorkerError = () => fail('The semantic model stopped unexpectedly.');
+    const waitForProgress = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => fail('The semantic model stopped responding.'), modelInactivityMs);
     };
     const onMessage = (event: MessageEvent) => {
       if (event.data?.id !== id) return;
-      if (event.data.type === 'progress') setStatus(event.data.message);
+      if (event.data.type === 'progress') {
+        waitForProgress();
+        setStatus(event.data.message);
+      }
       if (event.data.type === 'embedding' || event.data.type === 'error') {
         clean();
         if (event.data.type === 'embedding') resolve({ vector: event.data.vector, supplement: event.data.supplement });
@@ -158,6 +171,8 @@ function embed(text: string, model: ModelKey, source: Catalog, prepared: boolean
     };
     selected.addEventListener('message', onMessage);
     selected.addEventListener('error', onWorkerError);
+    selected.addEventListener('messageerror', onWorkerError);
+    waitForProgress();
     selected.postMessage({
       id, text, model, prepared, catalog: source.checksum,
       passages: prepared ? [] : source.books.slice(source.manifest.books).map(passageText),
@@ -167,13 +182,14 @@ function embed(text: string, model: ModelKey, source: Catalog, prepared: boolean
 
 function warmSearch(): void {
   window.clearTimeout(warmTimer);
+  if (compactSearch) return;
   const connection = (navigator as Navigator & {
     connection?: { saveData?: boolean; effectiveType?: string };
   }).connection;
   if (connection?.saveData || (connection?.effectiveType && connection.effectiveType !== '4g') ||
       !navigator.onLine || submit.disabled || query.value.trim().length < 3) return;
   warmTimer = window.setTimeout(() => {
-    const model = modelSelect.value as ModelKey;
+    const model = selectSearchModel(modelSelect.value, compactSearch);
     workerFor(model).postMessage({ type: 'warm', model });
   }, 350);
 }
@@ -393,7 +409,7 @@ async function search(): Promise<void> {
     return;
   }
   window.clearTimeout(warmTimer);
-  const model = modelSelect.value as ModelKey;
+  const model = selectSearchModel(modelSelect.value, compactSearch);
   activeQuery = text;
   activeModel = model;
   subtitle.textContent = '';
@@ -417,7 +433,7 @@ async function search(): Promise<void> {
     searchIndex ??= buildSearchIndex(catalog.books, false);
     const url = new URL(window.location.href);
     url.searchParams.set('q', text);
-    url.searchParams.set('model', modelSelect.value);
+    url.searchParams.set('model', model);
     url.searchParams.set('mode', 'semantic');
     if (activeLanguage) url.searchParams.set('lang', activeLanguage);
     else url.searchParams.delete('lang');
@@ -433,8 +449,8 @@ async function search(): Promise<void> {
     }
     const source = catalog;
     const bookVectors = loadVectors(model, source);
-    // Start the model and the catalog requests together.
-    workerFor(model).postMessage({ type: 'warm', model });
+    // Desktop can overlap model warmup with the catalog. Compact search starts one load with progress reporting.
+    if (!compactSearch) workerFor(model).postMessage({ type: 'warm', model });
     const prepared = loadPreparedSupplement(model, source);
     const [baseVectors, precomputed, { vector, supplement }] = await Promise.all([
       bookVectors, prepared,
@@ -449,9 +465,10 @@ async function search(): Promise<void> {
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Search could not finish.';
     const downloadInterrupted = /network error|failed to fetch/i.test(message);
+    const retry = compactSearch ? 'Tap Find books to retry.' : 'Try again or choose another model.';
     const guidance = downloadInterrupted
-      ? 'A download was interrupted. Check your connection or try the smaller E5 Small semantic model.'
-      : `Search could not finish: ${message} Try again or choose another model.`;
+      ? `A download was interrupted. Check your connection. ${retry}`
+      : `Search could not finish. ${message} ${retry}`;
     setStatus(guidance, true);
 
   } finally {
@@ -526,10 +543,15 @@ const initialYear = params.get('year');
 if (initialYear && Array.from(publishedSince.options).some(option => option.value === initialYear)) {
   publishedSince.value = initialYear;
 }
+modelSelect.value = selectSearchModel(params.get('model'), compactSearch);
+if (compactSearch) {
+  for (const option of Array.from(modelSelect.options)) {
+    if (option.value === COMPACT_MODEL) option.textContent = 'E5 Small (mobile semantic search)';
+    else option.disabled = true;
+  }
+}
 const initialQuery = params.get('q');
 if (initialQuery) {
   query.value = initialQuery.slice(0, 500);
   query.dispatchEvent(new Event('input'));
 }
-const initialModel = params.get('model');
-if (initialModel && Array.from(modelSelect.options).some(option => option.value === initialModel)) modelSelect.value = initialModel;

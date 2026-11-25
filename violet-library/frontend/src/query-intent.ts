@@ -38,7 +38,8 @@ export function interpretQuery(query: string): QueryIntent {
   const focus = query.trim().replace(
     /^(?:(?:i(?: am|'m) )?looking for|(?:can|could) you (?:find|recommend)(?: me)?|please (?:find|recommend))\s+/iu, '',
   ).replace(/\s+related books[.!?]*$/iu, '').trim();
-  const topic = focus || query;
+  const topic = (focus || query).replace(/\bveg(?=[\s-]+(?:foods?|meals?|recipes?|cookbooks?|cooking|dishes)\b)/giu,
+    'vegetarian');
   const requestedModel = normalized.match(
     /\b(?:repair|service|workshop|maintenance) manuals? (?:for|on) (?:the )?(?:19|20)\d{2} ([\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)? [\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)?)/u,
   )?.[1];

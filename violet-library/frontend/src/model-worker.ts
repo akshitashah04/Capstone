@@ -1,6 +1,7 @@
 /// <reference lib="webworker" />
 
 import { env } from '@huggingface/transformers';
+import wasmUrl from 'onnxruntime-web/ort-wasm-simd-threaded.wasm?url';
 import { encodeCatalogPassages, loadEncoder } from './embedding';
 import { MODELS } from './model-config';
 import { encodeSemanticQuery } from './semantic-query';
@@ -8,14 +9,17 @@ import type { ModelKey } from './types';
 
 env.allowLocalModels = false;
 env.useBrowserCache = true;
-if (env.backends.onnx.wasm) env.backends.onnx.wasm.numThreads = 1;
+if (env.backends.onnx.wasm) {
+  env.backends.onnx.wasm.numThreads = 1;
+  env.backends.onnx.wasm.wasmPaths = { wasm: new URL(wasmUrl, self.location.origin).href };
+}
 
 let encoderPromise: ReturnType<typeof loadEncoder> | null = null;
 let activeSupplement: { catalog: string; vectors: Float32Array } | null = null;
 let lastQuery: { text: string; vector: Float32Array } | null = null;
 
 function encoderFor(model: ModelKey, onDownload?: () => void) {
-  encoderPromise ??= loadEncoder(model, onDownload).catch(error => {
+  encoderPromise ??= loadEncoder(model, onDownload, 'wasm').catch(error => {
     encoderPromise = null;
     throw error;
   });
@@ -73,10 +77,7 @@ self.addEventListener('message', async (event: MessageEvent<EncodeRequest | { mo
   const { label } = MODELS[model];
   try {
     self.postMessage({ type: 'progress', id, message: `Preparing ${label} search…` });
-    let downloadNoticeSent = false;
     const encoder = await encoderFor(model, () => {
-      if (downloadNoticeSent) return;
-      downloadNoticeSent = true;
       self.postMessage({ type: 'progress', id, message: `Downloading the ${label} model for first use…` });
     });
     if (!prepared && activeSupplement?.catalog !== catalog) {

@@ -11,6 +11,20 @@ export interface BrowserModel {
 }
 
 export const DEFAULT_MODEL: ModelKey = 'gte-base';
+export const COMPACT_MODEL: ModelKey = 'e5-small';
+
+export function needsCompactModel(device: Pick<Navigator, 'userAgent' | 'platform' | 'maxTouchPoints'> & {
+  deviceMemory?: number;
+}): boolean {
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(device.userAgent) ||
+    (device.platform === 'MacIntel' && device.maxTouchPoints > 1) ||
+    (typeof device.deviceMemory === 'number' && device.deviceMemory <= 4);
+}
+
+export function selectSearchModel(requested: string | null, compact: boolean): ModelKey {
+  if (compact) return COMPACT_MODEL;
+  return requested && Object.hasOwn(MODELS, requested) ? requested as ModelKey : DEFAULT_MODEL;
+}
 
 export const MODELS: Record<ModelKey, BrowserModel> = {
   'e5-small': {

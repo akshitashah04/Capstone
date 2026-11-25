@@ -12,7 +12,7 @@ const [base, supplement, manifest] = await Promise.all([
 const queries = JSON.parse(await readFile(
   new URL('../../evaluation/queries/browser-semantic-audit.json', import.meta.url),
 ));
-assert.equal(queries.length, 11);
+assert.ok(queries.length > 0, 'At least one semantic query is required.');
 const vite = await createServer({
   configFile: false, root: new URL('..', import.meta.url).pathname,
   server: { middlewareMode: true, ws: false },

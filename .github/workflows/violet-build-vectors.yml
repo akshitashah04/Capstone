@@ -5,6 +5,7 @@ on:
     branches: [violet-library-performance]
     paths:
       - '.github/workflows/violet-build-vectors.yml'
+      - 'violet-library/frontend/public/data/multilingual.json'
   workflow_dispatch:
 
 permissions:
@@ -43,3 +44,9 @@ jobs:
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Store precomputed supplemental embeddings'
           git push origin HEAD:violet-library-performance
+      - name: Run the mobile search in WebKit
+        run: |
+          npm ci
+          npx playwright install --with-deps webkit
+          npm run build --prefix violet-library/frontend
+          node scripts/check-violet-mobile.mjs
