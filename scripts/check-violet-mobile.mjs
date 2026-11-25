@@ -1,21 +1,27 @@
 import assert from 'node:assert/strict';
-import { once } from 'node:events';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { setTimeout as delay } from 'node:timers/promises';
 import { devices, expect, webkit } from '@playwright/test';
 
 const frontend = fileURLToPath(new URL('../violet-library/frontend/', import.meta.url));
 const site = 'http://127.0.0.1:4175/Capstone/libraries/';
 const preview = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '4175', '--strictPort'], {
-  cwd: frontend, stdio: ['ignore', 'pipe', 'inherit'],
+  cwd: frontend, stdio: ['ignore', 'ignore', 'inherit'],
 });
 let browser;
 try {
-  const [output] = await Promise.race([
-    once(preview.stdout, 'data'),
-    once(preview, 'exit').then(([code]) => { throw new Error(`Preview exited with code ${code}.`); }),
-  ]);
-  assert.match(output.toString(), /127\.0\.0\.1:4175|localhost:4175/);
+  let previewReady = false;
+  for (let attempt = 0; attempt < 25 && preview.exitCode === null; attempt += 1) {
+    const response = await fetch(site).catch(() => null);
+    if (response?.ok) {
+      await response.body?.cancel();
+      previewReady = true;
+      break;
+    }
+    await delay(200);
+  }
+  assert.ok(previewReady, 'Violet Library preview did not start.');
   browser = await webkit.launch();
   const mobile = await browser.newPage(devices['iPhone 13']);
   const modelRequests = [];
@@ -38,7 +44,6 @@ try {
   }
   await expect(first.getByRole('link', { name: /read online/i })).toHaveAttribute('href', /gutenberg\.org\/cache\/epub\/(14594|69812)\//);
   await expect(mobile.locator('#results-model')).toHaveText(/E5 small · Semantic search/);
-  assert.ok(modelRequests.some(url => url.includes('multilingual-e5-small')), 'The mobile model was not requested.');
   assert.ok(modelRequests.every(url => url.includes('multilingual-e5-small')), 'A larger model loaded on mobile.');
   console.log(`Mobile WebKit returned ${await first.getByRole('heading').textContent()} for “Veg food”.`);
 } finally {

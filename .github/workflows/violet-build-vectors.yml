@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/violet-build-vectors.yml'
       - 'violet-library/frontend/public/data/multilingual.json'
+      - 'scripts/check-violet-mobile.mjs'
   workflow_dispatch:
 
 permissions:
