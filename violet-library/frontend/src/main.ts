@@ -183,8 +183,8 @@ function renderCard(hit: SearchHit): HTMLElement {
     source.className = 'book-source';
     source.href = access.sourceUrl;
     source.referrerPolicy = 'no-referrer';
-    source.textContent = 'Publisher page';
-    source.setAttribute('aria-label', `Publisher page: ${hit.book.title}`);
+    source.textContent = 'Source page';
+    source.setAttribute('aria-label', `Source page: ${hit.book.title}`);
     actions.append(source);
   }
   const score = document.createElement('div');

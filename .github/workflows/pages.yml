@@ -64,4 +64,9 @@ jobs:
           grep -F 'Find open-access books' violet-index.html
           grep -F 'For a required title or phrase, put it in quotation marks.' violet-index.html
           curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/data/manifest.json" -o violet-data.json
+          grep -F 'Direct full text only' violet-index.html
+          curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/reading/manhattan/13842-h.htm" -o manhattan.html
+          grep -i -m 1 'the story of manhattan' manhattan.html
+          curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/reading/new-york-metropolis/64572-h.htm" -o metropolis.html
+          grep -i -m 1 'The Project Gutenberg eBook of New York, by Peter Marcus' metropolis.html
           node -e 'const m=require("./violet-data.json"); if (!m.catalog_sha256 || m.catalog_sha256 !== process.env.CATALOG_SHA) process.exit(1)'

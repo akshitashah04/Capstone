@@ -19,8 +19,8 @@
       "sha256": "e9f0d5ce455dd82bcea76cd937bac500b0541bbf31034943eec16b055435c2f9"
     },
     "multilingual.json": {
-      "bytes": 44997,
-      "sha256": "dfe3b6e32c4d37d5b8d5a56c0c7daaeabde1da41832234125567269547bf1130"
+      "bytes": 45229,
+      "sha256": "60e5893e8da0f1da2712196e08d69924816047897c3a789518eae4f2418321ac"
     }
   },
   "models": {
@@ -45,5 +45,5 @@
   "source_revision": "daba70f6e6de9f7a5c9a1f830fd255415c6d6bb7",
   "vector_encoding": "float16-le-row-major",
   "supplemental_books": 73,
-  "catalog_sha256": "81cc9d81ee274a9c4dfc74a6ed504e8814da74c0203059d4127a375692b6b480"
+  "catalog_sha256": "5caa6f9e3c2d2fcf439755bcac628872c70af17a2fee245decd8040e5bc11144"
 }

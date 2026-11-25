@@ -4,7 +4,7 @@ import { CATALOG_SHA256 } from '../worker/known-books.js';
 
 const endpoint = new URL('/v1/feedback', process.env.FEEDBACK_API_URL);
 const origin = 'https://akshitashah04.github.io';
-const bookId = 'openstax-introduction-python-programming';
+const bookId = 'gutenberg-13842';
 const submissionId = randomUUID();
 
 const preflight = await fetch(endpoint, {
@@ -22,7 +22,7 @@ const saved = await fetch(endpoint, {
   method: 'POST',
   headers: { Origin: origin, 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    submissionId, query: 'Synthetic deployment check for an open Python textbook',
+    submissionId, query: 'Synthetic deployment check for a New York City history book',
     results: [{ bookId, rank: 1 }], targetBookId: bookId,
     rating: 'useful', model: 'gte-base', mode: 'semantic', language: 'en',
     release: 'deployment-smoke-test', catalogSha256: CATALOG_SHA256,

@@ -1424,10 +1424,12 @@
     "languages": [
       "eng"
     ],
-    "year": 1901,
+    "year": null,
     "url": "https://www.gutenberg.org/cache/epub/13842/pg13842-images.html",
     "access": "web",
-    "description": "An illustrated early history of New York City, tracing Manhattan from Dutch New Amsterdam and the transition to English rule to the growth of the modern city at the close of the nineteenth century."
+    "description": "An illustrated early history of New York City, tracing Manhattan from Dutch New Amsterdam and the transition to English rule to the growth of the modern city at the close of the nineteenth century.",
+    "readingPath": "reading/manhattan/13842-h.htm",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/13842"
   },
   {
     "id": "gutenberg-64572",
@@ -1447,7 +1449,9 @@
     "year": 1921,
     "url": "https://www.gutenberg.org/files/64572/64572-h/64572-h.htm",
     "access": "web",
-    "description": "An illustrated portrait of early twentieth-century New York City, with accounts of its streets, public buildings, harbor, bridges, neighborhoods, architecture, and development."
+    "description": "An illustrated portrait of early twentieth-century New York City, with accounts of its streets, public buildings, harbor, bridges, neighborhoods, architecture, and development.",
+    "readingPath": "reading/new-york-metropolis/64572-h.htm",
+    "sourceUrl": "https://www.gutenberg.org/ebooks/64572"
   },
   {
     "id": "nyupress-9781479800575",

@@ -16,6 +16,12 @@ try {
   const checks = await Promise.allSettled(ids.map(async id => {
     const book = books.find(item => item.id === id);
     const entry = bookAccess(book);
+    if (book.readingPath) {
+      const html = await readFile(new URL(book.readingPath, new URL('../public/', import.meta.url)), 'utf8');
+      assert.match(html, /Project Gutenberg/i, `${book.title} lacks the edition notice`);
+      assert.ok(html.length > 10000, `${book.title} reader appears to be incomplete`);
+      return `${book.title}: bundled full-text HTML`;
+    }
     const response = await fetch(entry.url, {
       headers: entry.type === 'pdf' ? { Range: 'bytes=0-1023' } : {},
       signal: AbortSignal.timeout(25000),

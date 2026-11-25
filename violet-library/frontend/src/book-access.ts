@@ -13,6 +13,9 @@ const verifiedEditions: Readonly<Record<string, BookAccess>> = {
 export function bookAccess(book: Book): BookAccess {
   const verified = verifiedEditions[book.id];
   if (verified) return verified;
+  if (book.readingPath?.startsWith('reading/')) {
+    return { url: `${import.meta.env.BASE_URL}${book.readingPath}`, type: 'web', sourceUrl: book.sourceUrl };
+  }
   if (book.access) return { url: book.url, type: book.access, sourceUrl: book.sourceUrl };
   const url = new URL(book.url);
   if (url.hostname === 'admin.directory.doabooks.org') url.hostname = 'directory.doabooks.org';

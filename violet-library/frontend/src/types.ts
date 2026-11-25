@@ -9,6 +9,7 @@ export interface Book {
   publisher?: string;
   access?: 'pdf' | 'web';
   sourceUrl?: string;
+  readingPath?: string;
   authors: string[];
   subjects: string[];
   languages: string[];
