@@ -15,3 +15,5 @@ The Capstone Pages workflow compiles the demo into its deployment artifact and c
 ## Relevance score
 
 Semantic search computes cosine similarity between the question and each book's metadata embedding. It displays the resulting score multiplied by 100, with values below 0 or above 100 capped at those bounds. Semantic + key terms adds a keyword bonus of up to 2.5 points before display. The keyword-only fallback displays its weighted term score relative to the highest result from that search. All modes rank before display rounding. Compare scores within the same search and model.
+
+For a specific U.S. student-visa request, the search expands paraphrases and checks whether catalog metadata actually covers the requested visa or academic-student context. The same check applies in the keyword preview. If the catalog lacks a directly relevant book, the interface reports that coverage gap and offers an official external source. Ordinary topics continue to be ranked by the selected language model.

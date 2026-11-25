@@ -1,6 +1,7 @@
 import type { Book, SearchHit, SearchMode } from './types';
 import { cleanDescription } from './book-text';
 import { bookLanguages } from './languages';
+import { interpretQuery, supportsQueryIntent } from './query-intent';
 
 const MAX_KEYWORD_BONUS = 0.025;
 const STOPWORDS = new Set([
@@ -30,6 +31,7 @@ interface IndexedBook {
   length: number;
   languages: string[];
   hasDescription: boolean;
+  metadata: string;
 }
 
 export interface SearchIndex {
@@ -58,14 +60,21 @@ export function buildSearchIndex(books: Book[]): SearchIndex {
       length: Array.from(termWeights.values()).reduce((a, b) => a + b, 0),
       languages: bookLanguages(book),
       hasDescription: Boolean(cleanDescription(book.description)),
+      metadata: [book.title, ...(book.aliases ?? []), ...book.subjects, cleanDescription(book.description)].join('; '),
     };
   });
   return { books, terms, frequency };
 }
 
-function eligiblePositions(index: SearchIndex, language?: string): number[] {
+function eligiblePositions(query: string, index: SearchIndex, language?: string): number[] {
+  const intent = interpretQuery(query);
   return index.terms.flatMap((book, position) =>
-    book.hasDescription && (!language || book.languages.includes(language)) ? [position] : []);
+    book.hasDescription && (!language || book.languages.includes(language)) &&
+    supportsQueryIntent(book.metadata, intent) ? [position] : []);
+}
+
+export function hasEligibleBooks(query: string, index: SearchIndex, language?: string): boolean {
+  return eligiblePositions(query, index, language).length > 0;
 }
 
 function keywordScores(query: string, index: SearchIndex, positions: number[]): Map<number, number> {
@@ -116,8 +125,8 @@ export function rankBooks(
   }
 
   const queryNorm = Math.sqrt(queryVector.reduce((sum, value) => sum + value ** 2, 0));
-  const positions = eligiblePositions(index, language);
-  const keywords = mode === 'hybrid' ? keywordScores(query, index, positions) : new Map<number, number>();
+  const positions = eligiblePositions(query, index, language);
+  const keywords = mode === 'hybrid' ? keywordScores(interpretQuery(query).embeddingText, index, positions) : new Map<number, number>();
   const strongestKeyword = Math.max(0, ...keywords.values());
   const bonusLimit = MAX_KEYWORD_BONUS * Math.min(2, Math.max(0, keywordWeight));
   return searchHits(positions.map(position => {
@@ -138,7 +147,7 @@ export function rankBooks(
 
 export function rankKeywordBooks(query: string, index: SearchIndex, language?: string): SearchHit[] {
   if (!query.trim()) throw new Error('Enter a question to search.');
-  const scores = keywordScores(query, index, eligiblePositions(index, language));
+  const scores = keywordScores(interpretQuery(query).embeddingText, index, eligiblePositions(query, index, language));
   return searchHits([...scores].map(([position, relevance]) => ({
     position, relevance, semanticSimilarity: 0,
   })), index);

@@ -168,3 +168,6 @@ h2 { margin: 0; font-size: clamp(23px, 2.7vw, 30px); font-weight: 720; letter-sp
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+.source-link { width: fit-content; color: var(--deep-violet); border-color: #ccb7db; }
+.source-link:hover { background: var(--lavender); }

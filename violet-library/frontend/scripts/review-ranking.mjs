@@ -4,7 +4,7 @@ import { createServer } from 'vite';
 
 const WEIGHTS = [0, 0.5, 1, 1.5, 2];
 const BASELINE = 0;
-const RANKER = 'semantic-cosine-v1';
+const RANKER = 'semantic-cosine-intent-v2';
 const MODEL = 'gte-base';
 const root = new URL('../public/data/', import.meta.url);
 const digest = data => createHash('sha256').update(data).digest('hex');
@@ -58,8 +58,8 @@ async function generatePool(queries) {
   });
   try {
     // Vite loads the same TypeScript functions and ranker used by the browser.
-    const files = ['catalog', 'embedding', 'passages', 'search', 'book-text', 'languages'];
-    const [codec, embedding, passages, search, bookText, languages] = await Promise.all(
+    const files = ['catalog', 'embedding', 'passages', 'search', 'book-text', 'languages', 'query-intent'];
+    const [codec, embedding, passages, search, bookText, languages, intent] = await Promise.all(
       files.map(name => vite.ssrLoadModule(new URL(`../src/${name}.ts`, import.meta.url).pathname)),
     );
     const [rawBase, rawSupplement, rawVectors] = await Promise.all([
@@ -90,7 +90,7 @@ async function generatePool(queries) {
         if (language && !supportedLanguages.has(language)) {
           throw new Error(`Unsupported book language for ${id}.`);
         }
-        const vector = await encoder.encode([query], 'query');
+        const vector = await encoder.encode([intent.interpretQuery(query).embeddingText], 'query');
         const ranks = Object.fromEntries(WEIGHTS.map(weight => [
           weight, search.rankBooks(query, vector, vectors, index, weight === BASELINE ? 'semantic' : 'hybrid', weight, language)
             .slice(0, 5).map(hit => hit.book.id),
@@ -134,7 +134,7 @@ function scorePool(pool) {
   validateQueries(pool.queries);
   for (const { id, grades, ranks } of pool.queries) {
     const lists = WEIGHTS.map(weight => ranks[weight]);
-    if (lists.some(list => !Array.isArray(list) || list.length < 1 || list.length > 5 ||
+    if (lists.some(list => !Array.isArray(list) || list.length > 5 ||
         new Set(list).size !== list.length)) {
       throw new Error(`Invalid ranking for ${id}.`);
     }

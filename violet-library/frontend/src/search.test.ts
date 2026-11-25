@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { buildSearchIndex, displayRelevance, rankBooks, rankKeywordBooks, tokens } from './search';
+import { buildSearchIndex, displayRelevance, hasEligibleBooks, rankBooks, rankKeywordBooks, tokens } from './search';
 import type { Book } from './types';
 import { cleanDescription } from './book-text';
 import base from '../public/data/catalog.json';
 import supplement from '../public/data/multilingual.json';
 import { appendVectors } from './passages';
+import { interpretQuery } from './query-intent';
 import { availableLanguages } from './languages';
 
 function book(id: string, title: string, description: string): Book {
@@ -57,6 +58,35 @@ describe('browser ranking', () => {
     expect(displayRelevance(-0.1)).toBe('0.0');
     expect(displayRelevance(1.025)).toBe('100.0');
     expect(displayRelevance(4, 5)).toBe('80.0');
+  });
+
+  it('requires evidence for a specific visa even when broad migration has higher cosine similarity', () => {
+    const index = buildSearchIndex([
+      book('migration', 'Innovative Concepts for Alternative Migration Policies', 'Immigration research and policy'),
+      book('tourist', 'Visitor visa handbook', 'B-2 visa rules'),
+      book('race', 'F1 racing', 'Racing strategies and the status of the championship'),
+      book('student', 'International academic study', 'A guide to U.S. student visas for academic study'),
+    ]);
+    const query = 'looking for F‑1 visa related books';
+    expect(interpretQuery(query).embeddingText).toContain('U.S. student visa for academic study');
+    const queryVector = new Float32Array([1, 0]);
+    const vectors = new Float32Array([1, 0, 1, 0, 1, 0, 0.6, 0.8]);
+    for (const mode of ['semantic', 'hybrid'] as const) {
+      expect(rankBooks(query, queryVector, vectors, index, mode).map(hit => hit.book.id)).toEqual(['student']);
+    }
+    expect(rankKeywordBooks(query, index).map(hit => hit.book.id)).toEqual(['student']);
+    expect(hasEligibleBooks('books about "housing policy"', index)).toBe(false);
+    expect(rankBooks('books about "migration policies"', queryVector, vectors, index, 'semantic')
+      .map(hit => hit.book.id)).toEqual(['migration']);
+    expect(rankBooks('F1 racing status', queryVector, vectors, index, 'semantic').length).toBe(4);
+    expect(hasEligibleBooks('Can you find books on F-2 visas?', index)).toBe(false);
+    expect(interpretQuery('美国F-1签证相关书籍').visaClasses).toEqual(['f1']);
+  });
+
+  it('reports missing F-1 visa coverage in the shipped English collection', () => {
+    const index = buildSearchIndex([...base, ...supplement]);
+    expect(hasEligibleBooks('looking for f-1 visa related books', index, 'en')).toBe(false);
+    expect(hasEligibleBooks('a book about the U.S. student visa', index, 'en')).toBe(false);
   });
 
   it('uses key terms to resolve a close semantic match', () => {

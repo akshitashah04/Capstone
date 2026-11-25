@@ -1,11 +1,12 @@
 import './style.css';
 import { loadCatalog, loadVectors } from './catalog';
 import { DEFAULT_MODEL, MODELS } from './model-config';
-import { buildSearchIndex, displayRelevance, rankBooks, rankKeywordBooks } from './search';
+import { buildSearchIndex, displayRelevance, hasEligibleBooks, rankBooks, rankKeywordBooks } from './search';
 import type { Catalog } from './catalog';
 import type { ModelKey, SearchHit, SearchMode } from './types';
 import { appendVectors, passageText } from './passages';
 import { cleanDescription } from './book-text';
+import { interpretQuery } from './query-intent';
 import { availableLanguages, bookLanguages, languageName } from './languages';
 import { createFeedbackWidget } from './feedback/widget';
 import type { FeedbackState } from './feedback/widget';
@@ -203,9 +204,21 @@ function renderHits(): void {
     scoreMethod.textContent = `The model compares your question with each book’s metadata using cosine similarity. We scale the score from 0 to 100.${bonus} Use it to compare results within this search. It does not predict whether a book will meet your needs.`;
   }
   if (!currentHits.length) {
-    setStatus(activeLanguage
-      ? `No matches in ${languageName(activeLanguage)}. Try different wording or select Any language.`
-      : 'No matches in this collection. Try different wording.');
+    const intent = interpretQuery(activeQuery);
+    const languageNameSuffix = activeLanguage ? ` in ${languageName(activeLanguage)}` : '';
+    const message = intent.usStudentVisa
+      ? `No books in this catalog${languageNameSuffix} directly cover the requested U.S. student visa topic.`
+      : `No matching books in this catalog${languageNameSuffix}. Try a different search or book language.`;
+    setStatus(message);
+    if (intent.usStudentVisa) {
+      const source = document.createElement('a');
+      source.className = 'fallback-button source-link';
+      source.href = 'https://educationusa.state.gov/your-5-steps-us-study/apply-your-student-visa';
+      source.target = '_blank';
+      source.rel = 'noopener noreferrer';
+      source.textContent = 'Official student visa information from EducationUSA';
+      status.append(source);
+    }
   }
 }
 
@@ -246,13 +259,6 @@ async function search(): Promise<void> {
     catalog ??= setCatalog(await loadCatalog());
     activeLanguage = languageSelect.value;
     searchIndex ??= buildSearchIndex(catalog.books);
-    const [{ vector, supplement }, bookVectors] = await Promise.all([
-      embed(text, model, catalog), loadVectors(model, catalog),
-    ]);
-    currentHits = rankBooks(text, vector, appendVectors(bookVectors, supplement), searchIndex, mode, 1, activeLanguage);
-    visibleCount = 5;
-    setStatus('');
-    renderHits();
     const url = new URL(window.location.href);
     url.searchParams.set('q', text);
     url.searchParams.set('model', modelSelect.value);
@@ -260,6 +266,18 @@ async function search(): Promise<void> {
     if (activeLanguage) url.searchParams.set('lang', activeLanguage);
     else url.searchParams.delete('lang');
     history.replaceState(null, '', url);
+    if (!hasEligibleBooks(text, searchIndex, activeLanguage)) {
+      modelLabel.textContent = 'Catalog coverage';
+      renderHits();
+      return;
+    }
+    const [{ vector, supplement }, bookVectors] = await Promise.all([
+      embed(interpretQuery(text).embeddingText, model, catalog), loadVectors(model, catalog),
+    ]);
+    currentHits = rankBooks(text, vector, appendVectors(bookVectors, supplement), searchIndex, mode, 1, activeLanguage);
+    visibleCount = 5;
+    setStatus('');
+    renderHits();
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Search could not finish.';
     const downloadInterrupted = /network error|failed to fetch/i.test(message);
