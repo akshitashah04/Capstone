@@ -3,10 +3,12 @@ import { buildSearchIndex, displayRelevance, hasEligibleBooks, rankBooks, rankKe
 import type { Book } from './types';
 import { cleanDescription } from './book-text';
 import base from '../public/data/catalog.json';
-import supplement from '../public/data/multilingual.json';
+import supplementalRecords from '../public/data/multilingual.json';
 import { appendVectors } from './passages';
 import { interpretQuery } from './query-intent';
 import { availableLanguages } from './languages';
+
+const supplement = supplementalRecords as Book[];
 
 function book(id: string, title: string, description: string): Book {
   return { id, title, description, authors: [], subjects: [], languages: ['en'], year: 2024,
@@ -83,10 +85,27 @@ describe('browser ranking', () => {
     expect(interpretQuery('美国F-1签证相关书籍').visaClasses).toEqual(['f1']);
   });
 
-  it('reports missing F-1 visa coverage in the shipped English collection', () => {
-    const index = buildSearchIndex([...base, ...supplement]);
-    expect(hasEligibleBooks('looking for f-1 visa related books', index, 'en')).toBe(false);
-    expect(hasEligibleBooks('a book about the U.S. student visa', index, 'en')).toBe(false);
+  it('finds the curated full-text entries for the original F-1 visa query', () => {
+    const books = [...base, ...supplement];
+    const index = buildSearchIndex(books);
+    const query = 'looking for f-1 visa related books';
+    expect(hasEligibleBooks(query, buildSearchIndex(base), 'en')).toBe(false);
+    const vectors = new Float32Array(books.length * 2);
+    books.forEach((_, i) => {
+      // Give the broad catalog higher scores to catch a regression in the intent check.
+      vectors[i * 2] = i < base.length ? 1 : 0.6;
+      vectors[i * 2 + 1] = i < base.length ? 0 : 0.8;
+    });
+    const expected = [
+      'educationusa-undergraduate-study', 'kit-johnson-open-immigration-casebook-4',
+      'unlv-international-student-handbook', 'uc-merced-new-international-student-handbook',
+      'newman-f1-international-student-handbook', 'cgc-f1-student-handbook',
+    ];
+    for (const text of [query, 'a book about the U.S. student visa']) {
+      const hits = rankBooks(text, new Float32Array([1, 0]), vectors, index, 'semantic', 1, 'en');
+      expect(hits.map(hit => hit.book.id)).toEqual(expected);
+    }
+    expect(hasEligibleBooks(query, index, 'hi')).toBe(false);
   });
 
   it('uses key terms to resolve a close semantic match', () => {

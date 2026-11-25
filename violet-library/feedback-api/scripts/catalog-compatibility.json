@@ -1,0 +1,15 @@
+[
+  {
+    "catalogSha256": "675bf0e008198b79f1c4f60a9df4d33301e4a1b92751b42baf78c7af18cb587f",
+    "baseSha256": "f4609be124611659fe6a6a5424642612ab4cf6a4a04b52161cc0c256694cfed4",
+    "supplementalIds": [
+      "gutenberg-23839",
+      "gutenberg-7337",
+      "gutenberg-23864",
+      "gutenberg-23950",
+      "wikisource-hi-godan",
+      "wikisource-hi-gaban",
+      "wikisource-hi-nirmala"
+    ]
+  }
+]

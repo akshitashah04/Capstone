@@ -149,7 +149,7 @@ function renderCard(hit: SearchHit): HTMLElement {
   const languages = bookLanguages(hit.book);
   if (hit.book.aliases && languages.length === 1) title.lang = languages[0];
   meta.textContent = [hit.book.authors.slice(0, 2).join(', ') || 'Author not listed',
-    hit.book.year, languages.map(languageName).join(', ')].filter(Boolean).join(' · ');
+    hit.book.year, hit.book.format, languages.map(languageName).join(', ')].filter(Boolean).join(' · ');
   const summary = document.createElement('p');
   summary.className = 'book-summary';
   if (title.lang) summary.lang = title.lang;
@@ -171,8 +171,9 @@ function renderCard(hit: SearchHit): HTMLElement {
   link.href = hit.book.url;
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
-  link.textContent = 'Open book';
-  link.setAttribute('aria-label', `Open book: ${hit.book.title} (opens in a new tab)`);
+  const itemType = hit.book.format?.toLowerCase() ?? 'book';
+  link.textContent = `Read ${itemType}`;
+  link.setAttribute('aria-label', `Read ${itemType}: ${hit.book.title} (opens in a new tab)`);
   const keywordMode = activeMode === 'keyword-only';
   const score = document.createElement('div');
   score.className = 'book-score';
@@ -210,15 +211,7 @@ function renderHits(): void {
       ? `No books in this catalog${languageNameSuffix} directly cover the requested U.S. student visa topic.`
       : `No matching books in this catalog${languageNameSuffix}. Try a different search or book language.`;
     setStatus(message);
-    if (intent.usStudentVisa) {
-      const source = document.createElement('a');
-      source.className = 'fallback-button source-link';
-      source.href = 'https://educationusa.state.gov/your-5-steps-us-study/apply-your-student-visa';
-      source.target = '_blank';
-      source.rel = 'noopener noreferrer';
-      source.textContent = 'Official student visa information from EducationUSA';
-      status.append(source);
-    }
+
   }
 }
 

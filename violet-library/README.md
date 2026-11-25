@@ -16,4 +16,8 @@ The Capstone Pages workflow compiles the demo into its deployment artifact and c
 
 Semantic search computes cosine similarity between the question and each book's metadata embedding. It displays the resulting score multiplied by 100, with values below 0 or above 100 capped at those bounds. Semantic + key terms adds a keyword bonus of up to 2.5 points before display. The keyword-only fallback displays its weighted term score relative to the highest result from that search. All modes rank before display rounding. Compare scores within the same search and model.
 
-For a specific U.S. student-visa request, the search expands paraphrases and checks whether catalog metadata actually covers the requested visa or academic-student context. The same check applies in the keyword preview. If the catalog lacks a directly relevant book, the interface reports that coverage gap and offers an official external source. Ordinary topics continue to be ranked by the selected language model.
+For a specific U.S. student-visa request, the search expands paraphrases and checks whether catalog metadata actually covers the requested visa or academic-student context. The same check applies in the keyword preview. When the chosen book language has no direct match, the interface reports the coverage gap. Ordinary topics continue to be ranked by the selected language model.
+
+## Full-text student visa collection
+
+The demo indexes six freely readable publications on U.S. student visas, including the EducationUSA undergraduate study booklet, Kit Johnson’s CC BY-SA 4.0 immigration casebook, and four university or college handbooks. The result links open the full publication at the source. The demo stores its catalog metadata and original descriptions. It does not host copies of the publications. Handbooks may contain campus-specific guidance.

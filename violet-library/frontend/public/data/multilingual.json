@@ -2,10 +2,21 @@
   {
     "id": "gutenberg-23839",
     "title": "論語",
-    "aliases": ["论语", "The Analects of Confucius"],
-    "authors": ["孔子及其弟子"],
-    "subjects": ["儒家思想", "伦理", "Confucian ethics"],
-    "languages": ["zho"],
+    "aliases": [
+      "论语",
+      "The Analects of Confucius"
+    ],
+    "authors": [
+      "孔子及其弟子"
+    ],
+    "subjects": [
+      "儒家思想",
+      "伦理",
+      "Confucian ethics"
+    ],
+    "languages": [
+      "zho"
+    ],
     "year": null,
     "url": "https://www.gutenberg.org/ebooks/23839",
     "description": "这部儒家经典汇集孔子及其弟子的言行，讨论仁、礼、学习、孝道和治理。"
@@ -13,10 +24,22 @@
   {
     "id": "gutenberg-7337",
     "title": "道德經",
-    "aliases": ["道德经", "Tao Te Ching", "Daodejing"],
-    "authors": ["老子"],
-    "subjects": ["道家哲学", "无为", "Taoist philosophy"],
-    "languages": ["zho"],
+    "aliases": [
+      "道德经",
+      "Tao Te Ching",
+      "Daodejing"
+    ],
+    "authors": [
+      "老子"
+    ],
+    "subjects": [
+      "道家哲学",
+      "无为",
+      "Taoist philosophy"
+    ],
+    "languages": [
+      "zho"
+    ],
     "year": null,
     "url": "https://www.gutenberg.org/ebooks/7337",
     "description": "相传由老子所著的道家经典，以简短篇章探讨道与德、无为、自然和治理。"
@@ -24,10 +47,21 @@
   {
     "id": "gutenberg-23864",
     "title": "孫子兵法",
-    "aliases": ["孙子兵法", "The Art of War"],
-    "authors": ["孫武"],
-    "subjects": ["军事战略", "战争", "Military strategy"],
-    "languages": ["zho"],
+    "aliases": [
+      "孙子兵法",
+      "The Art of War"
+    ],
+    "authors": [
+      "孫武"
+    ],
+    "subjects": [
+      "军事战略",
+      "战争",
+      "Military strategy"
+    ],
+    "languages": [
+      "zho"
+    ],
     "year": null,
     "url": "https://www.gutenberg.org/ebooks/23864",
     "description": "中国古代军事著作，讨论战争中的谋略、地形、情报、兵力部署和指挥。"
@@ -35,10 +69,22 @@
   {
     "id": "gutenberg-23950",
     "title": "三國志演義",
-    "aliases": ["三国志演义", "三国演义", "Romance of the Three Kingdoms"],
-    "authors": ["羅貫中"],
-    "subjects": ["历史小说", "三国时期", "Chinese historical fiction"],
-    "languages": ["zho"],
+    "aliases": [
+      "三国志演义",
+      "三国演义",
+      "Romance of the Three Kingdoms"
+    ],
+    "authors": [
+      "羅貫中"
+    ],
+    "subjects": [
+      "历史小说",
+      "三国时期",
+      "Chinese historical fiction"
+    ],
+    "languages": [
+      "zho"
+    ],
     "year": null,
     "url": "https://www.gutenberg.org/ebooks/23950",
     "description": "章回小说描绘东汉末年至三国时期的群雄争霸，讲述刘备、曹操和孙权等人的故事。"
@@ -46,10 +92,23 @@
   {
     "id": "wikisource-hi-godan",
     "title": "गोदान",
-    "aliases": ["गो-दान", "Godan", "The Gift of a Cow"],
-    "authors": ["प्रेमचंद"],
-    "subjects": ["ग्रामीण जीवन", "किसान", "Rural life", "Hindi fiction"],
-    "languages": ["hin"],
+    "aliases": [
+      "गो-दान",
+      "Godan",
+      "The Gift of a Cow"
+    ],
+    "authors": [
+      "प्रेमचंद"
+    ],
+    "subjects": [
+      "ग्रामीण जीवन",
+      "किसान",
+      "Rural life",
+      "Hindi fiction"
+    ],
+    "languages": [
+      "hin"
+    ],
     "year": 1936,
     "url": "https://hi.wikisource.org/wiki/गो-दान",
     "description": "प्रेमचंद का उपन्यास किसान होरी और उसके परिवार के संघर्षों के माध्यम से ग्रामीण जीवन, ऋण और सामाजिक असमानता को चित्रित करता है।"
@@ -57,10 +116,22 @@
   {
     "id": "wikisource-hi-gaban",
     "title": "गबन",
-    "aliases": ["ग़बन", "Gaban", "Embezzlement"],
-    "authors": ["प्रेमचंद"],
-    "subjects": ["मध्यवर्ग", "सामाजिक प्रतिष्ठा", "Hindi fiction"],
-    "languages": ["hin"],
+    "aliases": [
+      "ग़बन",
+      "Gaban",
+      "Embezzlement"
+    ],
+    "authors": [
+      "प्रेमचंद"
+    ],
+    "subjects": [
+      "मध्यवर्ग",
+      "सामाजिक प्रतिष्ठा",
+      "Hindi fiction"
+    ],
+    "languages": [
+      "hin"
+    ],
     "year": 1931,
     "url": "https://hi.wikisource.org/wiki/गबन",
     "description": "रमानाथ और जालपा की कहानी के माध्यम से यह उपन्यास आभूषणों की चाह, दिखावे, कर्ज़ और सामाजिक प्रतिष्ठा का दबाव दिखाता है।"
@@ -68,12 +139,136 @@
   {
     "id": "wikisource-hi-nirmala",
     "title": "निर्मला",
-    "aliases": ["Nirmala"],
-    "authors": ["प्रेमचंद"],
-    "subjects": ["दहेज", "विवाह", "Dowry", "Hindi fiction"],
-    "languages": ["hin"],
+    "aliases": [
+      "Nirmala"
+    ],
+    "authors": [
+      "प्रेमचंद"
+    ],
+    "subjects": [
+      "दहेज",
+      "विवाह",
+      "Dowry",
+      "Hindi fiction"
+    ],
+    "languages": [
+      "hin"
+    ],
     "year": 1926,
     "url": "https://hi.wikisource.org/wiki/निर्मला",
     "description": "प्रेमचंद का सामाजिक उपन्यास दहेज प्रथा, बेमेल विवाह और घरेलू अविश्वास के निर्मला के जीवन पर पड़े प्रभावों को दिखाता है।"
+  },
+  {
+    "id": "educationusa-undergraduate-study",
+    "title": "If You Want to Study in the United States: Undergraduate Study",
+    "authors": [
+      "EducationUSA, U.S. Department of State"
+    ],
+    "subjects": [
+      "U.S. higher education",
+      "U.S. student visa",
+      "Undergraduate admissions"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://educationusa.state.gov/sites/default/files/210809_iywts_bk1_rev2018_final_1.pdf",
+    "description": "Booklet 1 in the EducationUSA series for prospective undergraduates. It covers selecting a college, applying, and paying for study. The student visa chapter discusses visa categories and how to prepare for an application.",
+    "format": "Booklet"
+  },
+  {
+    "id": "kit-johnson-open-immigration-casebook-4",
+    "title": "Immigration Law: An Open Casebook",
+    "authors": [
+      "Kit Johnson"
+    ],
+    "subjects": [
+      "U.S. immigration law",
+      "F-1 student visa",
+      "Optional Practical Training (OPT)"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": 2026,
+    "url": "https://kitjohnson.net/casebook/files/Immigration_Law_An_Open_Casebook_4.0.pdf#page=98",
+    "description": "An open law-school textbook on the U.S. immigration system. Section 4.9 covers nonimmigrant students, including the F visa category and curricular and optional practical training. The link opens the start of that section in the full fourth edition."
+  },
+  {
+    "id": "unlv-international-student-handbook",
+    "title": "UNLV International Student Handbook",
+    "authors": [
+      "University of Nevada, Las Vegas"
+    ],
+    "subjects": [
+      "F-1 visa status",
+      "Curricular Practical Training (CPT)",
+      "Optional Practical Training (OPT)"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://www.unlv.edu/sites/default/files/media/document/2025-08/International_Student_Handbook_2025_26.pdf",
+    "description": "A handbook for international students at UNLV. Its immigration and employment sections discuss staying in F-1 status, working on campus, and how CPT and OPT fit into an academic program. Campus-specific instructions apply to UNLV.",
+    "format": "Handbook"
+  },
+  {
+    "id": "uc-merced-new-international-student-handbook",
+    "title": "New International Student Handbook",
+    "authors": [
+      "University of California, Merced"
+    ],
+    "subjects": [
+      "F-1 student visa",
+      "Form I-20",
+      "Curricular Practical Training (CPT)"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": 2025,
+    "url": "https://iss.ucmerced.edu/sites/g/files/ufvvjh1121/f/documents/new_international_student_handbook_2025.pdf",
+    "description": "An orientation handbook for international students at UC Merced. It explains immigration documents, arriving on an F-1 visa, maintaining student status, campus employment, and practical training. Campus procedures apply to UC Merced.",
+    "format": "Handbook"
+  },
+  {
+    "id": "newman-f1-international-student-handbook",
+    "title": "F-1 International Student Handbook",
+    "authors": [
+      "Newman University"
+    ],
+    "subjects": [
+      "F-1 visa status",
+      "Optional Practical Training (OPT)",
+      "Curricular Practical Training (CPT)"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://newmanu.edu/campus-life/student-success-center/international-students",
+    "description": "The full online handbook for Newman University students. It covers F-1 status, Form I-20, travel, enrollment and employment. The chapters distinguish on-campus work, CPT, OPT, and STEM OPT and describe Newman’s campus procedures.",
+    "format": "Handbook"
+  },
+  {
+    "id": "cgc-f1-student-handbook",
+    "title": "F-1 Student Handbook",
+    "authors": [
+      "Chandler-Gilbert Community College"
+    ],
+    "subjects": [
+      "F-1 student visa",
+      "Form I-20",
+      "Optional Practical Training (OPT)"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://www.cgc.edu/sites/default/files/inline-files/F-1%20Student%20Handbook.pdf",
+    "description": "A community-college handbook on obtaining an F-1 visa, using Form I-20, maintaining status, transferring and preparing for practical training. It includes procedures specific to Chandler-Gilbert Community College.",
+    "format": "Handbook"
   }
 ]
