@@ -19,8 +19,8 @@
       "sha256": "e9f0d5ce455dd82bcea76cd937bac500b0541bbf31034943eec16b055435c2f9"
     },
     "multilingual.json": {
-      "bytes": 41002,
-      "sha256": "a9eaa2b131ff04d1237af69c2a9a7609b9ed9b823e07131f5fa22151c69a836e"
+      "bytes": 44997,
+      "sha256": "dfe3b6e32c4d37d5b8d5a56c0c7daaeabde1da41832234125567269547bf1130"
     }
   },
   "models": {
@@ -44,6 +44,6 @@
   "source_parquet_sha256": "2e0c255bb959bcc2afb42f134ede2d3869281ceadf0aca3841fa1f3f5fc449d4",
   "source_revision": "daba70f6e6de9f7a5c9a1f830fd255415c6d6bb7",
   "vector_encoding": "float16-le-row-major",
-  "supplemental_books": 69,
-  "catalog_sha256": "3d8be2782bb9594b89095e2fb1ff71cabf1dcc806c41637c63eca20a9dd25f06"
+  "supplemental_books": 73,
+  "catalog_sha256": "81cc9d81ee274a9c4dfc74a6ed504e8814da74c0203059d4127a375692b6b480"
 }

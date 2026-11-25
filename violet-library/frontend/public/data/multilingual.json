@@ -111,7 +111,8 @@
     ],
     "year": 1936,
     "url": "https://hi.wikisource.org/wiki/गो-दान",
-    "description": "प्रेमचंद का उपन्यास किसान होरी और उसके परिवार के संघर्षों के माध्यम से ग्रामीण जीवन, ऋण और सामाजिक असमानता को चित्रित करता है।"
+    "description": "प्रेमचंद का उपन्यास किसान होरी और उसके परिवार के संघर्षों के माध्यम से ग्रामीण जीवन, ऋण और सामाजिक असमानता को चित्रित करता है।",
+    "access": "web"
   },
   {
     "id": "wikisource-hi-gaban",
@@ -134,7 +135,8 @@
     ],
     "year": 1931,
     "url": "https://hi.wikisource.org/wiki/गबन",
-    "description": "रमानाथ और जालपा की कहानी के माध्यम से यह उपन्यास आभूषणों की चाह, दिखावे, कर्ज़ और सामाजिक प्रतिष्ठा का दबाव दिखाता है।"
+    "description": "रमानाथ और जालपा की कहानी के माध्यम से यह उपन्यास आभूषणों की चाह, दिखावे, कर्ज़ और सामाजिक प्रतिष्ठा का दबाव दिखाता है।",
+    "access": "web"
   },
   {
     "id": "wikisource-hi-nirmala",
@@ -156,7 +158,8 @@
     ],
     "year": 1926,
     "url": "https://hi.wikisource.org/wiki/निर्मला",
-    "description": "प्रेमचंद का सामाजिक उपन्यास दहेज प्रथा, बेमेल विवाह और घरेलू अविश्वास के निर्मला के जीवन पर पड़े प्रभावों को दिखाता है।"
+    "description": "प्रेमचंद का सामाजिक उपन्यास दहेज प्रथा, बेमेल विवाह और घरेलू अविश्वास के निर्मला के जीवन पर पड़े प्रभावों को दिखाता है।",
+    "access": "web"
   },
   {
     "id": "educationusa-undergraduate-study",
@@ -175,7 +178,8 @@
     "year": null,
     "url": "https://educationusa.state.gov/sites/default/files/210809_iywts_bk1_rev2018_final_1.pdf",
     "description": "Booklet 1 in the EducationUSA series for prospective undergraduates. It covers selecting a college, applying, and paying for study. The student visa chapter discusses visa categories and how to prepare for an application.",
-    "format": "Booklet"
+    "format": "Booklet",
+    "access": "pdf"
   },
   {
     "id": "kit-johnson-open-immigration-casebook-4",
@@ -193,7 +197,8 @@
     ],
     "year": 2026,
     "url": "https://kitjohnson.net/casebook/files/Immigration_Law_An_Open_Casebook_4.0.pdf#page=98",
-    "description": "An open law-school textbook on the U.S. immigration system. Section 4.9 covers nonimmigrant students, including the F visa category and curricular and optional practical training. The link opens the start of that section in the full fourth edition."
+    "description": "An open law-school textbook on the U.S. immigration system. Section 4.9 covers nonimmigrant students, including the F visa category and curricular and optional practical training. The link opens the start of that section in the full fourth edition.",
+    "access": "pdf"
   },
   {
     "id": "unlv-international-student-handbook",
@@ -212,7 +217,8 @@
     "year": null,
     "url": "https://www.unlv.edu/sites/default/files/media/document/2025-08/International_Student_Handbook_2025_26.pdf",
     "description": "A handbook for international students at UNLV. Its immigration and employment sections discuss staying in F-1 status, working on campus, and how CPT and OPT fit into an academic program. Campus-specific instructions apply to UNLV.",
-    "format": "Handbook"
+    "format": "Handbook",
+    "access": "pdf"
   },
   {
     "id": "uc-merced-new-international-student-handbook",
@@ -231,7 +237,8 @@
     "year": 2025,
     "url": "https://iss.ucmerced.edu/sites/g/files/ufvvjh1121/f/documents/new_international_student_handbook_2025.pdf",
     "description": "An orientation handbook for international students at UC Merced. It explains immigration documents, arriving on an F-1 visa, maintaining student status, campus employment, and practical training. Campus procedures apply to UC Merced.",
-    "format": "Handbook"
+    "format": "Handbook",
+    "access": "pdf"
   },
   {
     "id": "newman-f1-international-student-handbook",
@@ -250,7 +257,8 @@
     "year": null,
     "url": "https://newmanu.edu/campus-life/student-success-center/international-students",
     "description": "The full online handbook for Newman University students. It covers F-1 status, Form I-20, travel, enrollment and employment. The chapters distinguish on-campus work, CPT, OPT, and STEM OPT and describe Newman’s campus procedures.",
-    "format": "Handbook"
+    "format": "Handbook",
+    "access": "web"
   },
   {
     "id": "cgc-f1-student-handbook",
@@ -269,7 +277,8 @@
     "year": null,
     "url": "https://www.cgc.edu/sites/default/files/inline-files/F-1%20Student%20Handbook.pdf",
     "description": "A community-college handbook on obtaining an F-1 visa, using Form I-20, maintaining status, transferring and preparing for practical training. It includes procedures specific to Chandler-Gilbert Community College.",
-    "format": "Handbook"
+    "format": "Handbook",
+    "access": "pdf"
   },
   {
     "id": "openstax-introduction-computer-science",
@@ -288,7 +297,8 @@
     "year": null,
     "url": "https://openstax.org/books/introduction-computer-science/pages/preface",
     "description": "Introduces computing systems, data representation, algorithms and data structures, programming languages, software design, and the social effects of computing.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-introduction-python-programming",
@@ -307,7 +317,8 @@
     "year": null,
     "url": "https://openstax.org/books/introduction-python-programming/pages/preface",
     "description": "A first programming course with examples using variables, functions, conditionals, loops, collections, files, and classes in Python.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-principles-data-science",
@@ -326,7 +337,8 @@
     "year": null,
     "url": "https://openstax.org/books/principles-data-science/pages/preface",
     "description": "Uses Python for an introductory data science workflow, including data collection and cleaning, visualization, statistics, and predictive models.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-foundations-information-systems",
@@ -345,7 +357,8 @@
     "year": null,
     "url": "https://openstax.org/books/foundations-information-systems/pages/preface",
     "description": "Explores how people, databases, networks, and software support decisions and operations in organizations.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-workplace-software-skills",
@@ -364,7 +377,8 @@
     "year": null,
     "url": "https://openstax.org/books/workplace-software-skills/pages/preface",
     "description": "Teaches practical computing skills for work, including documents, presentations, spreadsheets, and digital collaboration tools.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-introduction-business",
@@ -383,7 +397,8 @@
     "year": null,
     "url": "https://openstax.org/books/introduction-business/pages/preface",
     "description": "Surveys business ownership, management, marketing, finance, operations, and the way firms compete and serve customers.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-business-ethics",
@@ -402,7 +417,8 @@
     "year": null,
     "url": "https://openstax.org/books/business-ethics/pages/preface",
     "description": "Uses business situations to examine ethical reasoning, corporate responsibility, workplace decisions, and competing stakeholder interests.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-business-law-i-essentials",
@@ -421,7 +437,8 @@
     "year": null,
     "url": "https://openstax.org/books/business-law-i-essentials/pages/preface",
     "description": "An introductory survey of the U.S. legal environment for business, including contracts, agency, and business entities.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-entrepreneurship",
@@ -440,7 +457,8 @@
     "year": null,
     "url": "https://openstax.org/books/entrepreneurship/pages/preface",
     "description": "Follows the startup process from recognizing opportunities and testing ideas to building a business model, securing resources, and launching a venture.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-principles-finance",
@@ -459,7 +477,8 @@
     "year": null,
     "url": "https://openstax.org/books/principles-finance/pages/preface",
     "description": "Introduces the time value of money, financial statements, investment risk, and techniques for valuing business decisions.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-principles-management",
@@ -478,7 +497,8 @@
     "year": null,
     "url": "https://openstax.org/books/principles-management/pages/preface",
     "description": "Covers planning, organizing, leadership, organizational structure, and managing performance in businesses and other organizations.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-principles-marketing",
@@ -497,7 +517,8 @@
     "year": null,
     "url": "https://openstax.org/books/principles-marketing/pages/preface",
     "description": "Introduces market research, customer segments, branding, pricing, distribution, and promotion, with examples of marketing decisions.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-principles-financial-accounting",
@@ -516,7 +537,8 @@
     "year": null,
     "url": "https://openstax.org/books/principles-financial-accounting/pages/preface",
     "description": "Explains transaction recording, the accounting cycle, and how readers use financial statements to understand a business.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-principles-managerial-accounting",
@@ -535,7 +557,8 @@
     "year": null,
     "url": "https://openstax.org/books/principles-managerial-accounting/pages/preface",
     "description": "Covers cost behavior, budgeting, variance analysis, and the information managers use for planning and operational decisions.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-organizational-behavior",
@@ -554,7 +577,8 @@
     "year": null,
     "url": "https://openstax.org/books/organizational-behavior/pages/preface",
     "description": "Examines individual motivation, groups and teams, communication, leadership, organizational culture, and change at work.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-introduction-intellectual-property",
@@ -573,7 +597,8 @@
     "year": null,
     "url": "https://openstax.org/books/introduction-intellectual-property/pages/preface-and-foreword",
     "description": "Explains the differences among patents, trademarks, copyright, and trade secrets, with examples of how intellectual property is used.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-principles-economics-3e",
@@ -592,7 +617,8 @@
     "year": null,
     "url": "https://openstax.org/books/principles-economics-3e/pages/preface",
     "description": "Introduces supply and demand, market structures, national income, inflation, labor markets, and economic policy.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-principles-microeconomics-3e",
@@ -611,7 +637,8 @@
     "year": null,
     "url": "https://openstax.org/books/principles-microeconomics-3e/pages/preface",
     "description": "Explains how households and firms make choices, how prices form, and how policy can address market failures.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-principles-macroeconomics-3e",
@@ -630,7 +657,8 @@
     "year": null,
     "url": "https://openstax.org/books/principles-macroeconomics-3e/pages/preface",
     "description": "Covers national output, growth, unemployment, inflation, business cycles, and the role of fiscal and monetary policy.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-psychology-2e",
@@ -649,7 +677,8 @@
     "year": null,
     "url": "https://openstax.org/books/psychology-2e/pages/preface",
     "description": "A first psychology course on research methods, biological bases of behavior, learning, memory, development, social behavior, and psychological disorders.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-introduction-sociology-3e",
@@ -668,7 +697,8 @@
     "year": null,
     "url": "https://openstax.org/books/introduction-sociology-3e/pages/preface",
     "description": "Introduces sociological research and theory through culture, socialization, social institutions, inequality, and social change.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-introduction-anthropology",
@@ -687,7 +717,8 @@
     "year": null,
     "url": "https://openstax.org/books/introduction-anthropology/pages/preface",
     "description": "Introduces the four fields of anthropology through human evolution, archaeology, language, cultural practices, and methods of fieldwork.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-introduction-political-science",
@@ -706,7 +737,8 @@
     "year": null,
     "url": "https://openstax.org/books/introduction-political-science/pages/preface",
     "description": "Surveys political ideas, political institutions, comparative government, participation, and international relations.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-american-government-4e",
@@ -725,7 +757,8 @@
     "year": null,
     "url": "https://openstax.org/books/american-government-4e/pages/preface",
     "description": "Explains the U.S. Constitution, federalism, branches of government, elections, political participation, public policy, and civil rights.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-lifespan-development",
@@ -744,7 +777,8 @@
     "year": null,
     "url": "https://openstax.org/books/lifespan-development/pages/preface",
     "description": "Examines how physical, cognitive, and social development change from prenatal life through childhood, adulthood, and aging.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-introduction-philosophy",
@@ -763,7 +797,8 @@
     "year": null,
     "url": "https://openstax.org/books/introduction-philosophy/pages/preface",
     "description": "Introduces philosophical argument, knowledge, reality, mind, ethics, aesthetics, and social and political philosophy.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-writing-guide",
@@ -782,7 +817,8 @@
     "year": null,
     "url": "https://openstax.org/books/writing-guide/pages/preface",
     "description": "Explains rhetorical choices, research and source use, argument, revision, and conventions for writing in college.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-us-history",
@@ -799,9 +835,10 @@
       "eng"
     ],
     "year": null,
-    "url": "https://openstax.org/books/us-history/pages/preface",
+    "url": "https://openstax.org/books/us-history/pages/1-introduction",
     "description": "Surveys the history of what became the United States, from Indigenous societies and colonial encounters through modern social and political developments.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-world-history-volume-1",
@@ -820,7 +857,8 @@
     "year": null,
     "url": "https://openstax.org/books/world-history-volume-1/pages/preface",
     "description": "Explores human societies from early settlement through 1500, including states, religions, migration, technology, trade, and cultural exchange.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-world-history-volume-2",
@@ -839,7 +877,8 @@
     "year": null,
     "url": "https://openstax.org/books/world-history-volume-2/pages/preface",
     "description": "Surveys world history from about 1400, with empires, colonization, industrialization, political revolutions, and global connections.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-college-success",
@@ -858,7 +897,8 @@
     "year": null,
     "url": "https://openstax.org/books/college-success/pages/preface",
     "description": "A guide to college learning with practical chapters on goal setting, time management, reading, note-taking, financial planning, and careers.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-introductory-statistics-2e",
@@ -877,7 +917,8 @@
     "year": null,
     "url": "https://openstax.org/books/introductory-statistics-2e/pages/preface",
     "description": "Introduces data summaries, probability, distributions, sampling, confidence intervals, hypothesis tests, and regression with applied examples.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-introductory-business-statistics-2e",
@@ -896,7 +937,8 @@
     "year": null,
     "url": "https://openstax.org/books/introductory-business-statistics-2e/pages/preface",
     "description": "Teaches probability, sampling, statistical inference, and regression using contexts from economics, management, and business.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-algebra-and-trigonometry-2e",
@@ -915,7 +957,8 @@
     "year": null,
     "url": "https://openstax.org/books/algebra-and-trigonometry-2e/pages/preface",
     "description": "Covers equations, polynomial and exponential functions, trigonometric functions, identities, and applications for precalculus.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-calculus-volume-1",
@@ -934,7 +977,8 @@
     "year": null,
     "url": "https://openstax.org/books/calculus-volume-1/pages/preface",
     "description": "A first calculus text on functions, limits, derivatives, applications of differentiation, and introductory integration.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-calculus-volume-2",
@@ -953,7 +997,8 @@
     "year": null,
     "url": "https://openstax.org/books/calculus-volume-2/pages/preface",
     "description": "Continues calculus with integration techniques, differential equations, sequences, series, and parametric and polar curves.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-calculus-volume-3",
@@ -972,7 +1017,8 @@
     "year": null,
     "url": "https://openstax.org/books/calculus-volume-3/pages/preface",
     "description": "Introduces vectors, functions of several variables, partial derivatives, multiple integrals, and vector fields.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-precalculus-2e",
@@ -991,7 +1037,8 @@
     "year": null,
     "url": "https://openstax.org/books/precalculus-2e/pages/preface",
     "description": "Prepares students for calculus through functions, graphs, exponential and logarithmic models, trigonometry, sequences, and introductory limits.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-biology-2e",
@@ -1010,7 +1057,8 @@
     "year": null,
     "url": "https://openstax.org/books/biology-2e/pages/preface",
     "description": "Surveys introductory biology from cells, metabolism, genes, and evolution through biodiversity, organismal biology, and ecosystems.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-concepts-biology",
@@ -1029,7 +1077,8 @@
     "year": null,
     "url": "https://openstax.org/books/concepts-biology/pages/preface",
     "description": "Introduces cells, inheritance, evolution, the diversity of life, and ecology for readers outside biology majors.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-chemistry-2e",
@@ -1048,7 +1097,8 @@
     "year": null,
     "url": "https://openstax.org/books/chemistry-2e/pages/preface",
     "description": "Covers atoms, molecular structure, chemical reactions, gases, solutions, kinetics, equilibrium, and other first-year chemistry topics.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-organic-chemistry",
@@ -1067,7 +1117,8 @@
     "year": null,
     "url": "https://openstax.org/books/organic-chemistry/pages/dedication-and-preface",
     "description": "Explains the structures, reactions, and mechanisms of organic compounds, with chapters on spectroscopy and major functional groups.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-astronomy-2e",
@@ -1086,7 +1137,8 @@
     "year": null,
     "url": "https://openstax.org/books/astronomy-2e/pages/preface",
     "description": "An introductory tour of astronomy from the solar system and stars to galaxies, black holes, and the evolution of the universe.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-microbiology",
@@ -1105,7 +1157,8 @@
     "year": null,
     "url": "https://openstax.org/books/microbiology/pages/preface",
     "description": "Introduces microorganisms, microbial growth and genetics, control methods, the immune response, and infectious diseases.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-anatomy-and-physiology-2e",
@@ -1124,7 +1177,8 @@
     "year": null,
     "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/preface",
     "description": "Examines the structure and function of the major human body systems for introductory anatomy and physiology courses.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-university-physics-volume-1",
@@ -1143,7 +1197,8 @@
     "year": null,
     "url": "https://openstax.org/books/university-physics-volume-1/pages/preface",
     "description": "A calculus-based introduction to mechanics, energy, momentum, rotation, oscillations, and waves.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-university-physics-volume-2",
@@ -1162,7 +1217,8 @@
     "year": null,
     "url": "https://openstax.org/books/university-physics-volume-2/pages/preface",
     "description": "A calculus-based treatment of thermal physics, electric fields, circuits, magnetic fields, and electromagnetic induction.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-university-physics-volume-3",
@@ -1181,7 +1237,8 @@
     "year": null,
     "url": "https://openstax.org/books/university-physics-volume-3/pages/preface",
     "description": "Covers optics, relativity, quantum physics, atomic and nuclear physics, and selected topics in modern physics.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-fundamentals-nursing",
@@ -1200,7 +1257,8 @@
     "year": null,
     "url": "https://openstax.org/books/fundamentals-nursing/pages/preface",
     "description": "Introduces nursing practice, patient assessment, safety, communication, clinical judgment, and basic care.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-pharmacology",
@@ -1219,7 +1277,8 @@
     "year": null,
     "url": "https://openstax.org/books/pharmacology/pages/preface",
     "description": "Introduces drug principles, therapeutics, medication administration, and safety considerations in nursing practice.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-population-health",
@@ -1238,7 +1297,8 @@
     "year": null,
     "url": "https://openstax.org/books/population-health/pages/preface",
     "description": "Covers determinants of health, population assessment, prevention, public health systems, and community-focused nursing practice.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "openstax-intro-estadistica-es",
@@ -1257,7 +1317,8 @@
     "year": null,
     "url": "https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/prefacio",
     "description": "Libro de texto en español sobre descripción de datos, probabilidad, muestreo, intervalos de confianza, pruebas de hipótesis y regresión.",
-    "format": "Textbook"
+    "format": "Textbook",
+    "access": "web"
   },
   {
     "id": "gutenberg-24226",
@@ -1279,7 +1340,8 @@
     ],
     "year": null,
     "url": "https://www.gutenberg.org/cache/epub/24226/pg24226.html",
-    "description": "司马迁的纪传体史书，记述从上古传说到西汉时期的历史，包含本纪、表、书、世家和列传。"
+    "description": "司马迁的纪传体史书，记述从上古传说到西汉时期的历史，包含本纪、表、书、世家和列传。",
+    "access": "web"
   },
   {
     "id": "gutenberg-25273",
@@ -1301,7 +1363,8 @@
     ],
     "year": 1637,
     "url": "https://www.gutenberg.org/cache/epub/25273/pg25273-images.html",
-    "description": "明代宋应星的技术著作，介绍农作物种植、纺织、陶瓷、冶金和其他生产技艺。"
+    "description": "明代宋应星的技术著作，介绍农作物种植、纺织、陶瓷、冶金和其他生产技艺。",
+    "access": "web"
   },
   {
     "id": "wikisource-hi-premashram",
@@ -1322,7 +1385,8 @@
     ],
     "year": 1922,
     "url": "https://hi.wikisource.org/wiki/प्रेमाश्रम",
-    "description": "प्रेमचंद का उपन्यास किसानों और ज़मींदारों के संबंधों, ग्रामीण समाज की असमानताओं और किसानों के संघर्ष का चित्रण करता है।"
+    "description": "प्रेमचंद का उपन्यास किसानों और ज़मींदारों के संबंधों, ग्रामीण समाज की असमानताओं और किसानों के संघर्ष का चित्रण करता है।",
+    "access": "web"
   },
   {
     "id": "wikisource-hi-rangbhumi",
@@ -1343,6 +1407,88 @@
     ],
     "year": null,
     "url": "https://hi.wikisource.org/wiki/रंगभूमि",
-    "description": "प्रेमचंद का उपन्यास सूरदास और उसकी भूमि पर कारखाना बनाने के संघर्ष के माध्यम से औपनिवेशिक भारत में औद्योगीकरण और सामाजिक असमानता को देखता है।"
+    "description": "प्रेमचंद का उपन्यास सूरदास और उसकी भूमि पर कारखाना बनाने के संघर्ष के माध्यम से औपनिवेशिक भारत में औद्योगीकरण और सामाजिक असमानता को देखता है।",
+    "access": "web"
+  },
+  {
+    "id": "gutenberg-13842",
+    "title": "The Story of Manhattan",
+    "authors": [
+      "Charles Hemstreet"
+    ],
+    "subjects": [
+      "New York City history",
+      "Manhattan",
+      "New Amsterdam"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": 1901,
+    "url": "https://www.gutenberg.org/cache/epub/13842/pg13842-images.html",
+    "access": "web",
+    "description": "An illustrated early history of New York City, tracing Manhattan from Dutch New Amsterdam and the transition to English rule to the growth of the modern city at the close of the nineteenth century."
+  },
+  {
+    "id": "gutenberg-64572",
+    "title": "New York: The Nation’s Metropolis",
+    "authors": [
+      "Peter Marcus",
+      "James Monroe Hewlett"
+    ],
+    "subjects": [
+      "New York City history",
+      "Architecture",
+      "Urban development"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": 1921,
+    "url": "https://www.gutenberg.org/files/64572/64572-h/64572-h.htm",
+    "access": "web",
+    "description": "An illustrated portrait of early twentieth-century New York City, with accounts of its streets, public buildings, harbor, bridges, neighborhoods, architecture, and development."
+  },
+  {
+    "id": "nyupress-9781479800575",
+    "title": "New York City Cartmen, 1667–1850",
+    "authors": [
+      "Graham Russell Gao Hodges"
+    ],
+    "publisher": "NYU Press",
+    "subjects": [
+      "New York City history",
+      "Labor history",
+      "Transportation"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": 2012,
+    "url": "https://mc.dlib.nyu.edu/files/nyupress/pdfs/9781479800575.pdf",
+    "access": "pdf",
+    "sourceUrl": "https://opensquare.nyupress.org/books/9781479800575/",
+    "description": "A social and labor history of New York City through the cartmen who transported goods before industrialization. Hodges examines their work, politics, and role in the growth of the city."
+  },
+  {
+    "id": "nyupress-9781479891672",
+    "title": "A Queer New York",
+    "authors": [
+      "Jen Jack Gieseking"
+    ],
+    "publisher": "NYU Press",
+    "subjects": [
+      "New York City history",
+      "LGBTQ history",
+      "Urban geography"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": 2020,
+    "url": "https://mc.dlib.nyu.edu/files/nyupress/pdfs/9781479891672.pdf",
+    "access": "pdf",
+    "sourceUrl": "https://opensquare.nyupress.org/books/9781479891672/",
+    "description": "A historical geography of lesbian and queer life in New York City. Gieseking follows changing neighborhoods, community spaces, and urban development through maps and oral histories."
   }
 ]

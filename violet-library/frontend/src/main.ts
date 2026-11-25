@@ -6,6 +6,7 @@ import type { Catalog } from './catalog';
 import type { ModelKey, SearchHit } from './types';
 import { appendVectors, passageText } from './passages';
 import { cleanDescription } from './book-text';
+import { bookAccess } from './book-access';
 import { interpretQuery } from './query-intent';
 import { availableLanguages, bookLanguages, languageName } from './languages';
 import { createFeedbackWidget } from './feedback/widget';
@@ -22,6 +23,7 @@ const form = byId<HTMLFormElement>('search-form');
 const query = byId<HTMLTextAreaElement>('query');
 const modelSelect = byId<HTMLSelectElement>('model');
 const languageSelect = byId<HTMLSelectElement>('language');
+const fullTextOnly = byId<HTMLInputElement>('full-text');
 const submit = byId<HTMLButtonElement>('search-button');
 const queryError = byId<HTMLParagraphElement>('query-error');
 const count = byId<HTMLSpanElement>('query-count');
@@ -47,6 +49,7 @@ let visibleCount = 5;
 let activeQuery = '';
 let activeModel: ModelKey = DEFAULT_MODEL;
 let activeLanguage = '';
+let activeFullText = false;
 let feedbackStates = new Map<string, FeedbackState>();
 
 function feedbackContext(): FeedbackContext {
@@ -81,6 +84,7 @@ function setBusy(busy: boolean): void {
   submit.disabled = busy;
   modelSelect.disabled = busy;
   languageSelect.disabled = busy;
+  fullTextOnly.disabled = busy;
   form.setAttribute('aria-busy', String(busy));
   submit.querySelector('span')!.textContent = busy ? 'Searching…' : 'Find books';
 }
@@ -163,14 +167,26 @@ function renderCard(hit: SearchHit): HTMLElement {
 
   const side = document.createElement('div');
   side.className = 'book-side';
+  const access = bookAccess(hit.book);
   const link = document.createElement('a');
   link.className = 'book-link';
-  link.href = hit.book.url;
-  link.target = '_blank';
-  link.rel = 'noopener noreferrer';
-  const itemType = hit.book.format?.toLowerCase() ?? 'book';
-  link.textContent = `Read ${itemType}`;
-  link.setAttribute('aria-label', `Read ${itemType}: ${hit.book.title} (opens in a new tab)`);
+  link.href = access.url;
+  link.referrerPolicy = 'no-referrer';
+  const label = access.type === 'pdf' ? 'Read PDF' : access.type === 'web' ? 'Read online' : 'View catalog record';
+  link.textContent = label;
+  link.setAttribute('aria-label', `${label}: ${hit.book.title}`);
+  const actions = document.createElement('div');
+  actions.className = 'book-actions';
+  actions.append(link);
+  if (access.sourceUrl) {
+    const source = document.createElement('a');
+    source.className = 'book-source';
+    source.href = access.sourceUrl;
+    source.referrerPolicy = 'no-referrer';
+    source.textContent = 'Publisher page';
+    source.setAttribute('aria-label', `Publisher page: ${hit.book.title}`);
+    actions.append(source);
+  }
   const score = document.createElement('div');
   score.className = 'book-score';
   const scoreLabel = document.createElement('span');
@@ -178,7 +194,7 @@ function renderCard(hit: SearchHit): HTMLElement {
   const scoreValue = document.createElement('strong');
   scoreValue.textContent = `${displayRelevance(hit.relevance)} / 100`;
   score.append(scoreLabel, scoreValue);
-  side.append(score, link);
+  side.append(score, actions);
   card.append(content, side, createFeedbackWidget(hit.book.id, feedbackState(hit.book.id), feedbackContext));
   return card;
 }
@@ -200,7 +216,9 @@ function renderHits(): void {
     const message = intent.usStudentVisa
       ? `No books in this catalog${languageNameSuffix} directly cover the requested U.S. student visa topic.`
       : `No matching books in this catalog${languageNameSuffix}. Try a different search or book language.`;
-    setStatus(message);
+    setStatus(activeFullText && !intent.usStudentVisa
+      ? `No direct full-text matches in this catalog${languageNameSuffix}. Clear the full-text filter to include catalog records.`
+      : message);
   }
 }
 
@@ -238,6 +256,7 @@ async function search(): Promise<void> {
   try {
     catalog ??= setCatalog(await loadCatalog());
     activeLanguage = languageSelect.value;
+    activeFullText = fullTextOnly.checked;
     searchIndex ??= buildSearchIndex(catalog.books);
     const url = new URL(window.location.href);
     url.searchParams.set('q', text);
@@ -245,8 +264,10 @@ async function search(): Promise<void> {
     url.searchParams.set('mode', 'semantic');
     if (activeLanguage) url.searchParams.set('lang', activeLanguage);
     else url.searchParams.delete('lang');
+    if (activeFullText) url.searchParams.set('access', 'full');
+    else url.searchParams.delete('access');
     history.replaceState(null, '', url);
-    if (!hasEligibleBooks(text, searchIndex, activeLanguage)) {
+    if (!hasEligibleBooks(text, searchIndex, activeLanguage, activeFullText)) {
       modelLabel.textContent = 'Catalog coverage';
       renderHits();
       return;
@@ -254,7 +275,7 @@ async function search(): Promise<void> {
     const [{ vector, supplement }, bookVectors] = await Promise.all([
       embed(interpretQuery(text).embeddingText, model, catalog), loadVectors(model, catalog),
     ]);
-    const hits = rankBooks(text, vector, appendVectors(bookVectors, supplement), searchIndex, 'semantic', 0, activeLanguage);
+    const hits = rankBooks(text, vector, appendVectors(bookVectors, supplement), searchIndex, 'semantic', 0, activeLanguage, activeFullText);
     currentHits = keepSemanticMatches(hits, text, model);
     visibleCount = 5;
     setStatus('');
@@ -330,6 +351,7 @@ void loadCatalog().then(setCatalog).catch(() => {
   badge.textContent = 'Collection unavailable. Search to retry.';
 });
 
+fullTextOnly.checked = params.get('access') === 'full';
 const initialQuery = params.get('q');
 if (initialQuery) {
   query.value = initialQuery.slice(0, 500);

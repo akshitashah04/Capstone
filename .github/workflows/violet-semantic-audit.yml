@@ -29,3 +29,4 @@ jobs:
           path: /tmp/violet-library-audit-models
           key: violet-browser-models-${{ runner.os }}-${{ hashFiles('violet-library/frontend/src/model-config.ts') }}
       - run: node violet-library/frontend/scripts/semantic-audit.mjs
+      - run: node violet-library/frontend/scripts/check-reading-links.mjs

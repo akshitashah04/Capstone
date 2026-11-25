@@ -4,6 +4,9 @@ const visaCode = /\b(?:[fmjbo]\s*-?\s*[12]|h\s*-?\s*1b)\b/g;
 const studentVisa = /\b(?:student visas?|study visas?|nonimmigrant academic students?)\b|学[生習习]簽證|学[生習习]签证|學生簽證|留学签证|留學簽證|छात्र वी[ज़ज]ा|छात्र वीज़ा/u;
 const unitedStates = /\b(?:u\s*s\s*a?|united states|american)\b|美国|美國|अमेरिका/u;
 
+const newYorkCity = /\b(?:new york city|n\s*y\s*c)\b|纽约市|紐約市|न्यूयॉर्क शहर/u;
+const newYorkBoroughs = /\b(?:manhattan|brooklyn|the bronx|staten island|new amsterdam|borough of queens)\b/u;
+
 function normalize(text: string): string {
   return text.normalize('NFKC').toLowerCase().replace(/\p{Dash_Punctuation}/gu, '-')
     .replace(/\./g, ' ').replace(/\s+/g, ' ').trim();
@@ -20,6 +23,7 @@ export interface QueryIntent {
   usStudentVisa: boolean;
   exactPhrases: string[];
   requestedModel?: string;
+  newYorkCity: boolean;
 }
 
 export function interpretQuery(query: string): QueryIntent {
@@ -38,10 +42,14 @@ export function interpretQuery(query: string): QueryIntent {
   const requestedModel = normalized.match(
     /\b(?:repair|service|workshop|maintenance) manuals? (?:for|on) (?:the )?(?:19|20)\d{2} ([\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)? [\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)?)/u,
   )?.[1];
+  const isNewYorkCity = newYorkCity.test(normalized);
+  const context = [
+    usStudentVisa ? `U.S. student visa for academic study${classes.includes('f1') ? ' (F-1 nonimmigrant visa)' : ''}` : '',
+    isNewYorkCity ? 'New York City (NYC), its boroughs and urban history' : '',
+  ];
   return {
-    embeddingText: usStudentVisa
-      ? `${topic}\nU.S. student visa for academic study${classes.includes('f1') ? ' (F-1 nonimmigrant visa)' : ''}`
-      : topic,
+    embeddingText: [topic, ...context.filter(Boolean)].join('\n'),
+    newYorkCity: isNewYorkCity,
     visaClasses: classes,
     usStudentVisa,
     requestedModel,
@@ -52,10 +60,11 @@ export function interpretQuery(query: string): QueryIntent {
 }
 
 export function supportsQueryIntent(metadata: string, intent: QueryIntent): boolean {
-  if (!intent.visaClasses.length && !intent.usStudentVisa && !intent.exactPhrases.length && !intent.requestedModel) return true;
+  if (!intent.visaClasses.length && !intent.usStudentVisa && !intent.exactPhrases.length && !intent.requestedModel && !intent.newYorkCity) return true;
   const normalized = normalize(metadata);
   if (!intent.exactPhrases.every(phrase => normalized.includes(phrase))) return false;
   if (intent.requestedModel && !normalized.includes(intent.requestedModel)) return false;
+  if (intent.newYorkCity && !newYorkCity.test(normalized) && !newYorkBoroughs.test(normalized)) return false;
   if (!intent.visaClasses.length && !intent.usStudentVisa) return true;
 
   // A class mentioned in immigration metadata carries more evidence than broad topic similarity.

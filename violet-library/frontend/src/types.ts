@@ -7,6 +7,8 @@ export interface Book {
   aliases?: string[];
   format?: 'Booklet' | 'Handbook' | 'Textbook';
   publisher?: string;
+  access?: 'pdf' | 'web';
+  sourceUrl?: string;
   authors: string[];
   subjects: string[];
   languages: string[];

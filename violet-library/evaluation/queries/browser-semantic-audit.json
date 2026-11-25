@@ -90,5 +90,17 @@
     "language": "en",
     "query": "I need a repair manual for the 2017 Toyota Corolla water pump.",
     "relevant": []
+  },
+  {
+    "id": "nyc-history",
+    "split": "holdout",
+    "language": "en",
+    "query": "new york city and its history",
+    "relevant": [
+      "gutenberg-13842",
+      "gutenberg-64572",
+      "nyupress-9781479800575",
+      "nyupress-9781479891672"
+    ]
   }
 ]

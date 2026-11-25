@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { buildSearchIndex, displayRelevance, hasEligibleBooks, keepSemanticMatches, rankBooks, rankKeywordBooks, tokens } from './search';
 import type { Book } from './types';
+import { bookAccess } from './book-access';
 import { cleanDescription } from './book-text';
 import base from '../public/data/catalog.json';
 import supplementalRecords from '../public/data/multilingual.json';
@@ -143,6 +144,27 @@ describe('browser ranking', () => {
     expect(keepSemanticMatches(hits, 'cars', 'gte-base').map(hit => hit.book.id)).toEqual(['a', 'b']);
     expect(keepSemanticMatches(hits, 'cars', 'e5-small')).toEqual(hits);
     expect(keepSemanticMatches(hits, 'F-1 visa', 'gte-base')).toEqual(hits);
+  });
+
+  it('distinguishes a confirmed PDF from a catalog record and filters before ranking', () => {
+    const making = base.find(item => item.id === '3907773b-6336-4d2c-9a7b-3b4a377f22a9')!;
+    const unknown = { ...book('record', 'Similar text', 'A relevant abstract'), url: 'https://admin.directory.doabooks.org/handle/example' };
+    expect(bookAccess(making)).toMatchObject({ type: 'pdf', sourceUrl: 'https://doi.org/10.1017/9781108625227' });
+    expect(bookAccess(unknown)).toEqual({ type: 'record', url: 'https://directory.doabooks.org/handle/example' });
+    const index = buildSearchIndex([unknown, making]);
+    expect(rankBooks('history', new Float32Array([1, 0]), new Float32Array([1, 0, 0.6, 0.8]),
+      index, 'semantic', 0, 'en', true).map(hit => hit.book.id)).toEqual([making.id]);
+  });
+
+  it('requires New York City coverage rather than general history or New York State', () => {
+    const index = buildSearchIndex([
+      book('empire', 'The Making of an Imperial Polity', 'Early English colonial history'),
+      book('state', 'History of New York State', 'Statewide politics and rural regions'),
+      book('city', 'The Story of Manhattan', 'History of New York City and New Amsterdam'),
+    ]);
+    const hits = rankBooks('NYC and its history', new Float32Array([1, 0]),
+      new Float32Array([1, 0, 1, 0, 0.6, 0.8]), index, 'semantic');
+    expect(hits.map(hit => hit.book.id)).toEqual(['city']);
   });
 
   it('uses key terms to resolve a close semantic match', () => {
