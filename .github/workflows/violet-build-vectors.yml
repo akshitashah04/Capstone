@@ -29,17 +29,19 @@ jobs:
         with:
           path: /tmp/violet-library-audit-models
           key: violet-browser-models-${{ runner.os }}-${{ hashFiles('violet-library/frontend/src/model-config.ts') }}
-      - name: Audit the models and prepare book vectors when the catalog changes
+      - name: Audit the models and prepare outdated book vectors
         run: |
           set -eu
           if ! node <<'NODE'
           const fs = require('node:fs');
+          const { MODELS } = require('./violet-library/frontend/src/model-config.ts');
           const root = 'violet-library/frontend/public/data';
           const manifest = JSON.parse(fs.readFileSync(`${root}/manifest.json`));
           const ready = Object.keys(manifest.models).every(model => {
             try {
               const descriptor = JSON.parse(fs.readFileSync(`${root}/prepared/${model}.json`));
-              return descriptor.catalog === manifest.catalog_sha256;
+              return descriptor.catalog === manifest.catalog_sha256 && descriptor.revision === MODELS[model].revision &&
+                fs.statSync(`${root}/prepared/${model}.f32`).size === descriptor.bytes;
             } catch {
               return false;
             }
