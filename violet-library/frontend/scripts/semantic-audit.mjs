@@ -19,8 +19,8 @@ const vite = await createServer({
 let encoder;
 try {
   const load = name => vite.ssrLoadModule(new URL(`../src/${name}.ts`, import.meta.url).pathname);
-  const [catalog, embeddings, passage, search, intent, bookText] = await Promise.all(
-    ['catalog', 'embedding', 'passages', 'search', 'query-intent', 'book-text'].map(load),
+  const [catalog, embeddings, passage, search, intent, bookText, queryTools] = await Promise.all(
+    ['catalog', 'embedding', 'passages', 'search', 'query-intent', 'book-text', 'semantic-query'].map(load),
   );
   const books = [...base, ...supplement].map(book => ({
     ...book, description: bookText.cleanDescription(book.description),
@@ -39,17 +39,43 @@ try {
   );
   const vectors = passage.appendVectors(catalog.decodeHalfVectors(baseVectors), extra);
   const index = search.buildSearchIndex(books);
-  const output = [];
+  const variants = [0, 0.25, 0.5, 0.75, 1];
+  const predicted = [];
   for (const row of queries) {
-    const vector = await encoder.encode([intent.interpretQuery(row.query).embeddingText], 'query');
-    const hits = search.rankBooks(row.query, vector, vectors, index, 'semantic', 0, row.language);
-    const top = hits.slice(0, 5).map(hit => ({
-      id: hit.book.id, title: hit.book.title, score: Number(hit.relevance.toFixed(4)),
-    }));
-    const pass = row.relevant.length ? top.some(hit => row.relevant.includes(hit.id)) : !top.length;
-    output.push({ id: row.id, split: row.split, pass, top });
+    const original = intent.interpretQuery(row.query).embeddingText;
+    const focus = queryTools.focusedQuery(original);
+    const originalVector = await encoder.encode([original], 'query');
+    const focusedVector = focus === original ? originalVector : await encoder.encode([focus], 'query');
+    const rankings = variants.map(weight => {
+      const vector = queryTools.blendQueryVectors(originalVector, focusedVector, weight);
+      const hits = search.keepSemanticMatches(
+        search.rankBooks(row.query, vector, vectors, index, 'semantic', 0, row.language),
+        row.query, model,
+      );
+      const position = row.relevant.length ? hits.findIndex(hit => row.relevant.includes(hit.book.id)) : -1;
+      const reciprocalRank = row.relevant.length ? (position < 0 ? 0 : 1 / (position + 1)) : Number(!hits.length);
+      return {
+        weight, reciprocalRank, pass: row.relevant.length ? position >= 0 && position < 5 : !hits.length,
+        top: hits.slice(0, 5).map(hit => ({
+          title: hit.book.title, score: Number(hit.relevance.toFixed(4)),
+        })),
+        resultCount: hits.length,
+      };
+    });
+    predicted.push({ id: row.id, split: row.split, rankings });
   }
-  console.log(JSON.stringify({ model, catalog: manifest.catalog_sha256, passed: output.filter(row => row.pass).length, output }));
+  const scores = variants.map((weight, i) => ({
+    weight,
+    score: predicted.filter(row => row.split === 'development')
+      .reduce((sum, row) => sum + row.rankings[i].reciprocalRank, 0),
+  }));
+  scores.sort((a, b) => b.score - a.score || a.weight - b.weight);
+  const selected = scores[0].weight;
+  const output = predicted.map(({ id, split, rankings }) => ({
+    id, split, ...rankings[variants.indexOf(selected)],
+  }));
+  console.log(JSON.stringify({ model, selected, scores, passed: output.filter(row => row.pass).length, output }));
+
 } finally {
   await encoder?.dispose();
   await vite.close();

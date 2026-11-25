@@ -19,6 +19,7 @@ export interface QueryIntent {
   visaClasses: string[];
   usStudentVisa: boolean;
   exactPhrases: string[];
+  requestedModel?: string;
 }
 
 export function interpretQuery(query: string): QueryIntent {
@@ -34,12 +35,16 @@ export function interpretQuery(query: string): QueryIntent {
     /^(?:(?:i(?: am|'m) )?looking for|(?:can|could) you (?:find|recommend)(?: me)?|please (?:find|recommend))\s+/iu, '',
   ).replace(/\s+related books[.!?]*$/iu, '').trim();
   const topic = focus || query;
+  const requestedModel = normalized.match(
+    /\b(?:repair|service|workshop|maintenance) manuals? (?:for|on) (?:the )?(?:19|20)\d{2} ([\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)? [\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)?)/u,
+  )?.[1];
   return {
     embeddingText: usStudentVisa
       ? `${topic}\nU.S. student visa for academic study${classes.includes('f1') ? ' (F-1 nonimmigrant visa)' : ''}`
       : topic,
     visaClasses: classes,
     usStudentVisa,
+    requestedModel,
     exactPhrases: [...query.matchAll(/"([^"]+)"|“([^”]+)”/gu)]
       .map(match => normalize(match[1] ?? match[2]))
       .filter(Boolean),
@@ -47,9 +52,10 @@ export function interpretQuery(query: string): QueryIntent {
 }
 
 export function supportsQueryIntent(metadata: string, intent: QueryIntent): boolean {
-  if (!intent.visaClasses.length && !intent.usStudentVisa && !intent.exactPhrases.length) return true;
+  if (!intent.visaClasses.length && !intent.usStudentVisa && !intent.exactPhrases.length && !intent.requestedModel) return true;
   const normalized = normalize(metadata);
   if (!intent.exactPhrases.every(phrase => normalized.includes(phrase))) return false;
+  if (intent.requestedModel && !normalized.includes(intent.requestedModel)) return false;
   if (!intent.visaClasses.length && !intent.usStudentVisa) return true;
 
   // A class mentioned in immigration metadata carries more evidence than broad topic similarity.

@@ -1,4 +1,4 @@
-import type { Book, SearchHit, SearchMode } from './types';
+import type { Book, ModelKey, SearchHit, SearchMode } from './types';
 import { cleanDescription } from './book-text';
 import { bookLanguages } from './languages';
 import { interpretQuery, supportsQueryIntent } from './query-intent';
@@ -157,4 +157,15 @@ export function rankKeywordBooks(query: string, index: SearchIndex, language?: s
 export function displayRelevance(score: number, keywordTopScore?: number): string {
   const scaled = keywordTopScore === undefined ? score : keywordTopScore > 0 ? score / keywordTopScore : 0;
   return (100 * Math.max(0, Math.min(1, scaled))).toFixed(1);
+}
+
+export function keepSemanticMatches(hits: SearchHit[], query: string, model: ModelKey): SearchHit[] {
+  const intent = interpretQuery(query);
+  if (model !== 'gte-base' || intent.exactPhrases.length || intent.visaClasses.length ||
+      intent.usStudentVisa || intent.requestedModel) return hits;
+
+  // Drop the weaker cluster only when the model shows a clear break after a result.
+  const breakAt = hits.findIndex((hit, i) =>
+    i > 0 && hits[i - 1].semanticSimilarity - hit.semanticSimilarity >= 0.08);
+  return breakAt > 0 ? hits.slice(0, breakAt) : hits;
 }
