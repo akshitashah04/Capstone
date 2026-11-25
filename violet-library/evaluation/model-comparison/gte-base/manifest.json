@@ -1,0 +1,19 @@
+{
+  "baseline_index_revision": "b745902168aca10589fd0b376b58eb8019291b37",
+  "created_at_utc": "2026-11-16T18:38:21.387840+00:00",
+  "index_vectors_sha256": "1e7f2bd1ba061ec5cb5d40f8ba0c6664513674b61a62878fa8de7ebf2e7a8e50",
+  "input_prefix": "none",
+  "judgment_status": "unjudged",
+  "model_key": "gte-base",
+  "model_repo": "Alibaba-NLP/gte-multilingual-base",
+  "model_revision": "9bbca17d9273fd0d03d5725c7a4b0f6b45142062",
+  "modes": [
+    "semantic",
+    "hybrid"
+  ],
+  "queries_sha256": "2c076f2ab46b031f054cfb0938b0b70c014a2aca148a5095da4804af55fe84ba",
+  "query_count": 50,
+  "runs_sha256": "dc4bb2eff12c54754090d69e006cb1037a6a6177e886b4358792efab4ba02968",
+  "token_limit": 512,
+  "top_k": 10
+}

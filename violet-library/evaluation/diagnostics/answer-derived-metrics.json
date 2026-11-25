@@ -1,0 +1,365 @@
+{
+  "by_language": {
+    "de": {
+      "hybrid": {
+        "hit_at_1": 0.75,
+        "hit_at_10": 0.75,
+        "hit_at_5": 0.75,
+        "latency_p95_ms": 67.237,
+        "mrr_at_10": 0.75
+      },
+      "keyword": {
+        "hit_at_1": 0.75,
+        "hit_at_10": 0.75,
+        "hit_at_5": 0.75,
+        "latency_p95_ms": 23.24,
+        "mrr_at_10": 0.75
+      },
+      "semantic": {
+        "hit_at_1": 0.75,
+        "hit_at_10": 1.0,
+        "hit_at_5": 1.0,
+        "latency_p95_ms": 41.05,
+        "mrr_at_10": 0.8333
+      }
+    },
+    "en": {
+      "hybrid": {
+        "hit_at_1": 0.75,
+        "hit_at_10": 0.9167,
+        "hit_at_5": 0.9167,
+        "latency_p95_ms": 194.122,
+        "mrr_at_10": 0.8083
+      },
+      "keyword": {
+        "hit_at_1": 0.6667,
+        "hit_at_10": 0.75,
+        "hit_at_5": 0.75,
+        "latency_p95_ms": 170.358,
+        "mrr_at_10": 0.7083
+      },
+      "semantic": {
+        "hit_at_1": 0.75,
+        "hit_at_10": 0.9167,
+        "hit_at_5": 0.9167,
+        "latency_p95_ms": 43.745,
+        "mrr_at_10": 0.8333
+      }
+    },
+    "es": {
+      "hybrid": {
+        "hit_at_1": 0.5,
+        "hit_at_10": 0.75,
+        "hit_at_5": 0.5,
+        "latency_p95_ms": 130.995,
+        "mrr_at_10": 0.5278
+      },
+      "keyword": {
+        "hit_at_1": 0.5,
+        "hit_at_10": 0.5,
+        "hit_at_5": 0.5,
+        "latency_p95_ms": 108.187,
+        "mrr_at_10": 0.5
+      },
+      "semantic": {
+        "hit_at_1": 0.75,
+        "hit_at_10": 1.0,
+        "hit_at_5": 1.0,
+        "latency_p95_ms": 42.803,
+        "mrr_at_10": 0.875
+      }
+    },
+    "fr": {
+      "hybrid": {
+        "hit_at_1": 0.75,
+        "hit_at_10": 1.0,
+        "hit_at_5": 1.0,
+        "latency_p95_ms": 100.899,
+        "mrr_at_10": 0.8125
+      },
+      "keyword": {
+        "hit_at_1": 0.75,
+        "hit_at_10": 0.75,
+        "hit_at_5": 0.75,
+        "latency_p95_ms": 56.2,
+        "mrr_at_10": 0.75
+      },
+      "semantic": {
+        "hit_at_1": 1.0,
+        "hit_at_10": 1.0,
+        "hit_at_5": 1.0,
+        "latency_p95_ms": 45.068,
+        "mrr_at_10": 1.0
+      }
+    }
+  },
+  "index_revision": "f54ded49b97a92ca8e5dce0463500043ea2a19a4",
+  "metric_scope": "known_source_book_in_top_10",
+  "overall": {
+    "hybrid": {
+      "hit_at_1": 0.7083,
+      "hit_at_10": 0.875,
+      "hit_at_5": 0.8333,
+      "latency_p95_ms": 191.071,
+      "mrr_at_10": 0.7525
+    },
+    "keyword": {
+      "hit_at_1": 0.6667,
+      "hit_at_10": 0.7083,
+      "hit_at_5": 0.7083,
+      "latency_p95_ms": 167.217,
+      "mrr_at_10": 0.6875
+    },
+    "semantic": {
+      "hit_at_1": 0.7917,
+      "hit_at_10": 0.9583,
+      "hit_at_5": 0.9583,
+      "latency_p95_ms": 44.848,
+      "mrr_at_10": 0.8681
+    }
+  },
+  "per_query": [
+    {
+      "language": "en",
+      "query_id": "derived-en-01-1",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 2,
+        "semantic": 1
+      },
+      "target_book_id": "216c9309-db52-48b1-8957-0cbc542e1430"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-01-2",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "66920bb7-52d6-43e1-bfd7-d0d6d02bf4b8"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-02-1",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "ab6c6f26-49b5-45ca-8797-a6b932f5b252"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-02-2",
+      "rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": 2
+      },
+      "target_book_id": "d05af014-7080-41aa-aad3-59e5137e0246"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-03-1",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "e48b0f49-aee5-4777-a67e-0043331d3b7a"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-03-2",
+      "rank_by_mode": {
+        "hybrid": 2,
+        "keyword": null,
+        "semantic": 1
+      },
+      "target_book_id": "7ae9d276-9969-4203-98ad-e794b4161ba1"
+    },
+    {
+      "language": "es",
+      "query_id": "derived-es-01-1",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "d73bf5ed-6b17-49b9-9572-4d312f04a066"
+    },
+    {
+      "language": "es",
+      "query_id": "derived-es-01-2",
+      "rank_by_mode": {
+        "hybrid": 9,
+        "keyword": null,
+        "semantic": 1
+      },
+      "target_book_id": "a19953ab-6a63-402e-973c-4dadf5f4a5eb"
+    },
+    {
+      "language": "es",
+      "query_id": "derived-es-02-1",
+      "rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": 2
+      },
+      "target_book_id": "43da13ce-695a-4161-bf1e-820adeb8505d"
+    },
+    {
+      "language": "es",
+      "query_id": "derived-es-02-2",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "29fde483-3679-411a-93d6-e7a602af517d"
+    },
+    {
+      "language": "fr",
+      "query_id": "derived-fr-01-1",
+      "rank_by_mode": {
+        "hybrid": 4,
+        "keyword": null,
+        "semantic": 1
+      },
+      "target_book_id": "d73110cf-2f51-498b-9973-fd4a51a1f944"
+    },
+    {
+      "language": "fr",
+      "query_id": "derived-fr-01-2",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "9cbabc8e-c77f-4598-b72e-34b9d9b71f5f"
+    },
+    {
+      "language": "fr",
+      "query_id": "derived-fr-02-1",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "1cd643e4-58fb-425e-af4b-0dca47206526"
+    },
+    {
+      "language": "fr",
+      "query_id": "derived-fr-02-2",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "1bc2ab22-0553-4da7-a678-1282bb42989d"
+    },
+    {
+      "language": "de",
+      "query_id": "derived-de-01-1",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "4f18cb05-5938-497e-848e-5e6c68a4bfd3"
+    },
+    {
+      "language": "de",
+      "query_id": "derived-de-01-2",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "d7471204-b805-45dc-9bcc-d99b6dbd53a4"
+    },
+    {
+      "language": "de",
+      "query_id": "derived-de-02-1",
+      "rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": 3
+      },
+      "target_book_id": "0554fe49-faeb-4a7d-921f-375bfe0ce649"
+    },
+    {
+      "language": "de",
+      "query_id": "derived-de-02-2",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "1e9880f1-e410-4195-a8dc-8f255eaaa5ad"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-04-1",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "6e292b42-a5c9-4760-954c-b576679b4554"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-04-2",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "f55f12ea-c1b6-4260-a43e-6296a71ade49"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-05-1",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "166cabfe-e0ce-4a95-a082-705a01056f55"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-05-2",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 2
+      },
+      "target_book_id": "1df2dc32-058e-401f-87c9-447e5438b515"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-06-1",
+      "rank_by_mode": {
+        "hybrid": 5,
+        "keyword": null,
+        "semantic": null
+      },
+      "target_book_id": "a1de3de4-32de-4cfb-8a49-d30a700ecc84"
+    },
+    {
+      "language": "en",
+      "query_id": "derived-en-06-2",
+      "rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "target_book_id": "041dc087-73ed-4227-8190-4ea6fdc6b7e0"
+    }
+  ],
+  "queries_sha256": "643049007547b2e15b88d61a1c7e253dd885674fc694b7f9b77022055c1d8f15",
+  "query_count": 24
+}

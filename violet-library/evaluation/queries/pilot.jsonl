@@ -1,0 +1,12 @@
+{"query_id":"pilot-en-01","text":"climate adaptation finance for coastal cities","language":"en","intent":"topic","split":"development"}
+{"query_id":"pilot-en-02","text":"urban housing policy and inequality","language":"en","intent":"topic","split":"development"}
+{"query_id":"pilot-en-03","text":"indigenous data sovereignty","language":"en","intent":"topic","split":"development"}
+{"query_id":"pilot-es-01","text":"adaptación al cambio climático en ciudades costeras","language":"es","intent":"topic","split":"development"}
+{"query_id":"pilot-es-02","text":"migración y políticas públicas","language":"es","intent":"topic","split":"development"}
+{"query_id":"pilot-fr-01","text":"histoire des femmes dans les sciences","language":"fr","intent":"topic","split":"development"}
+{"query_id":"pilot-fr-02","text":"transition énergétique et justice sociale","language":"fr","intent":"topic","split":"development"}
+{"query_id":"pilot-de-01","text":"nachhaltige Stadtplanung und Verkehr","language":"de","intent":"topic","split":"development"}
+{"query_id":"pilot-de-02","text":"digitale Bildung an Hochschulen","language":"de","intent":"topic","split":"holdout"}
+{"query_id":"pilot-en-04","text":"accessible design for people with disabilities","language":"en","intent":"topic","split":"holdout"}
+{"query_id":"pilot-en-05","text":"public health response to pandemics","language":"en","intent":"topic","split":"holdout"}
+{"query_id":"pilot-en-06","text":"Climate Adaptation Finance and Investment in California","language":"en","intent":"known_title","split":"holdout","expected_book_id":"069f1cf6-2d43-4b9b-9f26-f72ca2db5925"}

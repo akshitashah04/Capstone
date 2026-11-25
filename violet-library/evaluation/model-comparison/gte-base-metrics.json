@@ -1,0 +1,859 @@
+{
+  "assessment": "assistant_not_human",
+  "basis_counts": {
+    "new_preview": 265,
+    "prior_assistant": 145,
+    "source_page": 5
+  },
+  "by_language": {
+    "de": {
+      "modes": {
+        "hybrid": {
+          "mrr_at_5": 0.5,
+          "strong_precision_at_5": 0.1,
+          "success_at_5": 0.5,
+          "top_five_success_count": 1,
+          "top_one_success_count": 1,
+          "top_one_success_rate": 0.5,
+          "warm_p95_ms": 148.004
+        },
+        "semantic": {
+          "mrr_at_5": 0.5,
+          "strong_precision_at_5": 0.1,
+          "success_at_5": 0.5,
+          "top_five_success_count": 1,
+          "top_one_success_count": 1,
+          "top_one_success_rate": 0.5,
+          "warm_p95_ms": 135.948
+        }
+      },
+      "query_count": 2
+    },
+    "en": {
+      "modes": {
+        "hybrid": {
+          "mrr_at_5": 0.3021,
+          "strong_precision_at_5": 0.135,
+          "success_at_5": 0.425,
+          "top_five_success_count": 17,
+          "top_one_success_count": 9,
+          "top_one_success_rate": 0.225,
+          "warm_p95_ms": 199.579
+        },
+        "semantic": {
+          "mrr_at_5": 0.3375,
+          "strong_precision_at_5": 0.14,
+          "success_at_5": 0.425,
+          "top_five_success_count": 17,
+          "top_one_success_count": 11,
+          "top_one_success_rate": 0.275,
+          "warm_p95_ms": 136.544
+        }
+      },
+      "query_count": 40
+    },
+    "es": {
+      "modes": {
+        "hybrid": {
+          "mrr_at_5": 0.25,
+          "strong_precision_at_5": 0.05,
+          "success_at_5": 0.25,
+          "top_five_success_count": 1,
+          "top_one_success_count": 1,
+          "top_one_success_rate": 0.25,
+          "warm_p95_ms": 154.824
+        },
+        "semantic": {
+          "mrr_at_5": 0.125,
+          "strong_precision_at_5": 0.05,
+          "success_at_5": 0.25,
+          "top_five_success_count": 1,
+          "top_one_success_count": 0,
+          "top_one_success_rate": 0.0,
+          "warm_p95_ms": 130.817
+        }
+      },
+      "query_count": 4
+    },
+    "fr": {
+      "modes": {
+        "hybrid": {
+          "mrr_at_5": 0.0,
+          "strong_precision_at_5": 0.0,
+          "success_at_5": 0.0,
+          "top_five_success_count": 0,
+          "top_one_success_count": 0,
+          "top_one_success_rate": 0.0,
+          "warm_p95_ms": 167.96
+        },
+        "semantic": {
+          "mrr_at_5": 0.0,
+          "strong_precision_at_5": 0.0,
+          "success_at_5": 0.0,
+          "top_five_success_count": 0,
+          "top_one_success_count": 0,
+          "top_one_success_rate": 0.0,
+          "warm_p95_ms": 161.772
+        }
+      },
+      "query_count": 4
+    }
+  },
+  "by_split": {
+    "development": {
+      "modes": {
+        "hybrid": {
+          "mrr_at_5": 0.2817,
+          "strong_precision_at_5": 0.116,
+          "success_at_5": 0.38,
+          "top_five_success_count": 19,
+          "top_one_success_count": 11,
+          "top_one_success_rate": 0.22,
+          "warm_p95_ms": 199.579
+        },
+        "semantic": {
+          "mrr_at_5": 0.3,
+          "strong_precision_at_5": 0.12,
+          "success_at_5": 0.38,
+          "top_five_success_count": 19,
+          "top_one_success_count": 12,
+          "top_one_success_rate": 0.24,
+          "warm_p95_ms": 155.767
+        }
+      },
+      "query_count": 50
+    }
+  },
+  "clear_fit_pairs": 40,
+  "judged_pairs": 415,
+  "labels_sha256": "d0d34528f5fc0ce6f5ecf171b2942af7a6bca0cd84d34ece7c3ff2e59e12e6bb",
+  "limits": "Assistant ratings of authored first-five results. Neither model was trained on these questions. Book contents were not comprehensively reviewed; real student and human-review quality remains unmeasured.",
+  "model_key": "gte-base",
+  "model_repo": "Alibaba-NLP/gte-multilingual-base",
+  "model_revision": "9bbca17d9273fd0d03d5725c7a4b0f6b45142062",
+  "modes": {
+    "hybrid": {
+      "mrr_at_5": 0.2817,
+      "strong_precision_at_5": 0.116,
+      "success_at_5": 0.38,
+      "top_five_success_count": 19,
+      "top_one_success_count": 11,
+      "top_one_success_rate": 0.22,
+      "warm_p95_ms": 199.579
+    },
+    "semantic": {
+      "mrr_at_5": 0.3,
+      "strong_precision_at_5": 0.12,
+      "success_at_5": 0.38,
+      "top_five_success_count": 19,
+      "top_one_success_count": 12,
+      "top_one_success_rate": 0.24,
+      "warm_p95_ms": 155.767
+    }
+  },
+  "queries_sha256": "2c076f2ab46b031f054cfb0938b0b70c014a2aca148a5095da4804af55fe84ba",
+  "query_count": 50,
+  "query_findings": {
+    "student-01": {
+      "hybrid": {
+        "book_id": "25d8edcb-1953-4d2a-8213-3e559c665508",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/131983",
+        "first_clear_rank": 4,
+        "title": "Business Data Ethics"
+      },
+      "semantic": {
+        "book_id": "50a98e40-4944-48b6-b25f-b5f220698e4d",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/152119",
+        "first_clear_rank": 2,
+        "title": "Contemporary Issues in Industry 5.0"
+      }
+    },
+    "student-02": {
+      "hybrid": {
+        "book_id": "59e1be27-9d7f-4f2c-85e7-cfa762205269",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/157440",
+        "first_clear_rank": 2,
+        "title": "Introduction to CRISPR-Cas9 Techniques"
+      },
+      "semantic": {
+        "book_id": "59e1be27-9d7f-4f2c-85e7-cfa762205269",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/157440",
+        "first_clear_rank": 1,
+        "title": "Introduction to CRISPR-Cas9 Techniques"
+      }
+    },
+    "student-03": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-04": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-05": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-06": {
+      "hybrid": {
+        "book_id": "ddaec599-dcad-4177-bf9b-b1f5339d939a",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/78611",
+        "first_clear_rank": 1,
+        "title": "How Humans Judge Machines"
+      },
+      "semantic": {
+        "book_id": "ddaec599-dcad-4177-bf9b-b1f5339d939a",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/78611",
+        "first_clear_rank": 1,
+        "title": "How Humans Judge Machines"
+      }
+    },
+    "student-07": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-08": {
+      "hybrid": {
+        "book_id": "159e90e0-7adb-4c4c-915e-f3115e9bb288",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/76387",
+        "first_clear_rank": 1,
+        "title": "Urban Heat Island Mitigation Technologies"
+      },
+      "semantic": {
+        "book_id": "159e90e0-7adb-4c4c-915e-f3115e9bb288",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/76387",
+        "first_clear_rank": 3,
+        "title": "Urban Heat Island Mitigation Technologies"
+      }
+    },
+    "student-09": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-10": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-11": {
+      "hybrid": {
+        "book_id": "feac9602-119a-4cec-929f-4fe9388298cb",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/100196",
+        "first_clear_rank": 4,
+        "title": "Marine Pollution – Monitoring, Management and Mitigation"
+      },
+      "semantic": {
+        "book_id": "a7ca0d7c-a515-4d0d-850f-c9dfad7720d7",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/112303",
+        "first_clear_rank": 2,
+        "title": "Marine Plastics Abatement"
+      }
+    },
+    "student-12": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-13": {
+      "hybrid": {
+        "book_id": "edfd0a5a-124b-4831-adc5-a4d31aa9a0a2",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/36695",
+        "first_clear_rank": 1,
+        "title": "Indigenous Data Sovereignty"
+      },
+      "semantic": {
+        "book_id": "edfd0a5a-124b-4831-adc5-a4d31aa9a0a2",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/36695",
+        "first_clear_rank": 1,
+        "title": "Indigenous Data Sovereignty"
+      }
+    },
+    "student-14": {
+      "hybrid": {
+        "book_id": "99da83bf-4ae5-4415-86d1-e05c26a4a31f",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/160709",
+        "first_clear_rank": 2,
+        "title": "Development of the Global Film Industry"
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-15": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-16": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-17": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-18": {
+      "hybrid": {
+        "book_id": "83e93451-7907-484f-a92b-562d9652e246",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/71469",
+        "first_clear_rank": 1,
+        "title": "Cities and Affordable Housing"
+      },
+      "semantic": {
+        "book_id": "5e73961e-efe8-4047-863e-19b742d0e982",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/90812",
+        "first_clear_rank": 1,
+        "title": "Evidence and Innovation in Housing Law and Policy"
+      }
+    },
+    "student-19": {
+      "hybrid": {
+        "book_id": "4c4d8d5f-6955-4fd9-b3c3-4a951d22e0de",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/121189",
+        "first_clear_rank": 2,
+        "title": "Codeswitching in the Classroom"
+      },
+      "semantic": {
+        "book_id": "4c4d8d5f-6955-4fd9-b3c3-4a951d22e0de",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/121189",
+        "first_clear_rank": 2,
+        "title": "Codeswitching in the Classroom"
+      }
+    },
+    "student-20": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-21": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": "158b2d63-0cc6-4720-8ed7-ee3a68f9de51",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/114985",
+        "first_clear_rank": 1,
+        "title": "Learning from Experience"
+      }
+    },
+    "student-22": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-23": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-24": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-25": {
+      "hybrid": {
+        "book_id": "fbcf52a9-7de7-4ea8-a872-4c14712d5efd",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/67917",
+        "first_clear_rank": 1,
+        "title": "Quantum Computing for the Quantum Curious"
+      },
+      "semantic": {
+        "book_id": "fbcf52a9-7de7-4ea8-a872-4c14712d5efd",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/67917",
+        "first_clear_rank": 1,
+        "title": "Quantum Computing for the Quantum Curious"
+      }
+    },
+    "student-26": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": "8c490662-708b-4299-927c-4669350df6a8",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/77331",
+        "first_clear_rank": 3,
+        "title": "A Guide to Sustainable Corporate Responsibility"
+      }
+    },
+    "student-27": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-28": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-29": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-30": {
+      "hybrid": {
+        "book_id": "f1248cce-8900-480b-aef1-fde4a8981c86",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/70085",
+        "first_clear_rank": 1,
+        "title": "The Fight Against Platform Capitalism"
+      },
+      "semantic": {
+        "book_id": "c88b99dd-21bf-4e66-b5d2-05e427d64f80",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/135576",
+        "first_clear_rank": 1,
+        "title": "Capitalism in the Platform Age"
+      }
+    },
+    "student-31": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-32": {
+      "hybrid": {
+        "book_id": "c3307674-9ff7-4de0-ba2c-6e363eab74bd",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/163733",
+        "first_clear_rank": 1,
+        "title": "Neuropsicología Educativa, Narrativa y Proceso Lector"
+      },
+      "semantic": {
+        "book_id": "c3307674-9ff7-4de0-ba2c-6e363eab74bd",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/163733",
+        "first_clear_rank": 2,
+        "title": "Neuropsicología Educativa, Narrativa y Proceso Lector"
+      }
+    },
+    "student-33": {
+      "hybrid": {
+        "book_id": "7f23e09b-593e-481c-83de-d51bb04c6809",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/161004",
+        "first_clear_rank": 1,
+        "title": "Climate Adaptation and Resilience Across Scales"
+      },
+      "semantic": {
+        "book_id": "7f23e09b-593e-481c-83de-d51bb04c6809",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/161004",
+        "first_clear_rank": 1,
+        "title": "Climate Adaptation and Resilience Across Scales"
+      }
+    },
+    "student-34": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-35": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-36": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-37": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-38": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-39": {
+      "hybrid": {
+        "book_id": "fef88793-16d4-471c-9509-5dbec5bdd647",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/166605",
+        "first_clear_rank": 4,
+        "title": "Interprofessional Approach to Refugee Health"
+      },
+      "semantic": {
+        "book_id": "fef88793-16d4-471c-9509-5dbec5bdd647",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/166605",
+        "first_clear_rank": 1,
+        "title": "Interprofessional Approach to Refugee Health"
+      }
+    },
+    "student-40": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-41": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-42": {
+      "hybrid": {
+        "book_id": "6201ab27-b92f-4418-8e5a-bc97158075af",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/138674",
+        "first_clear_rank": 2,
+        "title": "Democratic Algorithms"
+      },
+      "semantic": {
+        "book_id": "6201ab27-b92f-4418-8e5a-bc97158075af",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/138674",
+        "first_clear_rank": 3,
+        "title": "Democratic Algorithms"
+      }
+    },
+    "student-43": {
+      "hybrid": {
+        "book_id": "d22e3412-f7d9-47ef-aa66-f04917b29683",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/160054",
+        "first_clear_rank": 1,
+        "title": "Urban Food Systems Governance and Poverty in African Cities"
+      },
+      "semantic": {
+        "book_id": "adcad551-d09d-4e1d-8711-8ad5e8045533",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/35374",
+        "first_clear_rank": 1,
+        "title": "Urban Food Sharing"
+      }
+    },
+    "student-44": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-45": {
+      "hybrid": {
+        "book_id": "00c05ef2-cce0-4f5e-8c18-29119c83c9ac",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/158730",
+        "first_clear_rank": 3,
+        "title": "Designing Interactions with Robots"
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-46": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-47": {
+      "hybrid": {
+        "book_id": "719328d1-6439-4602-89f1-202f0e88a6fd",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/160967",
+        "first_clear_rank": 1,
+        "title": "Indigenous Data Sovereignty and Policy"
+      },
+      "semantic": {
+        "book_id": "719328d1-6439-4602-89f1-202f0e88a6fd",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/160967",
+        "first_clear_rank": 1,
+        "title": "Indigenous Data Sovereignty and Policy"
+      }
+    },
+    "student-48": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-49": {
+      "hybrid": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      },
+      "semantic": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-50": {
+      "hybrid": {
+        "book_id": "0a8bead3-cb10-4c7f-b4e6-61cf2cf4817b",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/158406",
+        "first_clear_rank": 1,
+        "title": "Integrating Climate Risks in Bank Risk Management and Capital Requirements"
+      },
+      "semantic": {
+        "book_id": "0a8bead3-cb10-4c7f-b4e6-61cf2cf4817b",
+        "book_url": "https://directory.doabooks.org/handle/20.500.12854/158406",
+        "first_clear_rank": 1,
+        "title": "Integrating Climate Risks in Bank Risk Management and Capital Requirements"
+      }
+    }
+  },
+  "runs_sha256": "dc4bb2eff12c54754090d69e006cb1037a6a6177e886b4358792efab4ba02968"
+}

@@ -1,0 +1,79 @@
+name: Collect and score owned search evaluation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/libraries_evaluation/**'
+      - 'evaluation/queries/**'
+      - '.github/workflows/evaluate-search.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: evaluate-owned-book-search
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Configure temporary model cache
+        run: echo "HF_HOME=$RUNNER_TEMP/hf-cache" >> "$GITHUB_ENV"
+      - name: Install CPU-only PyTorch
+        run: python -m pip install 'torch==2.9.1+cpu' --index-url https://download.pytorch.org/whl/cpu
+      - name: Install search and evaluation tools
+        run: python -m pip install -e '.[search]'
+      - name: Collect unjudged pilot results from pinned index
+        run: libraries-collect-evaluation --queries evaluation/queries/pilot.jsonl --index-dir "$RUNNER_TEMP/evaluation-index" --output-dir "$RUNNER_TEMP/evaluation-output" --top-k 10
+      - name: Check review sheets and assemble complete judgments
+        run: |
+          python -m libraries_evaluation.review assemble \
+            --queries evaluation/queries/pilot.jsonl \
+            --review-dir evaluation/review/pilot \
+            --run-dir "$RUNNER_TEMP/evaluation-output" \
+            --output "$RUNNER_TEMP/evaluation-output/judgments.csv" \
+            --summary "$RUNNER_TEMP/evaluation-output/progress.md"
+      - name: Score only complete human judgments
+        run: |
+          if [ -f "$RUNNER_TEMP/evaluation-output/judgments.csv" ]; then
+            libraries-score-evaluation --queries evaluation/queries/pilot.jsonl --run-dir "$RUNNER_TEMP/evaluation-output" --judgments "$RUNNER_TEMP/evaluation-output/judgments.csv" --output "$RUNNER_TEMP/evaluation-output/metrics.json"
+          else
+            echo 'Human review is incomplete; relevance metrics intentionally skipped.'
+          fi
+      - name: Show pilot examples in GitHub
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/evaluation-output/summary.md" ]; then
+            cat "$RUNNER_TEMP/evaluation-output/summary.md" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,20p' "$RUNNER_TEMP/evaluation-output/summary.md"
+          fi
+          if [ -f "$RUNNER_TEMP/evaluation-output/progress.md" ]; then
+            cat "$RUNNER_TEMP/evaluation-output/progress.md" >> "$GITHUB_STEP_SUMMARY"
+            cat "$RUNNER_TEMP/evaluation-output/progress.md"
+          fi
+          if [ -f "$RUNNER_TEMP/evaluation-output/metrics.json" ]; then
+            echo '## Scored metrics' >> "$GITHUB_STEP_SUMMARY"
+            echo '```json' >> "$GITHUB_STEP_SUMMARY"
+            cat "$RUNNER_TEMP/evaluation-output/metrics.json" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload small review files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: search-evaluation-pilot
+          path: ${{ runner.temp }}/evaluation-output/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Remove temporary index, model, and review files
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/evaluation-index" "$RUNNER_TEMP/evaluation-output" "$HF_HOME"

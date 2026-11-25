@@ -1,0 +1,24 @@
+{
+  "candidate_count": 233,
+  "index_revision": "f54ded49b97a92ca8e5dce0463500043ea2a19a4",
+  "metadata_sha256": "ebe55bd17d4cadb40047d45942ae555bcfc15d9293853010604f9b274e1d7c61",
+  "pair_sha256": "27ef3be35135535967d7763c4058404a2b57a11e916d6900d56c186c8d81bc70",
+  "queries_sha256": "735648a1cca148ca951e7ae1080fafa7286444af7e296bfc3e3db81177140845",
+  "query_ids": [
+    "pilot-en-01",
+    "pilot-en-02",
+    "pilot-en-03",
+    "pilot-es-01",
+    "pilot-es-02",
+    "pilot-fr-01",
+    "pilot-fr-02",
+    "pilot-de-01",
+    "pilot-de-02",
+    "pilot-en-04",
+    "pilot-en-05",
+    "pilot-en-06"
+  ],
+  "schema_version": 1,
+  "source_review_sha256": "fdc28a1343ba587da2f215d5249b1790a18d2ffe7e659de5e220da577ec10912",
+  "source_run_id": 43693270526
+}

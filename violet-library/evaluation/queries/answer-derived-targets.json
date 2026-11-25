@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "source_run_id": 43694776677,
+  "source_review_sha256": "fdc28a1343ba587da2f215d5249b1790a18d2ffe7e659de5e220da577ec10912",
+  "selection_rule": "For each original pilot question, take the first two distinct books with an HTTPS source and at least 120 abstract characters after sorting by SHA-256 of source_query_id + colon + book_id; do not repeat a book across questions.",
+  "targets": [
+    {
+      "query_id": "derived-en-01-1",
+      "target_book_id": "216c9309-db52-48b1-8957-0cbc542e1430",
+      "source_query_id": "pilot-en-01",
+      "source_title": "Climate Finance"
+    },
+    {
+      "query_id": "derived-en-01-2",
+      "target_book_id": "66920bb7-52d6-43e1-bfd7-d0d6d02bf4b8",
+      "source_query_id": "pilot-en-01",
+      "source_title": "Climate-Resilient Cities"
+    },
+    {
+      "query_id": "derived-en-02-1",
+      "target_book_id": "ab6c6f26-49b5-45ca-8797-a6b932f5b252",
+      "source_query_id": "pilot-en-02",
+      "source_title": "Urban Inequality"
+    },
+    {
+      "query_id": "derived-en-02-2",
+      "target_book_id": "d05af014-7080-41aa-aad3-59e5137e0246",
+      "source_query_id": "pilot-en-02",
+      "source_title": "From Conflict to Inclusion in Housing"
+    },
+    {
+      "query_id": "derived-en-03-1",
+      "target_book_id": "e48b0f49-aee5-4777-a67e-0043331d3b7a",
+      "source_query_id": "pilot-en-03",
+      "source_title": "Sacred Men"
+    },
+    {
+      "query_id": "derived-en-03-2",
+      "target_book_id": "7ae9d276-9969-4203-98ad-e794b4161ba1",
+      "source_query_id": "pilot-en-03",
+      "source_title": "Datensouveränität für Betroffene über persönliche medizinische Daten durch technische Umsetzung einer datenschutzgerechten Forschungsplattform"
+    },
+    {
+      "query_id": "derived-es-01-1",
+      "target_book_id": "d73bf5ed-6b17-49b9-9572-4d312f04a066",
+      "source_query_id": "pilot-es-01",
+      "source_title": "Sustentabilidad y conciencia ambiental en las ciudades de Abya Yala (Latinoamérica)"
+    },
+    {
+      "query_id": "derived-es-01-2",
+      "target_book_id": "a19953ab-6a63-402e-973c-4dadf5f4a5eb",
+      "source_query_id": "pilot-es-01",
+      "source_title": "Climate Change Adaptation in Coastal Cities"
+    },
+    {
+      "query_id": "derived-es-02-1",
+      "target_book_id": "43da13ce-695a-4161-bf1e-820adeb8505d",
+      "source_query_id": "pilot-es-02",
+      "source_title": "Debates teóricos y metodológicos actuales sobre las políticas públicas"
+    },
+    {
+      "query_id": "derived-es-02-2",
+      "target_book_id": "29fde483-3679-411a-93d6-e7a602af517d",
+      "source_query_id": "pilot-es-02",
+      "source_title": "Panorama de políticas públicas para la economía social y solidaria en Medellín con relación a experiencias de otros países de Europa y América Latina"
+    },
+    {
+      "query_id": "derived-fr-01-1",
+      "target_book_id": "d73110cf-2f51-498b-9973-fd4a51a1f944",
+      "source_query_id": "pilot-fr-01",
+      "source_title": "Genre, femmes, histoire en Europe"
+    },
+    {
+      "query_id": "derived-fr-01-2",
+      "target_book_id": "9cbabc8e-c77f-4598-b72e-34b9d9b71f5f",
+      "source_query_id": "pilot-fr-01",
+      "source_title": "Les ruses de l'ignorance"
+    },
+    {
+      "query_id": "derived-fr-02-1",
+      "target_book_id": "1cd643e4-58fb-425e-af4b-0dca47206526",
+      "source_query_id": "pilot-fr-02",
+      "source_title": "Essai d'écologie territoriale : L'exemple d'Aussois en Savoie"
+    },
+    {
+      "query_id": "derived-fr-02-2",
+      "target_book_id": "1bc2ab22-0553-4da7-a678-1282bb42989d",
+      "source_query_id": "pilot-fr-02",
+      "source_title": "Genre, pouvoirs et justice sociale"
+    },
+    {
+      "query_id": "derived-de-01-1",
+      "target_book_id": "4f18cb05-5938-497e-848e-5e6c68a4bfd3",
+      "source_query_id": "pilot-de-01",
+      "source_title": "Nachhaltige Stadtentwicklung"
+    },
+    {
+      "query_id": "derived-de-01-2",
+      "target_book_id": "d7471204-b805-45dc-9bcc-d99b6dbd53a4",
+      "source_query_id": "pilot-de-01",
+      "source_title": "Unterwegs in die Stadt der Zukunft"
+    },
+    {
+      "query_id": "derived-de-02-1",
+      "target_book_id": "0554fe49-faeb-4a7d-921f-375bfe0ce649",
+      "source_query_id": "pilot-de-02",
+      "source_title": "Digitale Prüfungsszenarien in der Hochschule"
+    },
+    {
+      "query_id": "derived-de-02-2",
+      "target_book_id": "1e9880f1-e410-4195-a8dc-8f255eaaa5ad",
+      "source_query_id": "pilot-de-02",
+      "source_title": "Alle(s) digital im Studium?!"
+    },
+    {
+      "query_id": "derived-en-04-1",
+      "target_book_id": "6e292b42-a5c9-4760-954c-b576679b4554",
+      "source_query_id": "pilot-en-04",
+      "source_title": "Robotic Platforms for Assistance to People with Disabilities"
+    },
+    {
+      "query_id": "derived-en-04-2",
+      "target_book_id": "f55f12ea-c1b6-4260-a43e-6296a71ade49",
+      "source_query_id": "pilot-en-04",
+      "source_title": "Sustainable High Volume Road and Rail Transport in Low Income Countries"
+    },
+    {
+      "query_id": "derived-en-05-1",
+      "target_book_id": "166cabfe-e0ce-4a95-a082-705a01056f55",
+      "source_query_id": "pilot-en-05",
+      "source_title": "Research Ethics in Epidemics and Pandemics: A Casebook"
+    },
+    {
+      "query_id": "derived-en-05-2",
+      "target_book_id": "1df2dc32-058e-401f-87c9-447e5438b515",
+      "source_query_id": "pilot-en-05",
+      "source_title": "Public Health"
+    },
+    {
+      "query_id": "derived-en-06-1",
+      "target_book_id": "a1de3de4-32de-4cfb-8a49-d30a700ecc84",
+      "source_query_id": "pilot-en-06",
+      "source_title": "Sustainable Finance and the Global Health Crisis"
+    },
+    {
+      "query_id": "derived-en-06-2",
+      "target_book_id": "041dc087-73ed-4227-8190-4ea6fdc6b7e0",
+      "source_query_id": "pilot-en-06",
+      "source_title": "Payoffs for California College Students and Taxpayers from Investing in Student Mental Health"
+    }
+  ]
+}

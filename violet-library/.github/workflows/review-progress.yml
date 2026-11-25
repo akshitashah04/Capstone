@@ -1,0 +1,68 @@
+name: Check human review progress
+
+on:
+  push:
+    paths:
+      - 'evaluation/review/**'
+      - 'evaluation/queries/**'
+      - 'src/libraries_evaluation/review.py'
+      - 'src/libraries_evaluation/review_packet.py'
+      - 'src/libraries_evaluation/schema.py'
+      - 'evaluation/query-fit/*.zip'
+      - 'evaluation/personas/miss-audit.json'
+      - '.github/workflows/review-progress.yml'
+  pull_request:
+    paths:
+      - 'evaluation/review/**'
+      - 'evaluation/queries/**'
+      - 'src/libraries_evaluation/review.py'
+      - 'src/libraries_evaluation/review_packet.py'
+      - 'src/libraries_evaluation/schema.py'
+      - 'evaluation/query-fit/*.zip'
+      - 'evaluation/personas/miss-audit.json'
+      - '.github/workflows/review-progress.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  progress:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate every review sheet and count grades
+        run: |
+          PYTHONPATH=src python -m libraries_evaluation.review progress \
+            --queries evaluation/queries/pilot.jsonl \
+            --review-dir evaluation/review/pilot \
+            --summary "$RUNNER_TEMP/review-progress.md"
+          cat "$RUNNER_TEMP/review-progress.md" >> "$GITHUB_STEP_SUMMARY"
+      - name: Validate v2 DOAB sheets and count grades
+        run: |
+          PYTHONPATH=src python -m libraries_evaluation.review_packet progress \
+            --queries evaluation/queries/student-personas.jsonl \
+            --archive evaluation/query-fit/reranked-run.zip \
+            --packet-dir evaluation/review/query-fit-v2/doab \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --score-output "$RUNNER_TEMP/doab-human-scores.json"
+      - name: Validate supplemental textbook sheets and count grades
+        run: |
+          PYTHONPATH=src python -m libraries_evaluation.review_packet progress \
+            --queries evaluation/queries/student-personas.jsonl \
+            --archive evaluation/query-fit/otl-coverage-run.zip \
+            --miss-report evaluation/personas/miss-audit.json \
+            --packet-dir evaluation/review/query-fit-v2/textbook \
+            --summary "$GITHUB_STEP_SUMMARY" \
+            --score-output "$RUNNER_TEMP/textbook-human-scores.json"
+      - name: Upload human scores only when a packet is complete
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: completed-human-review-scores
+          path: ${{ runner.temp }}/*-human-scores.json
+          if-no-files-found: ignore
+          retention-days: 30

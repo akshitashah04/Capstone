@@ -1,0 +1,24 @@
+{
+  "candidate_count": 512,
+  "created_at_utc": "2026-11-15T23:32:09.379377+00:00",
+  "index_books_indexed": 91667,
+  "index_dataset_repo": "Tox1/LibrariesBookData",
+  "index_model_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "index_path": "search/v1",
+  "index_revision": "f54ded49b97a92ca8e5dce0463500043ea2a19a4",
+  "index_source_revision": "daba70f6e6de9f7a5c9a1f830fd255415c6d6bb7",
+  "index_vectors_sha256": "d58f81c09c9b7329947827bc2b8ad6734bda149fb5c466ddbf1e8a0114b1a0a5",
+  "judgment_status": "unjudged",
+  "modes": [
+    "keyword",
+    "semantic",
+    "hybrid"
+  ],
+  "queries_sha256": "643049007547b2e15b88d61a1c7e253dd885674fc694b7f9b77022055c1d8f15",
+  "query_count": 24,
+  "review_sha256": "74c95e92d1f48b6de073597a9d7532851756a63046ed259cf237c0f746dcb1e7",
+  "runs_sha256": "18a5abf59dc5e9ada78c2b0c938e4a4cb364200edc6eb9e7875715aad033f9eb",
+  "schema_version": 1,
+  "timings_sha256": "b3b90dc7a5cb18ef0eda9d6718b252a431da2a3fe639d34220f6b259ad287291",
+  "top_k": 10
+}

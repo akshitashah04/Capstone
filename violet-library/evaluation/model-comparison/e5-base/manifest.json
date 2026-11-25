@@ -1,0 +1,19 @@
+{
+  "baseline_index_revision": "b745902168aca10589fd0b376b58eb8019291b37",
+  "created_at_utc": "2026-11-16T15:28:18.214527+00:00",
+  "index_vectors_sha256": "ac797f35d7298f85f2ab704c120e7dc799558a8ace7804785a79cbb2e48cfac9",
+  "input_prefix": "e5",
+  "judgment_status": "unjudged",
+  "model_key": "e5-base",
+  "model_repo": "intfloat/multilingual-e5-base",
+  "model_revision": "d128750597153bb5987e10b1c3493a34e5a4502a",
+  "modes": [
+    "semantic",
+    "hybrid"
+  ],
+  "queries_sha256": "2c076f2ab46b031f054cfb0938b0b70c014a2aca148a5095da4804af55fe84ba",
+  "query_count": 50,
+  "runs_sha256": "77af313d284a3e1fa9470286efdebc892ca83bef2864c062eca53519b37edae8",
+  "token_limit": 512,
+  "top_k": 10
+}

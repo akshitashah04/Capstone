@@ -1,0 +1,241 @@
+{
+  "assessment": "assistant_not_human",
+  "basis_counts": {
+    "new_preview": 93,
+    "source_page": 2
+  },
+  "by_language": {
+    "en": {
+      "modes": {
+        "textbook": {
+          "mrr_at_5": 0.0769,
+          "strong_precision_at_5": 0.0308,
+          "success_at_5": 0.1538,
+          "top_five_success_count": 2,
+          "top_one_success_count": 0,
+          "top_one_success_rate": 0.0,
+          "warm_p95_ms": null
+        }
+      },
+      "query_count": 13
+    },
+    "es": {
+      "modes": {
+        "textbook": {
+          "mrr_at_5": 0.0,
+          "strong_precision_at_5": 0.0,
+          "success_at_5": 0.0,
+          "top_five_success_count": 0,
+          "top_one_success_count": 0,
+          "top_one_success_rate": 0.0,
+          "warm_p95_ms": null
+        }
+      },
+      "query_count": 3
+    },
+    "fr": {
+      "modes": {
+        "textbook": {
+          "mrr_at_5": 0.0,
+          "strong_precision_at_5": 0.0,
+          "success_at_5": 0.0,
+          "top_five_success_count": 0,
+          "top_one_success_count": 0,
+          "top_one_success_rate": 0.0,
+          "warm_p95_ms": null
+        }
+      },
+      "query_count": 3
+    }
+  },
+  "by_split": {
+    "development": {
+      "modes": {
+        "textbook": {
+          "mrr_at_5": 0.0526,
+          "strong_precision_at_5": 0.0211,
+          "success_at_5": 0.1053,
+          "top_five_success_count": 2,
+          "top_one_success_count": 0,
+          "top_one_success_rate": 0.0,
+          "warm_p95_ms": null
+        }
+      },
+      "query_count": 19
+    }
+  },
+  "clear_fit_pairs": 2,
+  "judged_pairs": 95,
+  "kind": "textbook",
+  "labels_sha256": "b1184285856a6d71b69ce892d9f365066e410603f2c0e06cb7d2dbc10f1f39bd",
+  "limits": "Assistant judgments of frozen top-five results. These authored development questions do not establish student-use quality; book contents were not comprehensively reviewed.",
+  "missing_description_pairs": 0,
+  "modes": {
+    "textbook": {
+      "mrr_at_5": 0.0526,
+      "strong_precision_at_5": 0.0211,
+      "success_at_5": 0.1053,
+      "top_five_success_count": 2,
+      "top_one_success_count": 0,
+      "top_one_success_rate": 0.0,
+      "warm_p95_ms": null
+    }
+  },
+  "queries_sha256": "2c076f2ab46b031f054cfb0938b0b70c014a2aca148a5095da4804af55fe84ba",
+  "query_count": 19,
+  "query_findings": {
+    "student-03": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-04": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-09": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-12": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-15": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-17": {
+      "textbook": {
+        "book_id": "otl:454",
+        "book_url": "https://open.umn.edu/opentextbooks/textbooks/web-literacy-for-student-fact-checkers",
+        "first_clear_rank": 2,
+        "title": "Web Literacy for Student Fact-Checkers"
+      }
+    },
+    "student-21": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-22": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-23": {
+      "textbook": {
+        "book_id": "otl:1409",
+        "book_url": "https://open.umn.edu/opentextbooks/textbooks/leveraging-data-visualization-to-communicate-effectively",
+        "first_clear_rank": 2,
+        "title": "Leveraging Data Visualization to Communicate Effectively"
+      }
+    },
+    "student-29": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-32": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-34": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-36": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-37": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-38": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-40": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-41": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-44": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    },
+    "student-48": {
+      "textbook": {
+        "book_id": null,
+        "book_url": null,
+        "first_clear_rank": null,
+        "title": null
+      }
+    }
+  },
+  "source_archive_sha256": "358831628ff39604f2c718ac9946f0b85d6b0ddb6b35159b6d7f8bb8d682489b"
+}

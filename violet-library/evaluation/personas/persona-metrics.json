@@ -1,0 +1,2353 @@
+{
+  "grade_counts": {
+    "0": 199,
+    "1": 359,
+    "2": 41
+  },
+  "index_revision": "f54ded49b97a92ca8e5dce0463500043ea2a19a4",
+  "judged_pairs": 599,
+  "labels_sha256": "98a1a5977a54f4466b6964a9166307db50c46bc0ede771c8490baea137f41950",
+  "level_fit_counts": {
+    "no": 44,
+    "unclear": 514,
+    "yes": 41
+  },
+  "metric_scope": "assistant_judged_union_of_top_5",
+  "metrics": {
+    "by_language": {
+      "de": {
+        "hybrid": {
+          "latency_p95_ms": 75.518,
+          "pooled_ndcg_at_5": 0.6597,
+          "success_at_5": 0.5,
+          "top_one_strong_rate": 0.5,
+          "topical_success_at_5": 1.0
+        },
+        "keyword": {
+          "latency_p95_ms": 20.641,
+          "pooled_ndcg_at_5": 0.6232,
+          "success_at_5": 0.5,
+          "top_one_strong_rate": 0.5,
+          "topical_success_at_5": 1.0
+        },
+        "sample_count": 2,
+        "semantic": {
+          "latency_p95_ms": 57.109,
+          "pooled_ndcg_at_5": 0.8013,
+          "success_at_5": 0.5,
+          "top_one_strong_rate": 0.5,
+          "topical_success_at_5": 0.5
+        }
+      },
+      "en": {
+        "hybrid": {
+          "latency_p95_ms": 172.035,
+          "pooled_ndcg_at_5": 0.7645,
+          "success_at_5": 0.35,
+          "top_one_strong_rate": 0.15,
+          "topical_success_at_5": 0.625
+        },
+        "keyword": {
+          "latency_p95_ms": 142.678,
+          "pooled_ndcg_at_5": 0.5008,
+          "success_at_5": 0.25,
+          "top_one_strong_rate": 0.05,
+          "topical_success_at_5": 0.45
+        },
+        "sample_count": 40,
+        "semantic": {
+          "latency_p95_ms": 36.712,
+          "pooled_ndcg_at_5": 0.7274,
+          "success_at_5": 0.325,
+          "top_one_strong_rate": 0.175,
+          "topical_success_at_5": 0.625
+        }
+      },
+      "es": {
+        "hybrid": {
+          "latency_p95_ms": 81.422,
+          "pooled_ndcg_at_5": 0.5892,
+          "success_at_5": 0.0,
+          "top_one_strong_rate": 0.0,
+          "topical_success_at_5": 0.0
+        },
+        "keyword": {
+          "latency_p95_ms": 30.017,
+          "pooled_ndcg_at_5": 0.3459,
+          "success_at_5": 0.0,
+          "top_one_strong_rate": 0.0,
+          "topical_success_at_5": 0.0
+        },
+        "sample_count": 4,
+        "semantic": {
+          "latency_p95_ms": 53.55,
+          "pooled_ndcg_at_5": 0.7376,
+          "success_at_5": 0.0,
+          "top_one_strong_rate": 0.0,
+          "topical_success_at_5": 0.25
+        }
+      },
+      "fr": {
+        "hybrid": {
+          "latency_p95_ms": 94.212,
+          "pooled_ndcg_at_5": 0.7464,
+          "success_at_5": 0.0,
+          "top_one_strong_rate": 0.0,
+          "topical_success_at_5": 0.25
+        },
+        "keyword": {
+          "latency_p95_ms": 39.97,
+          "pooled_ndcg_at_5": 0.5938,
+          "success_at_5": 0.0,
+          "top_one_strong_rate": 0.0,
+          "topical_success_at_5": 0.25
+        },
+        "sample_count": 4,
+        "semantic": {
+          "latency_p95_ms": 54.835,
+          "pooled_ndcg_at_5": 0.5755,
+          "success_at_5": 0.0,
+          "top_one_strong_rate": 0.0,
+          "topical_success_at_5": 0.25
+        }
+      }
+    },
+    "by_level": {
+      "graduate": {
+        "hybrid": {
+          "latency_p95_ms": 172.035,
+          "pooled_ndcg_at_5": 0.7631,
+          "success_at_5": 0.24,
+          "top_one_strong_rate": 0.12,
+          "topical_success_at_5": 0.52
+        },
+        "keyword": {
+          "latency_p95_ms": 141.843,
+          "pooled_ndcg_at_5": 0.6066,
+          "success_at_5": 0.2,
+          "top_one_strong_rate": 0.04,
+          "topical_success_at_5": 0.4
+        },
+        "sample_count": 25,
+        "semantic": {
+          "latency_p95_ms": 53.87,
+          "pooled_ndcg_at_5": 0.7292,
+          "success_at_5": 0.32,
+          "top_one_strong_rate": 0.2,
+          "topical_success_at_5": 0.6
+        }
+      },
+      "undergraduate": {
+        "hybrid": {
+          "latency_p95_ms": 167.15,
+          "pooled_ndcg_at_5": 0.7265,
+          "success_at_5": 0.36,
+          "top_one_strong_rate": 0.16,
+          "topical_success_at_5": 0.6
+        },
+        "keyword": {
+          "latency_p95_ms": 142.678,
+          "pooled_ndcg_at_5": 0.3949,
+          "success_at_5": 0.24,
+          "top_one_strong_rate": 0.08,
+          "topical_success_at_5": 0.44
+        },
+        "sample_count": 25,
+        "semantic": {
+          "latency_p95_ms": 50.719,
+          "pooled_ndcg_at_5": 0.7089,
+          "success_at_5": 0.24,
+          "top_one_strong_rate": 0.12,
+          "topical_success_at_5": 0.52
+        }
+      }
+    },
+    "overall": {
+      "hybrid": {
+        "latency_p95_ms": 172.035,
+        "pooled_ndcg_at_5": 0.7448,
+        "success_at_5": 0.3,
+        "top_one_strong_rate": 0.14,
+        "topical_success_at_5": 0.56
+      },
+      "keyword": {
+        "latency_p95_ms": 142.678,
+        "pooled_ndcg_at_5": 0.5007,
+        "success_at_5": 0.22,
+        "top_one_strong_rate": 0.06,
+        "topical_success_at_5": 0.42
+      },
+      "sample_count": 50,
+      "semantic": {
+        "latency_p95_ms": 53.87,
+        "pooled_ndcg_at_5": 0.7191,
+        "success_at_5": 0.28,
+        "top_one_strong_rate": 0.16,
+        "topical_success_at_5": 0.56
+      }
+    }
+  },
+  "per_persona": [
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 5,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Business",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 0.4366,
+        "semantic": 0.5177
+      },
+      "persona_id": "student-01",
+      "query": "I'm a business major and want to understand AI for companies, but I don't code. Any beginner book with real business examples?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "25d8edcb-1953-4d2a-8213-3e559c665508",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Business Data Ethics",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "ce2176f2-ab36-4f43-bacb-3435bc25d927",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Don't fear AI (Volume 2)",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "b9ccf0a4-bfb9-40c9-9942-8874b68913f5",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Big Data and Artificial Intelligence",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 2,
+        "keyword": null,
+        "semantic": 3
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Biology",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8508,
+        "keyword": 0.1652,
+        "semantic": 0.7979
+      },
+      "persona_id": "student-02",
+      "query": "I keep hearing about CRISPR in biology class. What should I read to get how gene editing works without jumping straight into lab papers?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "ec6a948e-f944-429f-bd27-bae8a50b4e54",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "Genome Editing in Neurosciences",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "687946e2-633a-4697-a901-559b0a981c6b",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Unravelling T. cruzi Biology",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "ec6a948e-f944-429f-bd27-bae8a50b4e54",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "Genome Editing in Neurosciences",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "History",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 0.3392,
+        "semantic": 0.3156
+      },
+      "persona_id": "student-03",
+      "query": "French Revolution but from ordinary people's point of view, like daily life and not just the kings? I'm in an intro history class.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "6ea54afc-e918-4e3a-a2f6-1cbc9463afca",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Surviving Revolution",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "8a920550-7be6-45dd-8d68-9d1381945ce3",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Lourmarin in the Eighteenth Century",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "c9dea978-efed-4242-b5aa-8e810e8b4053",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "The forgotten French: Exiles in the British Isles, 1940-44",
+          "topic_grade": 0
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Economics",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8772,
+        "keyword": 0.0,
+        "semantic": 0.6131
+      },
+      "persona_id": "student-04",
+      "query": "Why do prices go up and why does inflation hit some families harder? I need an economics book that's not all equations.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "3b5a5098-52f4-46fb-9558-78b51e1b056c",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Capitalism--its Nature and its Replacement",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "4256d511-62a0-4ba5-9844-821568e7ef81",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "New Choices, New Families",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "abdc0d34-3432-49cd-9294-fe4688296141",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "The Profit Doctrine",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Psychology",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.3008,
+        "keyword": 0.0,
+        "semantic": 1.0
+      },
+      "persona_id": "student-05",
+      "query": "I'm taking intro psych and want to know what actually helps anxiety. A book that explains the research simply would help.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "5431a860-1369-4261-87bd-02b8e3e89521",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Suicide",
+          "topic_grade": 0
+        },
+        "keyword": {
+          "book_id": "7e1b3611-071b-450c-bfd6-26a893d46444",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Poetry For The Mind’s Joy",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "c643837f-e63c-4006-8b49-6f536f53980f",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "New Insights into Anxiety Disorders",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Computer Science",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.617,
+        "keyword": 0.5391,
+        "semantic": 0.9131
+      },
+      "persona_id": "student-06",
+      "query": "What should a CS student read about AI bias and people getting treated unfairly by algorithms? Not a super abstract philosophy book.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "ddaec599-dcad-4177-bf9b-b1f5339d939a",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "How Humans Judge Machines",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "ddaec599-dcad-4177-bf9b-b1f5339d939a",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "How Humans Judge Machines",
+          "topic_grade": 2
+        },
+        "semantic": {
+          "book_id": "ddaec599-dcad-4177-bf9b-b1f5339d939a",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "How Humans Judge Machines",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "keyword",
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Nursing",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 1.0,
+        "semantic": 0.786
+      },
+      "persona_id": "student-07",
+      "query": "I'm a nursing student. Need a book on explaining type 2 diabetes care to patients in a way they can actually use.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "77294fad-c365-4f1a-ab46-0c5ba0d84883",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Personalized Care and Treatment Compliance in Chronic Conditions",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "a8810a0e-de9f-41b3-9b01-6e00132989d9",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Personalized Nursing and Health Care",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "39be305f-eddc-4310-bb83-1db0bbc1c480",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "Treatment of Type 2 Diabetes",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 2,
+        "keyword": null,
+        "semantic": 2
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Architecture",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.7498,
+        "keyword": 0.2891,
+        "semantic": 0.8508
+      },
+      "persona_id": "student-08",
+      "query": "How do buildings stay cool without using loads of AC? I'm starting architecture and want design examples, not heavy engineering formulas.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "1ce18da2-af7c-4a82-906b-4ebd706f4f51",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Beyond Energy Efficiency in Architecture. New Challenges and Research Trajectories for Buildings and the Built Environment",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "1ce18da2-af7c-4a82-906b-4ebd706f4f51",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Beyond Energy Efficiency in Architecture. New Challenges and Research Trajectories for Buildings and the Built Environment",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "6d642c01-91e8-49a5-b1c0-de87cad80e48",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Internal Environment and Thermal Performance of Buildings",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "es",
+      "level": "undergraduate",
+      "major": "Political Science",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.2021,
+        "keyword": 0.0,
+        "semantic": 0.906
+      },
+      "persona_id": "student-09",
+      "query": "Estudio ciencias políticas. ¿Hay un libro sencillo que explique representación proporcional y por qué cambia los resultados electorales?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "caa17c30-2397-4fda-9881-fe75b1a89fe7",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "¿Uno solo o varios mundos?",
+          "topic_grade": 0
+        },
+        "keyword": {
+          "book_id": "cdd6a2c0-adf5-4a2b-ac44-eabe05f77eef",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Juventud en dictadura : representaciones, políticas y experiencias juveniles en Rosario : 1976-1983",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "84e31fdf-c394-4b27-9dab-95251b32bb2d",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "La democracia inesperada",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "English Literature",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 0.4704,
+        "semantic": 0.3392
+      },
+      "persona_id": "student-10",
+      "query": "I'm new to postcolonial literature. What book gives me the history and a few novels to start with before the big theory stuff?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "b366e724-2feb-4ad4-8193-8aef74450349",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "Postcolonial contraventions: Cultural readings of race, imperialism and transnationalism",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "9c0102ba-4936-4ff7-b2d5-68734b0cb9fc",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Revisiting Slave Narratives I",
+          "topic_grade": 2
+        },
+        "semantic": {
+          "book_id": "c8c99477-c7c4-4c66-9eb6-03b9dec369d0",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Stories of Women",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 4,
+        "keyword": 5,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Environmental Science",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.5512,
+        "keyword": 0.4978,
+        "semantic": 0.4054
+      },
+      "persona_id": "student-11",
+      "query": "Ocean plastics: where does it all come from and what actually works to reduce it? Need something readable for environmental science.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "dd3b8803-8744-4bb6-9c6c-de391ab9137e",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Plastic Legacies",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "dd3b8803-8744-4bb6-9c6c-de391ab9137e",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Plastic Legacies",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "ef803e60-6d24-4fa4-8e78-e21bfe9aa1c7",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Plastic Pollution",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Music",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 0.3392,
+        "semantic": 0.8688
+      },
+      "persona_id": "student-12",
+      "query": "I want to learn where jazz came from and the communities behind it. I can listen but can't read much music notation yet.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "40c47365-2e1a-413d-827a-5b32a5a1dcbd",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Loving, Talking, Being Music",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "40c47365-2e1a-413d-827a-5b32a5a1dcbd",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Loving, Talking, Being Music",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "3ba89adb-0b94-45f0-a43e-6ad0d9c394d3",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Musiques nord-américaines",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Anthropology",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.9463,
+        "keyword": 0.792,
+        "semantic": 0.9403
+      },
+      "persona_id": "student-13",
+      "query": "What does Indigenous data sovereignty mean in practice? I'm in anthropology and need a beginner-friendly book, maybe with examples.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "f2fa9eca-a713-4782-aa8b-6b2233cf80f3",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Indigenous Data Sovereignty",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "f2fa9eca-a713-4782-aa8b-6b2233cf80f3",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Indigenous Data Sovereignty",
+          "topic_grade": 2
+        },
+        "semantic": {
+          "book_id": "f2fa9eca-a713-4782-aa8b-6b2233cf80f3",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Indigenous Data Sovereignty",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 1,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Film Studies",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.9218,
+        "keyword": 0.3296,
+        "semantic": 0.2145
+      },
+      "persona_id": "student-14",
+      "query": "Did Netflix and other streaming apps change what movies get made? Looking for a book with examples for a film class.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "99da83bf-4ae5-4415-86d1-e05c26a4a31f",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Development of the Global Film Industry",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "0b612dd5-3dd2-45fe-b4dd-b91a68fd80f8",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Netflix Nations",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "f1b203df-d18f-4622-95a3-0e0e855bdd41",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "L'écran de nos pensées",
+          "topic_grade": 0
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Mathematics",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.6608,
+        "keyword": 0.3836,
+        "semantic": 0.8688
+      },
+      "persona_id": "student-15",
+      "query": "I'm good at basic math but new to stats. Is there a book on reading survey results and spotting bad conclusions without lots of calculus?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "37c8b0a8-b8b1-472c-bed5-609ebcd1994c",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Associations between Reading and Mathematics: Genetic, Brain Imaging, Cognitive and Educational Perspectives",
+          "topic_grade": 0
+        },
+        "keyword": {
+          "book_id": "37c8b0a8-b8b1-472c-bed5-609ebcd1994c",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Associations between Reading and Mathematics: Genetic, Brain Imaging, Cognitive and Educational Perspectives",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "e9e57346-605f-4627-bebf-01d22d248970",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "The History of Correlation",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "de",
+      "level": "undergraduate",
+      "major": "Chemistry",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.4469,
+        "keyword": 0.5531,
+        "semantic": 0.8688
+      },
+      "persona_id": "student-16",
+      "query": "Ich studiere Chemie und verstehe Lithium-Ionen-Akkus noch nicht. Gibt es eine verständliche Einführung zur Chemie dahinter?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "4c69395b-98ad-49ff-9ba4-1f3e0178dcd1",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Von Sprosse zu Sprosse",
+          "topic_grade": 0
+        },
+        "keyword": {
+          "book_id": "31a6bdda-3602-4a1e-8459-5b9371149c3c",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "Verfahren zur Charakterisierung und Modellierung von Lithium-Ionen Zellen",
+          "topic_grade": 2
+        },
+        "semantic": {
+          "book_id": "b204ba3a-38f7-410a-a9cf-f9f0be86184c",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Organische Chemie. Ein Lehrbuch für Naturwissenschaftler, Mediziner und Techniker",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Journalism",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8688,
+        "keyword": 0.6992,
+        "semantic": 1.0
+      },
+      "persona_id": "student-17",
+      "query": "How do reporters check viral claims online before sharing them? I need a practical fact-checking book, not only a theory of media.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "e5354aa0-f8b5-4a40-a978-1c99a7b10c37",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Research, Literacy, and Communication Education: New Challenges Facing Disinformation",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "e5354aa0-f8b5-4a40-a978-1c99a7b10c37",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Research, Literacy, and Communication Education: New Challenges Facing Disinformation",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "47a5ead8-42cf-4896-91c5-af35afb1a135",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Truth Claims Across Media",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": 4,
+        "semantic": 1
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Urban Studies",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.4748,
+        "keyword": 0.6135,
+        "semantic": 0.7968
+      },
+      "persona_id": "student-18",
+      "query": "Why is rent so high in big cities and what affordable housing policies have worked? I'm new to urban studies.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "764e0598-4502-4c02-80c6-cecb39c7fcb3",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Efficiency, Fairness and Sustainability in Social Housing Policy and Projects",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "764e0598-4502-4c02-80c6-cecb39c7fcb3",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Efficiency, Fairness and Sustainability in Social Housing Policy and Projects",
+          "topic_grade": 2
+        },
+        "semantic": {
+          "book_id": "5e73961e-efe8-4047-863e-19b742d0e982",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Evidence and Innovation in Housing Law and Policy",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 5,
+        "keyword": null,
+        "semantic": 2
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Education",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.5994,
+        "keyword": 0.1428,
+        "semantic": 0.4364
+      },
+      "persona_id": "student-19",
+      "query": "I'm training to teach. Any book on helping bilingual kids in class without treating their home language as a problem?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "53a323ee-d1cb-4b88-b3f3-f08d8a6f0f5e",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "English Medium Instruction as a Local Practice",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "8ec78338-5ab6-452f-897a-1f4279f26893",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "The Happiest Days?",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "5ca5f16e-ef7c-4049-93ac-5f044aae5084",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Bikol Grammar Notes",
+          "topic_grade": 0
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "fr",
+      "level": "undergraduate",
+      "major": "Philosophy",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8319,
+        "keyword": 0.6367,
+        "semantic": 0.8048
+      },
+      "persona_id": "student-20",
+      "query": "Je commence la philo : comment comprendre le libre arbitre et le déterminisme sans me perdre dans les textes compliqués ?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "27f59eb6-deb2-4462-837c-88e4b8cf5e10",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Le libre arbitre : Perspectives contemporaines",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "27f59eb6-deb2-4462-837c-88e4b8cf5e10",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Le libre arbitre : Perspectives contemporaines",
+          "topic_grade": 2
+        },
+        "semantic": {
+          "book_id": "27f59eb6-deb2-4462-837c-88e4b8cf5e10",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Le libre arbitre : Perspectives contemporaines",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic",
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Public Health",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 0.4852,
+        "semantic": 1.0
+      },
+      "persona_id": "student-21",
+      "query": "During an outbreak, how do local health teams get people information and help? I want case studies for an intro public health course.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "afab6994-4ccc-47ba-9967-dc3b3535226d",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Leveraging Data Science for Global Health",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "de5257c8-6f07-42a6-89b6-4389b3ddeda6",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "COVID-19 Outbreak and Beyond",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "c3a07c31-1e8e-4a6e-b60d-25bc3132df2b",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Assessing the Role of State and Local Public Health in Outreach and Enrollment for Expanded Coverage",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "fr",
+      "level": "undergraduate",
+      "major": "Art History",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8688,
+        "keyword": 0.5531,
+        "semantic": 0.4852
+      },
+      "persona_id": "student-22",
+      "query": "Je cherche des livres sur les femmes artistes oubliées par les musées, avec des exemples d'œuvres plutôt que de la théorie pure.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "d176bbcb-edf7-4cbe-bdbe-c0a554a07684",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Parcours de femmes",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "24023128-9977-427e-9032-fa8f50c77fa1",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Des femmes et des livres : France et Espagne, XIVe-XVIIe siècle",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "a7f30c06-d69a-48cf-8ff2-9ed24fdfe38e",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "Aguinaldo para las señoras del Perú y otros ensayos",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Data Science",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.3008,
+        "keyword": 0.1312,
+        "semantic": 1.0
+      },
+      "persona_id": "student-23",
+      "query": "What makes a data chart misleading? I'm starting data science and want visual examples before a bunch of Python code.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "fa027da5-59f4-4afc-93e1-98efdc99551b",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Functional Statistics",
+          "topic_grade": 0
+        },
+        "keyword": {
+          "book_id": "af9a3d2f-e0b2-4884-a824-2bc1dc84db2e",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Symmetrical and Asymmetrical Distributions in Statistics and Data Science",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "1bf138c9-ac0d-4a66-b7a7-480df06f6361",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Data Science, Data Visualization, and Digital Twins",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "es",
+      "level": "undergraduate",
+      "major": "International Relations",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.6399,
+        "keyword": 0.0,
+        "semantic": 0.6608
+      },
+      "persona_id": "student-24",
+      "query": "Quiero entender por qué migra la gente hacia Europa y qué políticas se han probado. Soy estudiante de relaciones internacionales, nivel inicial.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "d2b91025-6ce0-47c1-8d1e-00d8a8f1e76a",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Del este de Europa al sur de América : migraciones soviéticas y postsoviéticas a la ciudad de Bucaramanga, Santander",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "11a9246b-03f6-474a-a667-c33fc132cf92",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "La fuerza del texto. Casuística y categorías del derecho medieval",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "5848be74-3f23-410a-a7ee-4851aa3574e5",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Las sociedades de la cultura nacional y sus relaciones",
+          "topic_grade": 0
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "keyword"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 2,
+        "keyword": 4,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "undergraduate",
+      "major": "Physics",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.4546,
+        "keyword": 0.4754,
+        "semantic": 0.332
+      },
+      "persona_id": "student-25",
+      "query": "Quantum computers sound cool but I haven't done advanced math yet. Is there a book that explains what they can and can't do?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "94332ff4-e355-4b8f-8cc5-768a87e7ee25",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Applications of Quantum Mechanical Techniques to Areas Outside of Quantum Mechanics",
+          "topic_grade": 0
+        },
+        "keyword": {
+          "book_id": "94332ff4-e355-4b8f-8cc5-768a87e7ee25",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Applications of Quantum Mechanical Techniques to Areas Outside of Quantum Mechanics",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "09239762-0d69-4bb2-8589-2ad94d5b1191",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Quantum Computing and Communications",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": 2
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "MBA",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.5958,
+        "keyword": 0.3938,
+        "semantic": 0.8508
+      },
+      "persona_id": "student-26",
+      "query": "In my MBA work I need to tell real sustainability strategy from greenwashing. What books use company cases and decision tools?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "73cdb12c-cc48-428b-98aa-dd6f8d094b36",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Sustainable Industrial Engineering along Product-Service Life Cycle/Supply Chain",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "6a1b32a7-8dce-461e-877e-1b96d5e90d13",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "The Presence Project",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "44edccc5-8407-4dda-9204-687f09919ece",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Advances in Decision Making",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Public Administration",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.786,
+        "keyword": 0.1312,
+        "semantic": 1.0
+      },
+      "persona_id": "student-27",
+      "query": "I'm doing an MPA capstone on transit equity. Need evidence on fares, service cuts, and who gets left behind in cities.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "0dce9c3f-751a-4969-8cff-62b3297a0a8d",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Urban Transport Systems",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "338da5ce-70a1-4f07-8598-8e01f3e3a65e",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Greening Urban Spaces: A Healthy Community Design",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "75b1ee2a-99dc-4c48-8d7f-44798876f2bf",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "CITIES: Energetic Efficiency, Sustainability; Infrastructures, Energy and the Environment; Mobility and IoT; Governance and Citizenship",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic",
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Public Health Practice",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8539,
+        "keyword": 0.6164,
+        "semantic": 0.8539
+      },
+      "persona_id": "student-28",
+      "query": "For my MPH project, what has actually helped public health teams talk with vaccine-hesitant communities without making distrust worse?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "8566fcf2-25c6-43ff-a535-21cfafa20cc1",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Epidemiology of Communicable and Non-Communicable Diseases - Attributes of Lifestyle and Nature on Humankind",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "d8240d46-56b9-451d-99ce-e07f92e9d143",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "COVID-19",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "6982abec-e64b-4bdd-b43d-500440886900",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "The Politics of Vaccination",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "keyword"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Computer Science Research",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.6367,
+        "keyword": 0.8319,
+        "semantic": 0.1681
+      },
+      "persona_id": "student-29",
+      "query": "I need methods to evaluate RAG retrieval quality, not just chatbot examples. Any research books on search metrics and grounded answers?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "c585493f-8e65-4904-98dd-0517f5ce5396",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Computational Intelligence and Machine Learning",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "e93c3ec9-5760-42f9-8ee3-4b2d2c35dee6",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Computational Intelligence and Machine Learning",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "0efb6d2e-5b60-461f-8c6a-18153ce24505",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Situative Marketingstrategien. Grundsatzstrategien für “Dogs”",
+          "topic_grade": 0
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 2,
+        "keyword": 2,
+        "semantic": 1
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Sociology",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.476,
+        "keyword": 0.589,
+        "semantic": 0.7995
+      },
+      "persona_id": "student-30",
+      "query": "For a sociology seminar, I need studies of platform gig workers: control by apps, pay insecurity, and how workers organize.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "74e86a93-0a61-4ec8-ad88-939f908d68b4",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Digital Platforms and Algorithmic Subjectivities",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "137e553b-53f2-4645-afb8-f805220ba28c",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "La gratuità si paga",
+          "topic_grade": 2
+        },
+        "semantic": {
+          "book_id": "c88b99dd-21bf-4e66-b5d2-05e427d64f80",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Capitalism in the Platform Age",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic",
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Advanced Nursing",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 0.8688,
+        "semantic": 1.0
+      },
+      "persona_id": "student-31",
+      "query": "I'm in a nursing master's program. What helps family caregivers manage dementia at home, and what evidence is there for those approaches?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "32eda0da-d933-4e22-848d-da588b544030",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Caregiving and Home Care",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "dcb6cba1-da2a-4bea-902b-3620cea1acdc",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Enhancing the Quality of Care in Long-Term Care Settings",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "bedaa019-fe51-46ed-80b5-ff9c5511a619",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Caregiving and Home Care",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "es",
+      "level": "graduate",
+      "major": "Special Education",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.5148,
+        "keyword": 0.3836,
+        "semantic": 0.6992
+      },
+      "persona_id": "student-32",
+      "query": "En mi maestría de educación especial busco intervenciones con evidencia para niños con dificultades de lectura, no consejos generales.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "121dcd20-76fe-4a9d-9707-3b8318e54e32",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Mujeres y niños en la cárcel. Lectura y escritura dentro y fuera de la Unidad 33",
+          "topic_grade": 0
+        },
+        "keyword": {
+          "book_id": "121dcd20-76fe-4a9d-9707-3b8318e54e32",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Mujeres y niños en la cárcel. Lectura y escritura dentro y fuera de la Unidad 33",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "f8fd0fa8-972c-4084-8ebd-fa237377ed75",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Inclusión y discapacidad visual. Aristas para el abordaje en educación superior",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": 2
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Architecture and Resilience",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.3943,
+        "keyword": 0.3137,
+        "semantic": 0.839
+      },
+      "persona_id": "student-33",
+      "query": "My architecture studio is on coastal flooding. I need books on adapting buildings and neighborhoods, with actual design cases.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "0147aecf-a40e-4d9d-bbf7-4522ae7a1ad1",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Coastal Vulnerability and Mitigation Strategies",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "267b4470-cbca-4d9b-bd28-c9d229a478cb",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Architecture: Integration of Art and Engineering",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "0147aecf-a40e-4d9d-bbf7-4522ae7a1ad1",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Coastal Vulnerability and Mitigation Strategies",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Caribbean History",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 0.786,
+        "semantic": 0.5087
+      },
+      "persona_id": "student-34",
+      "query": "How do historians read Caribbean colonial archives against the grain? I'm planning a thesis and need methods plus examples.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "257c7d38-a4b3-426c-8525-09d8dba6f0c7",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Shaping and Reshaping the Caribbean",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "77f4e685-3203-40e6-9bfd-4fa6721e5658",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "The Ndebele, Frank Oates, and Knowledge Production in the 1870s",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "257c7d38-a4b3-426c-8525-09d8dba6f0c7",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Shaping and Reshaping the Caribbean",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic",
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Law",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 0.6608,
+        "semantic": 1.0
+      },
+      "persona_id": "student-35",
+      "query": "I need a law-level book comparing privacy risks from AI systems in the US and EU, including how rules deal with training data.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "854681f2-f2d5-465d-b900-234c0c3b11b0",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "The Legal Consistency of Technology Regulation in Europe",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "ccc340ed-506a-4b22-8fc5-23f863e604a1",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Artificial Superintelligence: Coordination & Strategy",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "6da542c2-fd08-4ba7-ae0b-4e978bf9b224",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "The Cambridge Handbook of the Law, Ethics and Policy of Artificial Intelligence",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Applied Economics",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8539,
+        "keyword": 0.6548,
+        "semantic": 0.5531
+      },
+      "persona_id": "student-36",
+      "query": "For my econ thesis, I need a solid explanation of difference-in-differences for policy evaluation, especially parallel trends and bad controls.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "a3e21d11-a1fa-48bc-b872-94acca3382f9",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Air Pollution Control and Sustainable Development",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "dec9ec32-ee3d-484b-a8c3-c775cf5a12b5",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Environmental Policy as a Tool for Sustainable Development",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "c430ca47-b2a9-4416-b2cc-6df90625e952",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Testing theory",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "keyword"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "fr",
+      "level": "graduate",
+      "major": "Linguistics",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.4162,
+        "keyword": 0.5307,
+        "semantic": 0.1815
+      },
+      "persona_id": "student-37",
+      "query": "Pour mon mémoire en linguistique, je cherche des études sur l'alternance codique en classe multilingue et ses effets sur l'apprentissage.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "598fad07-d4e7-4ed4-82dc-fcae7972f730",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Marcel Cohen et ses successeurs ou Cent ans d'études éthiopiennes en France",
+          "topic_grade": 0
+        },
+        "keyword": {
+          "book_id": "a5f4ed36-791e-4e09-8de4-c81d925e11c1",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "«||« Je suis moi-même la matière de mon livre »",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "598fad07-d4e7-4ed4-82dc-fcae7972f730",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Marcel Cohen et ses successeurs ou Cent ans d'études éthiopiennes en France",
+          "topic_grade": 0
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "keyword",
+        "semantic",
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Environmental Engineering",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 1.0,
+        "semantic": 1.0
+      },
+      "persona_id": "student-38",
+      "query": "I'm comparing PFAS removal in drinking water for an engineering project. Need adsorption versus membranes, costs, and limits.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "55dccd67-d631-4c72-8178-f1420ce675d2",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Preparation and Application of Advanced Functional Membranes",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "b1c234c6-d0b6-453f-90cb-4ce642794fda",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Nanofiltration Membranes: Recent Advances and Environmental Applications",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "405c13c1-841b-4179-a0e6-5cb6212211af",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Water Quality Engineering and Wastewater Treatment III",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": 1
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Social Work",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.5958,
+        "keyword": 0.2021,
+        "semantic": 1.0
+      },
+      "persona_id": "student-39",
+      "query": "I need trauma-informed social work approaches for refugees that don't assume everyone has the same experience. Any practice-focused books?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "1d222551-25a8-4e48-b594-d322e10548da",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Mental Health Promotion for Refugees and Other Culturally and/or Linguistically Diverse Migrant Populations",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "ea2acd3f-ee74-499c-bc54-7f1d36679cf2",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Children on the Move: The Health of Refugee, Immigrant and Displaced Children",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "fef88793-16d4-471c-9509-5dbec5bdd647",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Interprofessional Approach to Refugee Health",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Biostatistics",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.3904,
+        "keyword": 0.4415,
+        "semantic": 0.5585
+      },
+      "persona_id": "student-40",
+      "query": "Clinical trial missing data: I need a graduate-level text on multiple imputation, sensitivity analysis, and when assumptions fail.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "8aa66d47-1382-44ba-907b-a042e89b1275",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Overcoming Data Scarcity in Earth Science",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "e3bb7875-5fb0-43a3-9a6f-d7cf91caeaae",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Markov and Semi-markov Chains, Processes, Systems and Emerging Related Fields",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "48e7cec2-aea6-4a41-bce9-508f04c09947",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Nonparametric Statistical Inference with an Emphasis on Information-Theoretic Methods",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Creative Writing",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8688,
+        "keyword": 0.8539,
+        "semantic": 0.6399
+      },
+      "persona_id": "student-41",
+      "query": "I'm writing a memoir that jumps around in time. Looking for a craft book on structure and voice with examples I can try.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "8ecaa3fa-beb9-4695-9d4d-3f95e070ad74",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Memoir American",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "8693b99f-4bb4-48c5-a7b4-1af1a016ac9e",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Indigiqueerness",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "188d3b13-9bf8-4fb7-ad0c-0ec35225bd54",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Voix éthniques, ethnic voices. Volume 2",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 3,
+        "keyword": null,
+        "semantic": 1
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Media Studies",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.7745,
+        "keyword": 0.3038,
+        "semantic": 0.7968
+      },
+      "persona_id": "student-42",
+      "query": "For media studies, how do recommendation algorithms shape what people watch and believe? Need more than a basic tech explainer.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "0d888505-e75a-4c4e-982c-17f697243789",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Artificial Communication",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "00f644e2-a135-4d58-8f08-6eccadc64c1e",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "The People We Watch",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "6201ab27-b92f-4418-8e5a-bc97158075af",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Democratic Algorithms",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 2,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Food Studies",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8869,
+        "keyword": 0.7739,
+        "semantic": 0.3333
+      },
+      "persona_id": "student-43",
+      "query": "I'm researching food insecurity in cities. What books compare food banks, policy, and community-led approaches?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "7691e0dd-6626-4cba-aab5-3131b43d0939",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Urban Food Deserts: Perspectives from the Global South",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "60e3a607-a804-45d8-8ad4-7fbc152a37c7",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Addressing Food and Nutrition Security in Developed Countries",
+          "topic_grade": 2
+        },
+        "semantic": {
+          "book_id": "2404909f-f3f8-4f2b-acd5-872815560211",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "Construire des politiques alimentaires urbaines",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "keyword",
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "es",
+      "level": "graduate",
+      "major": "Global Affairs",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 1.0,
+        "semantic": 0.6844
+      },
+      "persona_id": "student-44",
+      "query": "Para mi tesis de asuntos globales necesito libros sobre migración por cambio climático y políticas de adaptación, con casos concretos.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "97065b89-1cba-4c6d-972a-323801d280d3",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Globalización y localidad : Espacios, actores, movilidades e identidades",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "60a3d87b-dd01-4ff5-a5e4-e1f93277bfa3",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Cambio climático y desarrollo sostenible en Colombia",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "ee42c3c0-2c42-401e-994e-84aceea6011b",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "Klimawandel in Deutschland: Entwicklung, Folgen, Risiken und Perspektiven",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 5,
+        "keyword": 5,
+        "semantic": 2
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Biomedical Engineering",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.5162,
+        "keyword": 0.5162,
+        "semantic": 0.7034
+      },
+      "persona_id": "student-45",
+      "query": "I'm designing an assistive robot for rehab. Need books on human-robot interaction, disability access, and how outcomes are evaluated.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "108e33f2-578a-4cd6-b0be-ef2e38b5ecaf",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Advances in Italian Robotics",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "24f68eee-0f7d-492b-9c23-376b783456e7",
+          "level_fit": "no",
+          "overall_grade": 1,
+          "title": "Design e Ergonomia per la Human-Robot Interaction",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "d36935ff-84df-4705-8dd7-e478ec7be8da",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Human-Robot Interaction - Theory and Application",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "semantic",
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Religious Studies",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 1.0,
+        "keyword": 0.6608,
+        "semantic": 1.0
+      },
+      "persona_id": "student-46",
+      "query": "I'm writing on Buddhist environmental ethics. Any books connecting religious texts with actual ecological practice in communities?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "4295073e-e6f2-41d9-8220-70aafe956335",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Religious Environmental Activism in Asia: Case Studies in Spiritual Ecology",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "87eaf738-d54f-4045-9810-26c794741b8a",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "The Routledge Handbook of Religion and the Body",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "98e762e8-1d50-4300-832d-c5871e69a0d4",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Religion and Ecology",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 3,
+        "semantic": 1
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Cybersecurity Policy",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.9214,
+        "keyword": 0.3038,
+        "semantic": 0.7968
+      },
+      "persona_id": "student-47",
+      "query": "For a cyber policy seminar, I need Indigenous data governance beyond slogans: access control, consent, and who owns research data.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "719328d1-6439-4602-89f1-202f0e88a6fd",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Indigenous Data Sovereignty and Policy",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "80478348-ac3b-41c3-9446-cc09ca5e63d9",
+          "level_fit": "unclear",
+          "overall_grade": 0,
+          "title": "Water Governance: Retheorizing Politics",
+          "topic_grade": 0
+        },
+        "semantic": {
+          "book_id": "719328d1-6439-4602-89f1-202f0e88a6fd",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Indigenous Data Sovereignty and Policy",
+          "topic_grade": 2
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "fr",
+      "level": "graduate",
+      "major": "Museum Studies",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8688,
+        "keyword": 0.6548,
+        "semantic": 0.8304
+      },
+      "persona_id": "student-48",
+      "query": "Je prépare un mémoire sur la restitution d'objets autochtones. Quels livres parlent des décisions des musées et du point de vue des communautés ?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "a74778b7-291e-48c3-97e9-a255c7e73b36",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Mémoires canadiennes",
+          "topic_grade": 1
+        },
+        "keyword": {
+          "book_id": "a74778b7-291e-48c3-97e9-a255c7e73b36",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Mémoires canadiennes",
+          "topic_grade": 1
+        },
+        "semantic": {
+          "book_id": "0e30f0e8-5331-4f73-9c0b-8a4d3580b7be",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Musées de guerre et mémoriaux : Politiques de la mémoire",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "keyword"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": null,
+        "keyword": null,
+        "semantic": null
+      },
+      "language": "en",
+      "level": "graduate",
+      "major": "Applied Psychology",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8539,
+        "keyword": 1.0,
+        "semantic": 0.6992
+      },
+      "persona_id": "student-49",
+      "query": "I need evidence on reducing burnout in healthcare workers. Which interventions really help beyond telling staff to be resilient?",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "2149e1c3-b3a9-4b44-879c-0e0bdb031365",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Occupational Health and Safety in the Healthcare Sector",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "36a42028-d5d2-4be5-bf1b-ba5fc228709b",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Workplace Health and Wellbeing during and beyond COVID-19",
+          "topic_grade": 2
+        },
+        "semantic": {
+          "book_id": "89377778-2dbf-4583-9952-aa7b284a01fb",
+          "level_fit": "unclear",
+          "overall_grade": 1,
+          "title": "Interventions to Reduce Mental Health Stigma and Discrimination",
+          "topic_grade": 1
+        }
+      }
+    },
+    {
+      "best_modes": [
+        "hybrid"
+      ],
+      "first_strong_rank_by_mode": {
+        "hybrid": 1,
+        "keyword": 1,
+        "semantic": 1
+      },
+      "language": "de",
+      "level": "graduate",
+      "major": "Sustainable Finance",
+      "ndcg_at_5_by_mode": {
+        "hybrid": 0.8725,
+        "keyword": 0.6933,
+        "semantic": 0.7337
+      },
+      "persona_id": "student-50",
+      "query": "Für meine Masterarbeit suche ich Bücher zu Klimarisiken bei Banken: Kreditvergabe, Stresstests und Regulierung, gern mit Fallstudien.",
+      "top_book_by_mode": {
+        "hybrid": {
+          "book_id": "0a8bead3-cb10-4c7f-b4e6-61cf2cf4817b",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Integrating Climate Risks in Bank Risk Management and Capital Requirements",
+          "topic_grade": 2
+        },
+        "keyword": {
+          "book_id": "0a8bead3-cb10-4c7f-b4e6-61cf2cf4817b",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Integrating Climate Risks in Bank Risk Management and Capital Requirements",
+          "topic_grade": 2
+        },
+        "semantic": {
+          "book_id": "0a8bead3-cb10-4c7f-b4e6-61cf2cf4817b",
+          "level_fit": "yes",
+          "overall_grade": 2,
+          "title": "Integrating Climate Risks in Bank Risk Management and Capital Requirements",
+          "topic_grade": 2
+        }
+      }
+    }
+  ],
+  "queries_sha256": "2c076f2ab46b031f054cfb0938b0b70c014a2aca148a5095da4804af55fe84ba",
+  "query_count": 50
+}

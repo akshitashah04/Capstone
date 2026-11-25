@@ -1,0 +1,51 @@
+name: Deploy book search demo to GitHub Pages
+
+on:
+  push:
+    branches: [build-nyu-search-demo]
+    paths:
+      - '.github/workflows/deploy-demo-pages.yml'
+      - 'frontend/**'
+      - 'feedback-api/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages-demo
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install locked frontend dependencies
+        run: npm ci --prefix frontend
+      - name: Test and build the browser search
+        env:
+          VITE_FEEDBACK_API_URL: https://violet-library-feedback.fabled-tetra-1279.chatgpt.site
+          VITE_RELEASE_ID: ${{ github.sha }}
+        run: |
+          npm test --prefix frontend
+          npm run build --prefix frontend
+      - name: Test feedback API contracts
+        run: node --test feedback-api/test/*.test.js
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: frontend/dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

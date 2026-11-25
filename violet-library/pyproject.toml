@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "libraries-data"
+version = "0.1.0"
+description = "Reproducible DOAB metadata preparation and owned search for Libraries"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "huggingface-hub>=0.28,<2",
+  "pyarrow>=18,<24",
+  "requests>=2.32,<3",
+]
+
+[project.optional-dependencies]
+dev = ["numpy>=1.26,<3", "pytest>=8,<10", "ruff>=0.8,<1"]
+search = ["numpy>=1.26,<3", "sentence-transformers==6.3.0"]
+
+[project.scripts]
+libraries-prepare = "libraries_data.prepare:main"
+libraries-publish = "libraries_data.publish:main"
+libraries-build-index = "libraries_search.build:main"
+libraries-build-shard = "libraries_search.shards:main"
+libraries-assemble-index = "libraries_search.assemble:main"
+libraries-publish-index = "libraries_search.publish:main"
+libraries-search = "libraries_search.search:main"
+libraries-collect-evaluation = "libraries_evaluation.collect:main"
+libraries-score-evaluation = "libraries_evaluation.score:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

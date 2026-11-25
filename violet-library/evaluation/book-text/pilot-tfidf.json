@@ -1,0 +1,116 @@
+{
+  "model": "tf-idf",
+  "candidates": 7,
+  "sources": {
+    "gutenberg-23839": {
+      "url": "https://raw.githubusercontent.com/chinese-poetry/chinese-poetry/b8594f81a89752241442f2ce267d6f66f96704ee/%E8%AE%BA%E8%AF%AD/lunyu.json",
+      "sha256": "be861676c8c44f8e62a11be5653bd4469dc4fdf4933beb4bd0f151893adab977",
+      "fullCharacters": 21480,
+      "excerptCharacters": 2148
+    },
+    "gutenberg-7337": {
+      "url": "https://raw.githubusercontent.com/ilaydabdogan/ancient-wisdom-atlas/07b52ea814bd96b0d6322ec684eeb555fe9dd10f/texts/public-domain/taoist/project-gutenberg/daodejing-chinese-laozi.md",
+      "sha256": "89318140693fa609cfdaab05ae696d9851e8866932d764bf937261044a4fecfb",
+      "fullCharacters": 6528,
+      "excerptCharacters": 653
+    }
+  },
+  "comparisons": [
+    {
+      "query": "有朋自远方来",
+      "target": "gutenberg-23839",
+      "metadata": {
+        "rank": null,
+        "similarity": 0
+      },
+      "first10Percent": {
+        "rank": 1,
+        "similarity": 0.235225
+      },
+      "fullText": {
+        "rank": 1,
+        "similarity": 0.235225
+      }
+    },
+    {
+      "query": "三人行必有我师",
+      "target": "gutenberg-23839",
+      "metadata": {
+        "rank": null,
+        "similarity": 0
+      },
+      "first10Percent": {
+        "rank": null,
+        "similarity": 0
+      },
+      "fullText": {
+        "rank": 1,
+        "similarity": 0.207207
+      }
+    },
+    {
+      "query": "夫子如何看待学习和反思",
+      "target": "gutenberg-23839",
+      "metadata": {
+        "rank": 1,
+        "similarity": 0.048996
+      },
+      "first10Percent": {
+        "rank": 1,
+        "similarity": 0.048996
+      },
+      "fullText": {
+        "rank": 1,
+        "similarity": 0.048996
+      }
+    },
+    {
+      "query": "道可道非常道",
+      "target": "gutenberg-7337",
+      "metadata": {
+        "rank": null,
+        "similarity": 0
+      },
+      "first10Percent": {
+        "rank": 1,
+        "similarity": 0.209042
+      },
+      "fullText": {
+        "rank": 1,
+        "similarity": 0.209042
+      }
+    },
+    {
+      "query": "小國寡民",
+      "target": "gutenberg-7337",
+      "metadata": {
+        "rank": null,
+        "similarity": 0
+      },
+      "first10Percent": {
+        "rank": null,
+        "similarity": 0
+      },
+      "fullText": {
+        "rank": 1,
+        "similarity": 0.171614
+      }
+    },
+    {
+      "query": "有什么书讲自然和无为",
+      "target": "gutenberg-7337",
+      "metadata": {
+        "rank": 1,
+        "similarity": 0.139323
+      },
+      "first10Percent": {
+        "rank": 1,
+        "similarity": 0.139323
+      },
+      "fullText": {
+        "rank": 1,
+        "similarity": 0.139323
+      }
+    }
+  ]
+}

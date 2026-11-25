@@ -1,0 +1,325 @@
+{
+  "index_revision": "f54ded49b97a92ca8e5dce0463500043ea2a19a4",
+  "queries_sha256": "2c076f2ab46b031f054cfb0938b0b70c014a2aca148a5095da4804af55fe84ba",
+  "labels_sha256": "98a1a5977a54f4466b6964a9166307db50c46bc0ede771c8490baea137f41950",
+  "query_count": 50,
+  "judged_top_five_pairs": 599,
+  "review_pairs": 1113,
+  "review_pairs_without_abstract": 133,
+  "categories": {
+    "success": 15,
+    "ranking_loss": 4,
+    "reading_need_not_verified": 12,
+    "no_topic_fit_in_judged_pool": 19
+  },
+  "judged_pool_ceiling": 19,
+  "rankable_query_ids": [
+    "student-18",
+    "student-26",
+    "student-33",
+    "student-39"
+  ],
+  "per_query": [
+    {
+      "query_id": "student-01",
+      "category": "success",
+      "known_suitable_in_judged_pool": 1,
+      "strong_topic_in_judged_pool": 5
+    },
+    {
+      "query_id": "student-02",
+      "category": "success",
+      "known_suitable_in_judged_pool": 1,
+      "strong_topic_in_judged_pool": 5
+    },
+    {
+      "query_id": "student-03",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-04",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-05",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 3
+    },
+    {
+      "query_id": "student-06",
+      "category": "success",
+      "known_suitable_in_judged_pool": 3,
+      "strong_topic_in_judged_pool": 7
+    },
+    {
+      "query_id": "student-07",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 9
+    },
+    {
+      "query_id": "student-08",
+      "category": "success",
+      "known_suitable_in_judged_pool": 1,
+      "strong_topic_in_judged_pool": 4
+    },
+    {
+      "query_id": "student-09",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-10",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 4
+    },
+    {
+      "query_id": "student-11",
+      "category": "success",
+      "known_suitable_in_judged_pool": 2,
+      "strong_topic_in_judged_pool": 6
+    },
+    {
+      "query_id": "student-12",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-13",
+      "category": "success",
+      "known_suitable_in_judged_pool": 3,
+      "strong_topic_in_judged_pool": 3
+    },
+    {
+      "query_id": "student-14",
+      "category": "success",
+      "known_suitable_in_judged_pool": 1,
+      "strong_topic_in_judged_pool": 1
+    },
+    {
+      "query_id": "student-15",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-16",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 3
+    },
+    {
+      "query_id": "student-17",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-18",
+      "category": "ranking_loss",
+      "known_suitable_in_judged_pool": 2,
+      "strong_topic_in_judged_pool": 7
+    },
+    {
+      "query_id": "student-19",
+      "category": "success",
+      "known_suitable_in_judged_pool": 2,
+      "strong_topic_in_judged_pool": 3
+    },
+    {
+      "query_id": "student-20",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 2
+    },
+    {
+      "query_id": "student-21",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-22",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-23",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-24",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 2
+    },
+    {
+      "query_id": "student-25",
+      "category": "success",
+      "known_suitable_in_judged_pool": 2,
+      "strong_topic_in_judged_pool": 8
+    },
+    {
+      "query_id": "student-26",
+      "category": "ranking_loss",
+      "known_suitable_in_judged_pool": 1,
+      "strong_topic_in_judged_pool": 3
+    },
+    {
+      "query_id": "student-27",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 1
+    },
+    {
+      "query_id": "student-28",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 2
+    },
+    {
+      "query_id": "student-29",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-30",
+      "category": "success",
+      "known_suitable_in_judged_pool": 5,
+      "strong_topic_in_judged_pool": 9
+    },
+    {
+      "query_id": "student-31",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 1
+    },
+    {
+      "query_id": "student-32",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-33",
+      "category": "ranking_loss",
+      "known_suitable_in_judged_pool": 2,
+      "strong_topic_in_judged_pool": 4
+    },
+    {
+      "query_id": "student-34",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-35",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 4
+    },
+    {
+      "query_id": "student-36",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-37",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-38",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-39",
+      "category": "ranking_loss",
+      "known_suitable_in_judged_pool": 1,
+      "strong_topic_in_judged_pool": 5
+    },
+    {
+      "query_id": "student-40",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-41",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-42",
+      "category": "success",
+      "known_suitable_in_judged_pool": 2,
+      "strong_topic_in_judged_pool": 4
+    },
+    {
+      "query_id": "student-43",
+      "category": "success",
+      "known_suitable_in_judged_pool": 6,
+      "strong_topic_in_judged_pool": 9
+    },
+    {
+      "query_id": "student-44",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-45",
+      "category": "success",
+      "known_suitable_in_judged_pool": 3,
+      "strong_topic_in_judged_pool": 3
+    },
+    {
+      "query_id": "student-46",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 3
+    },
+    {
+      "query_id": "student-47",
+      "category": "success",
+      "known_suitable_in_judged_pool": 2,
+      "strong_topic_in_judged_pool": 2
+    },
+    {
+      "query_id": "student-48",
+      "category": "no_topic_fit_in_judged_pool",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 0
+    },
+    {
+      "query_id": "student-49",
+      "category": "reading_need_not_verified",
+      "known_suitable_in_judged_pool": 0,
+      "strong_topic_in_judged_pool": 6
+    },
+    {
+      "query_id": "student-50",
+      "category": "success",
+      "known_suitable_in_judged_pool": 1,
+      "strong_topic_in_judged_pool": 1
+    }
+  ],
+  "limits": "Only the union of each baseline's top five has suitability labels. No fit in this pool does not prove the catalog has no suitable book."
+}

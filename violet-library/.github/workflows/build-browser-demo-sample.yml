@@ -1,0 +1,68 @@
+name: Build compact browser search sample
+
+on:
+  push:
+    branches: [build-nyu-search-demo]
+    paths:
+      - '.github/workflows/build-browser-demo-sample.yml'
+      - 'src/libraries_evaluation/browser_demo_sample.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install lightweight extraction dependencies
+        run: python -m pip install -e . 'numpy>=1.26,<3'
+      - name: Download checked E5 base shards from the successful encode run
+        uses: actions/download-artifact@v4
+        with:
+          pattern: e5-base-shard-*
+          path: ${{ runner.temp }}/e5-shards/
+          merge-multiple: false
+          github-token: ${{ github.token }}
+          run-id: 43848201040
+      - name: Download checked GTE shards from the successful recovery run
+        uses: actions/download-artifact@v4
+        with:
+          pattern: gte-base-shard-*
+          path: ${{ runner.temp }}/gte-shards/
+          merge-multiple: false
+          github-token: ${{ github.token }}
+          run-id: 43896334769
+      - name: Export only selected books and three vector sets
+        env:
+          HF_HOME: ${{ runner.temp }}/hf-cache
+        run: >-
+          python -m libraries_evaluation.browser_demo_sample
+          --v2-zip evaluation/query-fit/reranked-run.zip
+          --e5-dir evaluation/model-comparison/e5-base
+          --gte-dir evaluation/model-comparison/gte-base
+          --e5-shards '${{ runner.temp }}/e5-shards'
+          --gte-shards '${{ runner.temp }}/gte-shards'
+          --cache-dir '${{ runner.temp }}/hf-cache'
+          --output-dir '${{ runner.temp }}/browser-demo-sample'
+      - name: Upload compact browser sample only
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-demo-sample
+          path: ${{ runner.temp }}/browser-demo-sample/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Remove temporary full source and vectors
+        if: always()
+        run: >-
+          rm -rf '${{ runner.temp }}/e5-shards'
+          '${{ runner.temp }}/gte-shards'
+          '${{ runner.temp }}/hf-cache'
+          '${{ runner.temp }}/browser-demo-sample'

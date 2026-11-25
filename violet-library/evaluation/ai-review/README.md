@@ -1,0 +1,5 @@
+# Separate assistant review data
+
+These files are development diagnostics, not human ratings. The `pilot-*` files cover the earlier 12-question pilot. The `v2-doab-*` files cover all 723 distinct first-five question–book pairs from the 50 authored student scenarios. The `v2-textbook-*` files cover all 95 pairs in a separate 19-question textbook experiment. Every v2 label records whether the available evidence establishes a clear fit, how the judgment was made, and a source link when a catalog or publisher page was checked. A `0` includes partial and uncertain matches.
+
+The [assistant v2 results](../../Documentation/Evaluation/assistant-v2-results.md) explain the KPIs and limitations. The [scorer](../../src/libraries_evaluation/assistant_v2_score.py) validates these files against the frozen source ZIPs and rank-blind packets before calculating the JSON reports. The JSON `query_findings` section gives the first clearly fitting book, rank, and link for every question and search mode. Human-review files live separately under `evaluation/review/` and have no completed grades.

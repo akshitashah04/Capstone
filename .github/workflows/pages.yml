@@ -35,6 +35,14 @@ jobs:
           VITE_RELEASE_ID: ${{ github.sha }}
           VITE_FEEDBACK_API_URL: https://violet-library-capstone-feedback.sound-park-7168.chatgpt.site
       - run: cp -R violet-library/frontend/dist dist/libraries
+      - name: Select GitHub Actions as the Pages source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pages="repos/${GITHUB_REPOSITORY}/pages"
+          if [ "$(gh api "$pages" --jq .build_type)" != workflow ]; then
+            gh api --method PUT "$pages" -f build_type=workflow
+          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -49,3 +57,13 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify the public Violet Library route
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          set -eu
+          demo="${PAGE_URL%/}/libraries"
+          curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 5 "$demo/" -o violet-index.html
+          grep -F 'Find open-access books' violet-index.html
+          curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/data/manifest.json" -o violet-data.json
+          node -e 'const m=require("./violet-data.json"); if (m.books + m.supplemental_books !== 1891) process.exit(1)'

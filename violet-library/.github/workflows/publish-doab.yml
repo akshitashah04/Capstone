@@ -1,0 +1,45 @@
+name: Prepare and publish DOAB metadata
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'src/libraries_data/**'
+      - 'pyproject.toml'
+      - '.github/workflows/publish-doab.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-hf-libraries-book-data
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install project
+        run: python -m pip install -e .
+      - name: Prepare complete DOAB catalog
+        run: libraries-prepare --output-dir "$RUNNER_TEMP/doab-output"
+      - name: Show aggregate quality counts
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/doab-output/quality_report.json" ]; then
+            cat "$RUNNER_TEMP/doab-output/quality_report.json"
+          fi
+      - name: Publish checked catalog to Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: libraries-publish --input-dir "$RUNNER_TEMP/doab-output"
+      - name: Remove temporary output
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/doab-output"

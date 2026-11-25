@@ -1,0 +1,19 @@
+name: Expire old feedback
+
+on:
+  schedule:
+    - cron: '31 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Call feedback health and retention endpoint
+        run: |
+          curl --fail --silent --show-error --retry 3 --retry-delay 5 \
+            https://violet-library-feedback.fabled-tetra-1279.chatgpt.site/health
