@@ -18,7 +18,6 @@ jobs:
     timeout-minutes: 12
     env:
       ONNXRUNTIME_NODE_INSTALL: skip
-      VIOLET_SAVE_SUPPLEMENT: '1'
       VIOLET_REPORT_ONLY: '1'
     steps:
       - uses: actions/checkout@v4
@@ -30,9 +29,26 @@ jobs:
         with:
           path: /tmp/violet-library-audit-models
           key: violet-browser-models-${{ runner.os }}-${{ hashFiles('violet-library/frontend/src/model-config.ts') }}
-      - name: Measure the three pinned models and export their book vectors
+      - name: Audit the models and prepare book vectors when the catalog changes
         run: |
           set -eu
+          if ! node <<'NODE'
+          const fs = require('node:fs');
+          const root = 'violet-library/frontend/public/data';
+          const manifest = JSON.parse(fs.readFileSync(`${root}/manifest.json`));
+          const ready = Object.keys(manifest.models).every(model => {
+            try {
+              const descriptor = JSON.parse(fs.readFileSync(`${root}/prepared/${model}.json`));
+              return descriptor.catalog === manifest.catalog_sha256;
+            } catch {
+              return false;
+            }
+          });
+          process.exit(ready ? 0 : 1);
+          NODE
+          then
+            export VIOLET_SAVE_SUPPLEMENT=1
+          fi
           for model in e5-small gte-base e5-base; do
             VIOLET_AUDIT_MODEL="$model" node violet-library/frontend/scripts/semantic-audit.mjs
           done
