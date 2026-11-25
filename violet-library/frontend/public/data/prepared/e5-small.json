@@ -1,0 +1,8 @@
+{
+  "model": "e5-small",
+  "catalog": "5caa6f9e3c2d2fcf439755bcac628872c70af17a2fee245decd8040e5bc11144",
+  "revision": "761b726dd34fb83930e26aab4e9ac3899aa1fa78",
+  "encoding": "float32-le-row-major",
+  "bytes": 112128,
+  "sha256": "7fa3ce9aa6602a8b9723ce8cbabda86ca9c76908d088e0539614d7c85bac14db"
+}

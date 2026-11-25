@@ -1,0 +1,8 @@
+{
+  "model": "gte-base",
+  "catalog": "5caa6f9e3c2d2fcf439755bcac628872c70af17a2fee245decd8040e5bc11144",
+  "revision": "2edbf5e672aab465f9ed4c154a8b61791c082c69",
+  "encoding": "float32-le-row-major",
+  "bytes": 224256,
+  "sha256": "bec64bdf92f8d63647ddc5c0379b0b3b2f89fe819a20c936604794be22c135ff"
+}
