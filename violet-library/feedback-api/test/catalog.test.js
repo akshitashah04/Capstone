@@ -17,4 +17,9 @@ test('backend validates current and legacy catalogs against their exact book IDs
   assert.deepEqual(CATALOG_BOOK_IDS.get(previousSha),
     new Set([...base, ...supplement.slice(0, 7)].map(book => book.id)));
   assert.equal(CATALOG_BOOK_IDS.get(previousSha).has('educationusa-undergraduate-study'), false);
+  const visaCatalog = JSON.parse(await readFile(
+    new URL('../scripts/catalog-compatibility.json', import.meta.url), 'utf8',
+  ))[1].catalogSha256;
+  assert.deepEqual(CATALOG_BOOK_IDS.get(visaCatalog),
+    new Set([...base, ...supplement.slice(0, 13)].map(book => book.id)));
 });

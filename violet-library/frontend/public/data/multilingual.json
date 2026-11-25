@@ -270,5 +270,1079 @@
     "url": "https://www.cgc.edu/sites/default/files/inline-files/F-1%20Student%20Handbook.pdf",
     "description": "A community-college handbook on obtaining an F-1 visa, using Form I-20, maintaining status, transferring and preparing for practical training. It includes procedures specific to Chandler-Gilbert Community College.",
     "format": "Handbook"
+  },
+  {
+    "id": "openstax-introduction-computer-science",
+    "title": "Introduction to Computer Science",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Computer Science",
+      "Algorithms",
+      "Computer systems",
+      "Software development"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introduction-computer-science/pages/preface",
+    "description": "Introduces computing systems, data representation, algorithms and data structures, programming languages, software design, and the social effects of computing.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-introduction-python-programming",
+    "title": "Introduction to Python Programming",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Computer Science",
+      "Python",
+      "Programming fundamentals",
+      "Debugging"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introduction-python-programming/pages/preface",
+    "description": "A first programming course with examples using variables, functions, conditionals, loops, collections, files, and classes in Python.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-principles-data-science",
+    "title": "Principles of Data Science",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Computer Science",
+      "Data science",
+      "Python",
+      "Machine learning"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/principles-data-science/pages/preface",
+    "description": "Uses Python for an introductory data science workflow, including data collection and cleaning, visualization, statistics, and predictive models.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-foundations-information-systems",
+    "title": "Foundations of Information Systems",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Computer Science",
+      "Information systems",
+      "Databases",
+      "Business technology"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/foundations-information-systems/pages/preface",
+    "description": "Explores how people, databases, networks, and software support decisions and operations in organizations.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-workplace-software-skills",
+    "title": "Workplace Software and Skills",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Computer Science",
+      "Spreadsheets",
+      "Office software",
+      "Digital collaboration"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/workplace-software-skills/pages/preface",
+    "description": "Teaches practical computing skills for work, including documents, presentations, spreadsheets, and digital collaboration tools.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-introduction-business",
+    "title": "Introduction to Business",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Business fundamentals",
+      "Management",
+      "Entrepreneurship"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introduction-business/pages/preface",
+    "description": "Surveys business ownership, management, marketing, finance, operations, and the way firms compete and serve customers.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-business-ethics",
+    "title": "Business Ethics",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Ethics",
+      "Corporate responsibility",
+      "Stakeholders"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/business-ethics/pages/preface",
+    "description": "Uses business situations to examine ethical reasoning, corporate responsibility, workplace decisions, and competing stakeholder interests.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-business-law-i-essentials",
+    "title": "Business Law I Essentials",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Business law",
+      "Contracts",
+      "Agency"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/business-law-i-essentials/pages/preface",
+    "description": "An introductory survey of the U.S. legal environment for business, including contracts, agency, and business entities.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-entrepreneurship",
+    "title": "Entrepreneurship",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Startups",
+      "Business models",
+      "New ventures"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/entrepreneurship/pages/preface",
+    "description": "Follows the startup process from recognizing opportunities and testing ideas to building a business model, securing resources, and launching a venture.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-principles-finance",
+    "title": "Principles of Finance",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Finance",
+      "Valuation",
+      "Investment"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/principles-finance/pages/preface",
+    "description": "Introduces the time value of money, financial statements, investment risk, and techniques for valuing business decisions.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-principles-management",
+    "title": "Principles of Management",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Management",
+      "Leadership",
+      "Strategy"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/principles-management/pages/preface",
+    "description": "Covers planning, organizing, leadership, organizational structure, and managing performance in businesses and other organizations.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-principles-marketing",
+    "title": "Principles of Marketing",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Marketing",
+      "Consumer behavior",
+      "Digital marketing"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/principles-marketing/pages/preface",
+    "description": "Introduces market research, customer segments, branding, pricing, distribution, and promotion, with examples of marketing decisions.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-principles-financial-accounting",
+    "title": "Principles of Accounting, Volume 1: Financial Accounting",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Financial accounting",
+      "Financial statements",
+      "Bookkeeping"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/principles-financial-accounting/pages/preface",
+    "description": "Explains transaction recording, the accounting cycle, and how readers use financial statements to understand a business.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-principles-managerial-accounting",
+    "title": "Principles of Accounting, Volume 2: Managerial Accounting",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Managerial accounting",
+      "Budgeting",
+      "Cost analysis"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/principles-managerial-accounting/pages/preface",
+    "description": "Covers cost behavior, budgeting, variance analysis, and the information managers use for planning and operational decisions.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-organizational-behavior",
+    "title": "Organizational Behavior",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Organizational behavior",
+      "Teams",
+      "Motivation"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/organizational-behavior/pages/preface",
+    "description": "Examines individual motivation, groups and teams, communication, leadership, organizational culture, and change at work.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-introduction-intellectual-property",
+    "title": "Introduction to Intellectual Property",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Business",
+      "Intellectual property",
+      "Copyright",
+      "Patents"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introduction-intellectual-property/pages/preface-and-foreword",
+    "description": "Explains the differences among patents, trademarks, copyright, and trade secrets, with examples of how intellectual property is used.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-principles-economics-3e",
+    "title": "Principles of Economics 3e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Social Science",
+      "Economics",
+      "Markets",
+      "Economic policy"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/principles-economics-3e/pages/preface",
+    "description": "Introduces supply and demand, market structures, national income, inflation, labor markets, and economic policy.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-principles-microeconomics-3e",
+    "title": "Principles of Microeconomics 3e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Social Science",
+      "Microeconomics",
+      "Consumer choice",
+      "Market structures"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/principles-microeconomics-3e/pages/preface",
+    "description": "Explains how households and firms make choices, how prices form, and how policy can address market failures.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-principles-macroeconomics-3e",
+    "title": "Principles of Macroeconomics 3e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Social Science",
+      "Macroeconomics",
+      "Inflation",
+      "Monetary policy"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/principles-macroeconomics-3e/pages/preface",
+    "description": "Covers national output, growth, unemployment, inflation, business cycles, and the role of fiscal and monetary policy.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-psychology-2e",
+    "title": "Psychology 2e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Social Science",
+      "Psychology",
+      "Learning",
+      "Mental health"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/psychology-2e/pages/preface",
+    "description": "A first psychology course on research methods, biological bases of behavior, learning, memory, development, social behavior, and psychological disorders.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-introduction-sociology-3e",
+    "title": "Introduction to Sociology 3e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Social Science",
+      "Sociology",
+      "Inequality",
+      "Social institutions"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introduction-sociology-3e/pages/preface",
+    "description": "Introduces sociological research and theory through culture, socialization, social institutions, inequality, and social change.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-introduction-anthropology",
+    "title": "Introduction to Anthropology",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Social Science",
+      "Anthropology",
+      "Culture",
+      "Human evolution"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introduction-anthropology/pages/preface",
+    "description": "Introduces the four fields of anthropology through human evolution, archaeology, language, cultural practices, and methods of fieldwork.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-introduction-political-science",
+    "title": "Introduction to Political Science",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Social Science",
+      "Political science",
+      "Governance",
+      "International relations"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introduction-political-science/pages/preface",
+    "description": "Surveys political ideas, political institutions, comparative government, participation, and international relations.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-american-government-4e",
+    "title": "American Government 4e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Social Science",
+      "U.S. government",
+      "Federalism",
+      "Civil liberties"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/american-government-4e/pages/preface",
+    "description": "Explains the U.S. Constitution, federalism, branches of government, elections, political participation, public policy, and civil rights.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-lifespan-development",
+    "title": "Lifespan Development",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Social Science",
+      "Developmental psychology",
+      "Childhood",
+      "Aging"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/lifespan-development/pages/preface",
+    "description": "Examines how physical, cognitive, and social development change from prenatal life through childhood, adulthood, and aging.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-introduction-philosophy",
+    "title": "Introduction to Philosophy",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Humanities",
+      "Philosophy",
+      "Ethics",
+      "Logic"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introduction-philosophy/pages/preface",
+    "description": "Introduces philosophical argument, knowledge, reality, mind, ethics, aesthetics, and social and political philosophy.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-writing-guide",
+    "title": "Writing Guide with Handbook",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Humanities",
+      "Academic writing",
+      "Composition",
+      "Research and citation"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/writing-guide/pages/preface",
+    "description": "Explains rhetorical choices, research and source use, argument, revision, and conventions for writing in college.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-us-history",
+    "title": "U.S. History",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Humanities",
+      "United States history",
+      "Civil War",
+      "Social movements"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/us-history/pages/preface",
+    "description": "Surveys the history of what became the United States, from Indigenous societies and colonial encounters through modern social and political developments.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-world-history-volume-1",
+    "title": "World History, Volume 1: to 1500",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Humanities",
+      "World history",
+      "Ancient civilizations",
+      "Trade networks"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/world-history-volume-1/pages/preface",
+    "description": "Explores human societies from early settlement through 1500, including states, religions, migration, technology, trade, and cultural exchange.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-world-history-volume-2",
+    "title": "World History, Volume 2: from 1400",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Humanities",
+      "World history",
+      "Empires",
+      "Globalization"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/world-history-volume-2/pages/preface",
+    "description": "Surveys world history from about 1400, with empires, colonization, industrialization, political revolutions, and global connections.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-college-success",
+    "title": "College Success",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Student Skills",
+      "Study skills",
+      "Time management",
+      "College planning"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/college-success/pages/preface",
+    "description": "A guide to college learning with practical chapters on goal setting, time management, reading, note-taking, financial planning, and careers.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-introductory-statistics-2e",
+    "title": "Introductory Statistics 2e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Mathematics",
+      "Statistics",
+      "Probability",
+      "Inference"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introductory-statistics-2e/pages/preface",
+    "description": "Introduces data summaries, probability, distributions, sampling, confidence intervals, hypothesis tests, and regression with applied examples.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-introductory-business-statistics-2e",
+    "title": "Introductory Business Statistics 2e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Mathematics",
+      "Business statistics",
+      "Data analysis",
+      "Regression"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introductory-business-statistics-2e/pages/preface",
+    "description": "Teaches probability, sampling, statistical inference, and regression using contexts from economics, management, and business.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-algebra-and-trigonometry-2e",
+    "title": "Algebra and Trigonometry 2e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Mathematics",
+      "Algebra",
+      "Trigonometry",
+      "Functions"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/algebra-and-trigonometry-2e/pages/preface",
+    "description": "Covers equations, polynomial and exponential functions, trigonometric functions, identities, and applications for precalculus.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-calculus-volume-1",
+    "title": "Calculus Volume 1",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Mathematics",
+      "Calculus",
+      "Limits",
+      "Derivatives"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/calculus-volume-1/pages/preface",
+    "description": "A first calculus text on functions, limits, derivatives, applications of differentiation, and introductory integration.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-calculus-volume-2",
+    "title": "Calculus Volume 2",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Mathematics",
+      "Calculus",
+      "Integration",
+      "Infinite series"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/calculus-volume-2/pages/preface",
+    "description": "Continues calculus with integration techniques, differential equations, sequences, series, and parametric and polar curves.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-calculus-volume-3",
+    "title": "Calculus Volume 3",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Mathematics",
+      "Multivariable calculus",
+      "Vector calculus",
+      "Partial derivatives"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/calculus-volume-3/pages/preface",
+    "description": "Introduces vectors, functions of several variables, partial derivatives, multiple integrals, and vector fields.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-precalculus-2e",
+    "title": "Precalculus 2e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Mathematics",
+      "Precalculus",
+      "Functions",
+      "Trigonometry"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/precalculus-2e/pages/preface",
+    "description": "Prepares students for calculus through functions, graphs, exponential and logarithmic models, trigonometry, sequences, and introductory limits.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-biology-2e",
+    "title": "Biology 2e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Science",
+      "Biology",
+      "Genetics",
+      "Ecology"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/biology-2e/pages/preface",
+    "description": "Surveys introductory biology from cells, metabolism, genes, and evolution through biodiversity, organismal biology, and ecosystems.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-concepts-biology",
+    "title": "Concepts of Biology",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Science",
+      "Biology",
+      "Evolution",
+      "Cells"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/concepts-biology/pages/preface",
+    "description": "Introduces cells, inheritance, evolution, the diversity of life, and ecology for readers outside biology majors.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-chemistry-2e",
+    "title": "Chemistry 2e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Science",
+      "General chemistry",
+      "Chemical equilibrium",
+      "Thermodynamics"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/chemistry-2e/pages/preface",
+    "description": "Covers atoms, molecular structure, chemical reactions, gases, solutions, kinetics, equilibrium, and other first-year chemistry topics.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-organic-chemistry",
+    "title": "Organic Chemistry: A Tenth Edition",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Science",
+      "Organic chemistry",
+      "Reaction mechanisms",
+      "Spectroscopy"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/organic-chemistry/pages/dedication-and-preface",
+    "description": "Explains the structures, reactions, and mechanisms of organic compounds, with chapters on spectroscopy and major functional groups.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-astronomy-2e",
+    "title": "Astronomy 2e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Science",
+      "Astronomy",
+      "Stars",
+      "Cosmology"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/astronomy-2e/pages/preface",
+    "description": "An introductory tour of astronomy from the solar system and stars to galaxies, black holes, and the evolution of the universe.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-microbiology",
+    "title": "Microbiology",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Science",
+      "Microbiology",
+      "Infectious disease",
+      "Immunology"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/microbiology/pages/preface",
+    "description": "Introduces microorganisms, microbial growth and genetics, control methods, the immune response, and infectious diseases.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-anatomy-and-physiology-2e",
+    "title": "Anatomy and Physiology 2e",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Health and Nursing",
+      "Human anatomy",
+      "Physiology",
+      "Body systems"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/preface",
+    "description": "Examines the structure and function of the major human body systems for introductory anatomy and physiology courses.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-university-physics-volume-1",
+    "title": "University Physics Volume 1",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Science",
+      "Physics",
+      "Mechanics",
+      "Waves"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/university-physics-volume-1/pages/preface",
+    "description": "A calculus-based introduction to mechanics, energy, momentum, rotation, oscillations, and waves.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-university-physics-volume-2",
+    "title": "University Physics Volume 2",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Science",
+      "Physics",
+      "Thermodynamics",
+      "Electromagnetism"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/university-physics-volume-2/pages/preface",
+    "description": "A calculus-based treatment of thermal physics, electric fields, circuits, magnetic fields, and electromagnetic induction.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-university-physics-volume-3",
+    "title": "University Physics Volume 3",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Science",
+      "Physics",
+      "Optics",
+      "Quantum mechanics"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/university-physics-volume-3/pages/preface",
+    "description": "Covers optics, relativity, quantum physics, atomic and nuclear physics, and selected topics in modern physics.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-fundamentals-nursing",
+    "title": "Fundamentals of Nursing",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Health and Nursing",
+      "Nursing",
+      "Patient care",
+      "Clinical judgment"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/fundamentals-nursing/pages/preface",
+    "description": "Introduces nursing practice, patient assessment, safety, communication, clinical judgment, and basic care.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-pharmacology",
+    "title": "Pharmacology for Nurses",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Health and Nursing",
+      "Nursing pharmacology",
+      "Medication safety",
+      "Drug classes"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/pharmacology/pages/preface",
+    "description": "Introduces drug principles, therapeutics, medication administration, and safety considerations in nursing practice.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-population-health",
+    "title": "Population Health for Nurses",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Health and Nursing",
+      "Public health",
+      "Community nursing",
+      "Health equity"
+    ],
+    "languages": [
+      "eng"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/population-health/pages/preface",
+    "description": "Covers determinants of health, population assessment, prevention, public health systems, and community-focused nursing practice.",
+    "format": "Textbook"
+  },
+  {
+    "id": "openstax-intro-estadistica-es",
+    "title": "Introducción a la estadística",
+    "authors": [],
+    "publisher": "OpenStax",
+    "subjects": [
+      "Matemáticas",
+      "Estadística",
+      "Probabilidad",
+      "Inferencia"
+    ],
+    "languages": [
+      "spa"
+    ],
+    "year": null,
+    "url": "https://openstax.org/books/introducci%C3%B3n-estad%C3%ADstica/pages/prefacio",
+    "description": "Libro de texto en español sobre descripción de datos, probabilidad, muestreo, intervalos de confianza, pruebas de hipótesis y regresión.",
+    "format": "Textbook"
+  },
+  {
+    "id": "gutenberg-24226",
+    "title": "史記",
+    "aliases": [
+      "史记",
+      "Records of the Grand Historian"
+    ],
+    "authors": [
+      "司馬遷"
+    ],
+    "subjects": [
+      "中国历史",
+      "史学",
+      "Chinese historiography"
+    ],
+    "languages": [
+      "zho"
+    ],
+    "year": null,
+    "url": "https://www.gutenberg.org/cache/epub/24226/pg24226.html",
+    "description": "司马迁的纪传体史书，记述从上古传说到西汉时期的历史，包含本纪、表、书、世家和列传。"
+  },
+  {
+    "id": "gutenberg-25273",
+    "title": "天工開物",
+    "aliases": [
+      "天工开物",
+      "The Exploitation of the Works of Nature"
+    ],
+    "authors": [
+      "宋應星"
+    ],
+    "subjects": [
+      "中国科技史",
+      "农业与工艺",
+      "History of technology"
+    ],
+    "languages": [
+      "zho"
+    ],
+    "year": 1637,
+    "url": "https://www.gutenberg.org/cache/epub/25273/pg25273-images.html",
+    "description": "明代宋应星的技术著作，介绍农作物种植、纺织、陶瓷、冶金和其他生产技艺。"
+  },
+  {
+    "id": "wikisource-hi-premashram",
+    "title": "प्रेमाश्रम",
+    "aliases": [
+      "Premashram"
+    ],
+    "authors": [
+      "प्रेमचंद"
+    ],
+    "subjects": [
+      "ग्रामीण समाज",
+      "किसान और ज़मींदारी",
+      "Hindi fiction"
+    ],
+    "languages": [
+      "hin"
+    ],
+    "year": 1922,
+    "url": "https://hi.wikisource.org/wiki/प्रेमाश्रम",
+    "description": "प्रेमचंद का उपन्यास किसानों और ज़मींदारों के संबंधों, ग्रामीण समाज की असमानताओं और किसानों के संघर्ष का चित्रण करता है।"
+  },
+  {
+    "id": "wikisource-hi-rangbhumi",
+    "title": "रंगभूमि",
+    "aliases": [
+      "Rangbhumi"
+    ],
+    "authors": [
+      "प्रेमचंद"
+    ],
+    "subjects": [
+      "भूमि और औद्योगीकरण",
+      "औपनिवेशिक भारत",
+      "Hindi fiction"
+    ],
+    "languages": [
+      "hin"
+    ],
+    "year": null,
+    "url": "https://hi.wikisource.org/wiki/रंगभूमि",
+    "description": "प्रेमचंद का उपन्यास सूरदास और उसकी भूमि पर कारखाना बनाने के संघर्ष के माध्यम से औपनिवेशिक भारत में औद्योगीकरण और सामाजिक असमानता को देखता है।"
   }
 ]

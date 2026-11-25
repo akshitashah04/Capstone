@@ -148,7 +148,7 @@ function renderCard(hit: SearchHit): HTMLElement {
   meta.className = 'book-meta';
   const languages = bookLanguages(hit.book);
   if (hit.book.aliases && languages.length === 1) title.lang = languages[0];
-  meta.textContent = [hit.book.authors.slice(0, 2).join(', ') || 'Author not listed',
+  meta.textContent = [hit.book.authors.slice(0, 2).join(', ') || hit.book.publisher || 'Author not listed',
     hit.book.year, hit.book.format, languages.map(languageName).join(', ')].filter(Boolean).join(' · ');
   const summary = document.createElement('p');
   summary.className = 'book-summary';

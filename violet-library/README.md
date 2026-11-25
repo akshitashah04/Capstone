@@ -21,3 +21,7 @@ For a specific U.S. student-visa request, the search expands paraphrases and che
 ## Full-text student visa collection
 
 The demo indexes six freely readable publications on U.S. student visas, including the EducationUSA undergraduate study booklet, Kit Johnson’s CC BY-SA 4.0 immigration casebook, and four university or college handbooks. The result links open the full publication at the source. The demo stores its catalog metadata and original descriptions. It does not host copies of the publications. Handbooks may contain campus-specific guidance.
+
+## Broader open textbook coverage
+
+The catalog includes 52 OpenStax textbooks across computing, business, economics, social science, humanities, mathematics, science, nursing, and study skills. Book links open the free full-text editions on the publisher’s site, including a Spanish statistics textbook. The collection also includes two additional Chinese books from Project Gutenberg and two Hindi novels from Wikisource. Book descriptions in the demo are original summaries. The browser generates supplemental vectors in small batches and caches them for the current catalog and model revision.

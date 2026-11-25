@@ -31,6 +31,20 @@ describe('browser ranking', () => {
     }
   });
 
+  it('retrieves the additional titles across subjects and book languages', () => {
+    const index = buildSearchIndex([...base, ...supplement]);
+    for (const [query, language, id] of [
+      ['introduction to python programming', 'en', 'openstax-introduction-python-programming'],
+      ['principles of finance', 'en', 'openstax-principles-finance'],
+      ['introduction to philosophy', 'en', 'openstax-introduction-philosophy'],
+      ['introducción a la estadística', 'es', 'openstax-intro-estadistica-es'],
+      ['天工开物', 'zh', 'gutenberg-25273'],
+      ['प्रेमाश्रम', 'hi', 'wikisource-hi-premashram'],
+    ]) {
+      expect(rankKeywordBooks(query, index, language).slice(0, 5).map(hit => hit.book.id)).toContain(id);
+    }
+  });
+
   it('ranks appended vectors against the matching supplemental book rows', () => {
     const index = buildSearchIndex([book('base', 'Ocean', 'Marine life'), supplement[4]]);
     const vectors = appendVectors(new Float32Array([1, 0]), new Float32Array([0, 1]));

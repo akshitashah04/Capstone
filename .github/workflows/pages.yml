@@ -12,6 +12,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
+    outputs:
+      violet_catalog: ${{ steps.violet-catalog.outputs.checksum }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,6 +37,8 @@ jobs:
           VITE_RELEASE_ID: ${{ github.sha }}
           VITE_FEEDBACK_API_URL: https://violet-library-capstone-feedback.sound-park-7168.chatgpt.site
       - run: cp -R violet-library/frontend/dist dist/libraries
+      - id: violet-catalog
+        run: node -p '"checksum=" + require("./dist/libraries/data/manifest.json").catalog_sha256' >> "$GITHUB_OUTPUT"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -52,10 +56,11 @@ jobs:
       - name: Verify the public Violet Library route
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          CATALOG_SHA: ${{ needs.build.outputs.violet_catalog }}
         run: |
           set -eu
           demo="${PAGE_URL%/}/libraries"
           curl --fail --silent --show-error --retry 6 --retry-all-errors --retry-delay 5 "$demo/" -o violet-index.html
           grep -F 'Find open-access books' violet-index.html
           curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/data/manifest.json" -o violet-data.json
-          node -e 'const m=require("./violet-data.json"); if (m.books + m.supplemental_books !== 1897) process.exit(1)'
+          node -e 'const m=require("./violet-data.json"); if (!m.catalog_sha256 || m.catalog_sha256 !== process.env.CATALOG_SHA) process.exit(1)'

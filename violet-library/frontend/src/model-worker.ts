@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 
 import { env } from '@huggingface/transformers';
-import { loadEncoder } from './embedding';
+import { encodeCatalogPassages, loadEncoder } from './embedding';
 import { MODELS } from './model-config';
 import type { ModelKey } from './types';
 
@@ -13,6 +13,33 @@ let activeKey: ModelKey | null = null;
 let activeEncoder: Awaited<ReturnType<typeof loadEncoder>> | null = null;
 let activeSupplement: { catalog: string; vectors: Float32Array } | null = null;
 
+async function loadSupplement(
+  encoder: Awaited<ReturnType<typeof loadEncoder>>,
+  { id, model, catalog, passages }: EncodeRequest,
+): Promise<Float32Array> {
+  const { revision, dimensions } = MODELS[model];
+  const cache = await self.caches?.open('violet-library-supplement-v1').catch(() => undefined);
+  const cacheUrl = new URL(`./supplement-${model}`, self.location.href);
+  const version = `${catalog}:${revision}`;
+  const cached = await cache?.match(cacheUrl).catch(() => undefined);
+  if (cached?.headers.get('X-Embedding-Version') === version) {
+    const payload = await cached.arrayBuffer().catch(() => undefined);
+    if (payload?.byteLength === passages.length * dimensions * Float32Array.BYTES_PER_ELEMENT) {
+      const vectors = new Float32Array(payload);
+      if (vectors.every(Number.isFinite)) return vectors;
+    }
+  }
+  const vectors = await encodeCatalogPassages(encoder, passages, dimensions, completed => {
+    self.postMessage({
+      type: 'progress', id, message: `Indexing additional books (${completed}/${passages.length})…`,
+    });
+  });
+  await cache?.put(cacheUrl, new Response(vectors.buffer, {
+    headers: { 'X-Embedding-Version': version },
+  })).catch(() => undefined);
+  return vectors;
+}
+
 interface EncodeRequest {
   id: number;
   model: ModelKey;
@@ -22,7 +49,7 @@ interface EncodeRequest {
 }
 
 self.addEventListener('message', async (event: MessageEvent<EncodeRequest>) => {
-  const { id, model, text, catalog, passages } = event.data;
+  const { id, model, text, catalog } = event.data;
   if (!Object.hasOwn(MODELS, model) || !text?.trim()) {
     self.postMessage({ type: 'error', id, message: 'A model and question are required.' });
     return;
@@ -48,10 +75,7 @@ self.addEventListener('message', async (event: MessageEvent<EncodeRequest>) => {
       activeKey = model;
     }
     if (activeSupplement?.catalog !== catalog) {
-      if (passages.length) {
-        self.postMessage({ type: 'progress', id, message: 'Indexing supplemental titles…' });
-      }
-      activeSupplement = { catalog, vectors: await activeEncoder.encode(passages, 'passage') };
+      activeSupplement = { catalog, vectors: await loadSupplement(activeEncoder, event.data) };
     }
     self.postMessage({ type: 'progress', id, message: 'Understanding your question…' });
     const vector = await activeEncoder.encode([text], 'query');

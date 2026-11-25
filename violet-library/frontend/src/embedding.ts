@@ -29,3 +29,19 @@ export async function loadEncoder(model: ModelKey, progress?: () => void) {
     },
   };
 }
+
+export async function encodeCatalogPassages(
+  encoder: Awaited<ReturnType<typeof loadEncoder>>,
+  texts: string[],
+  dimensions: number,
+  progress?: (completed: number) => void,
+): Promise<Float32Array<ArrayBuffer>> {
+  const vectors = new Float32Array(texts.length * dimensions);
+  const batchSize = 8;
+  for (let offset = 0; offset < texts.length; offset += batchSize) {
+    const rows = texts.slice(offset, offset + batchSize);
+    vectors.set(await encoder.encode(rows, 'passage'), offset * dimensions);
+    progress?.(offset + rows.length);
+  }
+  return vectors;
+}

@@ -5,7 +5,8 @@ export interface Book {
   id: string;
   title: string;
   aliases?: string[];
-  format?: 'Booklet' | 'Handbook';
+  format?: 'Booklet' | 'Handbook' | 'Textbook';
+  publisher?: string;
   authors: string[];
   subjects: string[];
   languages: string[];

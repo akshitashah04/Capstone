@@ -81,8 +81,8 @@ async function generatePool(queries) {
       const baseVectors = codec.decodeHalfVectors(
         rawVectors.buffer.slice(rawVectors.byteOffset, rawVectors.byteOffset + rawVectors.byteLength),
       );
-      const supplementalVectors = await encoder.encode(
-        books.slice(base.length).map(passages.passageText), 'passage',
+      const supplementalVectors = await embedding.encodeCatalogPassages(
+        encoder, books.slice(base.length).map(passages.passageText), manifest.models[MODEL].dimensions,
       );
       const vectors = passages.appendVectors(baseVectors, supplementalVectors);
       const rows = [];

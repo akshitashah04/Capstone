@@ -11,5 +11,24 @@
       "wikisource-hi-gaban",
       "wikisource-hi-nirmala"
     ]
+  },
+  {
+    "catalogSha256": "584c28980387ef28127118698f5fb1d5f594b545165ea6938f6a22102913257c",
+    "baseSha256": "f4609be124611659fe6a6a5424642612ab4cf6a4a04b52161cc0c256694cfed4",
+    "supplementalIds": [
+      "gutenberg-23839",
+      "gutenberg-7337",
+      "gutenberg-23864",
+      "gutenberg-23950",
+      "wikisource-hi-godan",
+      "wikisource-hi-gaban",
+      "wikisource-hi-nirmala",
+      "educationusa-undergraduate-study",
+      "kit-johnson-open-immigration-casebook-4",
+      "unlv-international-student-handbook",
+      "uc-merced-new-international-student-handbook",
+      "newman-f1-international-student-handbook",
+      "cgc-f1-student-handbook"
+    ]
   }
 ]
