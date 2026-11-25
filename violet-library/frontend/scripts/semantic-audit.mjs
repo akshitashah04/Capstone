@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createServer } from 'vite';
 
 const model = process.env.VIOLET_AUDIT_MODEL ?? 'gte-base';
@@ -19,8 +20,8 @@ const vite = await createServer({
 let encoder;
 try {
   const load = name => vite.ssrLoadModule(new URL(`../src/${name}.ts`, import.meta.url).pathname);
-  const [catalog, embeddings, passage, search, intent, bookText, queryTools] = await Promise.all(
-    ['catalog', 'embedding', 'passages', 'search', 'query-intent', 'book-text', 'semantic-query'].map(load),
+  const [catalog, embeddings, passage, search, intent, bookText, queryTools, config] = await Promise.all(
+    ['catalog', 'embedding', 'passages', 'search', 'query-intent', 'book-text', 'semantic-query', 'model-config'].map(load),
   );
   const books = [...base, ...supplement].map(book => ({
     ...book, description: bookText.cleanDescription(book.description),
@@ -32,12 +33,28 @@ try {
   const { env } = await import('@huggingface/transformers');
   env.cacheDir = '/tmp/violet-library-audit-models';
   console.log(`Loading ${model}`);
+  const loadStart = performance.now();
   encoder = await embeddings.loadEncoder(model);
+  const modelLoadMs = Math.round(performance.now() - loadStart);
   const rawVectors = await readFile(new URL(`${model}.f16`, dir));
   const baseVectors = rawVectors.buffer.slice(rawVectors.byteOffset, rawVectors.byteOffset + rawVectors.byteLength);
+  const indexStart = performance.now();
   const extra = await embeddings.encodeCatalogPassages(
     encoder, supplement.map(passage.passageText), manifest.models[model].dimensions,
   );
+  const supplementalEncodingMs = Math.round(performance.now() - indexStart);
+  if (process.env.VIOLET_SAVE_SUPPLEMENT === '1') {
+    const output = new URL('prepared/', dir);
+    await mkdir(output, { recursive: true });
+    const bytes = Buffer.allocUnsafe(extra.length * 4);
+    extra.forEach((value, i) => bytes.writeFloatLE(value, i * 4));
+    await writeFile(new URL(`${model}.f32`, output), bytes);
+    await writeFile(new URL(`${model}.json`, output), JSON.stringify({
+      model, catalog: manifest.catalog_sha256, revision: config.MODELS[model].revision,
+      encoding: 'float32-le-row-major', bytes: bytes.length,
+      sha256: createHash('sha256').update(bytes).digest('hex'),
+    }, null, 2) + '\n');
+  }
   const vectors = passage.appendVectors(catalog.decodeHalfVectors(baseVectors), extra);
   const index = search.buildSearchIndex(books);
   const variants = model === 'gte-base' ? [0, 0.25, 0.5, 0.75, 1] : [0];
@@ -75,8 +92,10 @@ try {
   const output = predicted.map(({ id, split, rankings }) => ({
     id, split, ...rankings[variants.indexOf(selected)],
   }));
-  console.log(JSON.stringify({ model, deployedWeight: selected, bestDevelopmentWeight: scores[0].weight, scores, passed: output.filter(row => row.pass).length, output }));
-  assert.ok(output.every(row => row.pass), 'At least one semantic regression case failed.');
+  console.log(JSON.stringify({ model, modelLoadMs, supplementalEncodingMs, deployedWeight: selected, bestDevelopmentWeight: scores[0].weight, scores, passed: output.filter(row => row.pass).length, output }));
+  if (!process.env.VIOLET_REPORT_ONLY) {
+    assert.ok(output.every(row => row.pass), 'At least one semantic regression case failed.');
+  }
 
 } finally {
   await encoder?.dispose();
