@@ -1,0 +1,23 @@
+name: Violet Library semantic audit
+
+on:
+  push:
+    branches: [violet-semantic-audit]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      ONNXRUNTIME_NODE_INSTALL: skip
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --prefix violet-library/frontend --ignore-scripts
+      - run: node violet-library/frontend/scripts/semantic-audit.mjs

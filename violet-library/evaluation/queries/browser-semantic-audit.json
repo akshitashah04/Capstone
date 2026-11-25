@@ -1,0 +1,94 @@
+[
+  {
+    "id": "python-paraphrase",
+    "split": "development",
+    "language": "en",
+    "query": "I have never written code. Where can I learn to automate a few routine tasks with Python?",
+    "relevant": [
+      "openstax-introduction-python-programming"
+    ]
+  },
+  {
+    "id": "finance-paraphrase",
+    "split": "development",
+    "language": "en",
+    "query": "I want a college textbook that explains why a dollar today is worth more than a dollar next year, and how to value investments.",
+    "relevant": [
+      "openstax-principles-finance"
+    ]
+  },
+  {
+    "id": "ocean-pollution",
+    "split": "development",
+    "language": "en",
+    "query": "Where do tiny bits of plastic in seawater come from, and how can we reduce them?",
+    "relevant": [
+      "2ee32a81-2288-444c-aca5-dee40c6add8c",
+      "8747c4ec-a74b-496e-be9f-5c8144741e63",
+      "a7ca0d7c-a515-4d0d-850f-c9dfad7720d7",
+      "ad1dd95f-1cbd-4ecd-9146-30bcf8fa87e8",
+      "c4339e8b-8f29-44c4-9ae1-4c589cb876b7"
+    ]
+  },
+  {
+    "id": "student-visa",
+    "split": "development",
+    "language": "en",
+    "query": "What should I read about getting an F-1 visa and preparing to study in the United States?",
+    "relevant": [
+      "educationusa-undergraduate-study",
+      "uc-merced-new-international-student-handbook",
+      "cgc-f1-student-handbook"
+    ]
+  },
+  {
+    "id": "exact-title-miss",
+    "split": "development",
+    "language": "en",
+    "query": "Find the book titled \"Quantum Pineapple Cookbook for Martian Beekeepers\".",
+    "relevant": []
+  },
+  {
+    "id": "dominant-subtopic",
+    "split": "development",
+    "language": "en",
+    "query": "I need a textbook about how people acquire, retain and recall information, with an introduction to memory and learning.",
+    "relevant": [
+      "openstax-psychology-2e"
+    ]
+  },
+  {
+    "id": "stats-es",
+    "split": "holdout",
+    "language": "es",
+    "query": "I need a beginner book on probability, sampling and confidence intervals. Please find one written in Spanish.",
+    "relevant": [
+      "openstax-intro-estadistica-es"
+    ]
+  },
+  {
+    "id": "china-technology",
+    "split": "holdout",
+    "language": "zh",
+    "query": "我想找关于明代农耕、纺织和冶金技术的中文书。",
+    "relevant": [
+      "gutenberg-25273"
+    ]
+  },
+  {
+    "id": "hindi-industry",
+    "split": "holdout",
+    "language": "hi",
+    "query": "औपनिवेशिक भारत में एक कारखाने के लिए ज़मीन लेने के संघर्ष पर हिंदी उपन्यास चाहिए।",
+    "relevant": [
+      "wikisource-hi-rangbhumi"
+    ]
+  },
+  {
+    "id": "specific-unavailable",
+    "split": "holdout",
+    "language": "en",
+    "query": "I need a repair manual for the 2017 Toyota Corolla water pump.",
+    "relevant": []
+  }
+]
