@@ -8,6 +8,10 @@ Hosted private review copy: https://nyu-library-next-capstone.sound-park-7168.ch
 
 [NYU Library Next](proposal/README.md) is a separate proposed library experience with Google Books discovery, advanced filters, optional neural reranking, a source-grounded services assistant, and an honest Bobst reservation handoff. The original OpenSquare prototype below remains preserved. The Pages workflow builds both apps, with the proposal at `/proposal/`.
 
+## Violet Library
+
+[Violet Library](https://akshitashah04.github.io/Capstone/libraries/) is a separate book discovery demo with multilingual semantic search and a book-language filter. See [its source and setup instructions](violet-library/README.md).
+
 ## What works
 
 - Natural-language thematic search using **latent semantic analysis (LSA)**, a real corpus-trained NLP model with 96-dimensional embeddings.

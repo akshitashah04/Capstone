@@ -1,4 +1,4 @@
-name: Test and deploy OpenSquare Discover
+name: Test and deploy Capstone sites
 on:
   push:
     branches: [main]
@@ -27,6 +27,14 @@ jobs:
       - run: npm --prefix proposal test
       - run: npm --prefix proposal run build
       - run: cp -R proposal/dist dist/proposal
+      - run: npm ci --prefix violet-library/frontend
+      - run: npm test --prefix violet-library/frontend
+      - run: node --test violet-library/feedback-api/test/*.test.js
+      - run: npm run build --prefix violet-library/frontend
+        env:
+          VITE_RELEASE_ID: ${{ github.sha }}
+          VITE_FEEDBACK_API_URL: ${{ vars.VIOLET_LIBRARY_FEEDBACK_API_URL }}
+      - run: cp -R violet-library/frontend/dist dist/libraries
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

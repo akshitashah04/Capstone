@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#57068c" />
+    <meta name="description" content="An independent NYU-inspired prototype for exploring open-access books with natural-language search." />
+    <title>Violet Library — Book discovery prototype</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="Violet Library home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 42 42" fill="none"><path d="M21 11c-4.5-3-9.2-3.5-15-2v23c5.8-1.5 10.5-1 15 2 4.5-3 9.2-3.5 15-2V9c-5.8-1.5-10.5-1-15 2Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M21 11v23" stroke="currentColor" stroke-width="2.2"/><path d="M10 16c2.7-.4 5.1-.1 7.3 1M25 17c2.2-1.1 4.6-1.4 7.3-1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </span>
+          <span class="brand-name">Violet Library<small>Student research project</small></span>
+        </a>
+        <nav class="header-nav" aria-label="Main navigation">
+          <a href="#how-it-works">How it works</a>
+          <a href="https://www.doabooks.org/" target="_blank" rel="noopener noreferrer">About the books</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="discovery" aria-labelledby="hero-title">
+        <div class="hero container">
+          <h1 id="hero-title">Find open-access books</h1>
+          <p class="hero-subtitle">Search by topic or research question. Choose the language you want to read in.</p>
+        </div>
+        <div class="search-section container">
+          <div class="search-panel">
+            <div class="search-panel-head">
+              <h2 id="search-title">Search the collection</h2>
+              <span class="sample-badge" id="sample-badge">Loading book sample…</span>
+            </div>
+            <form id="search-form" novalidate>
+              <label class="field-label" for="query">What would you like to read about?</label>
+              <div class="query-shell">
+                <textarea id="query" name="query" rows="2" maxlength="500" aria-describedby="query-hint" placeholder="I study business and want to understand AI without needing to code. What should I read first?" required></textarea>
+                <button id="voice-button" class="voice-button" type="button" aria-label="Use voice input" title="Use voice input" hidden>
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="2.5" width="6" height="12" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3m-4 0h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </button>
+              </div>
+              <div class="query-help"><span id="query-hint">Include your course level or the kind of book you need.</span><span id="query-count">0 / 500</span></div>
+              <p id="query-error" class="field-error" role="alert" hidden></p>
+              <div class="search-controls">
+                <div class="control-group">
+                  <label for="language">Book language</label>
+                  <select id="language" name="language">
+                    <option value="">Any language</option>
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label for="model">Search model</label>
+                  <select id="model" name="model">
+                    <option value="gte-base">GTE Base (general research)</option>
+                    <option value="e5-small">E5 Small (smallest download)</option>
+                    <option value="e5-base">E5 Base (larger multilingual model)</option>
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label for="mode">Search method</label>
+                  <select id="mode" name="mode">
+                    <option value="semantic">Semantic (search by meaning)</option>
+                    <option value="hybrid">Semantic + key terms</option>
+                  </select>
+                </div>
+                <button id="search-button" class="primary-button" type="submit">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3" stroke="currentColor" stroke-width="2"/><path d="m16 16 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span>Find books</span>
+                </button>
+              </div>
+            </form>
+            <div class="suggestions" aria-label="Example searches">
+              <span class="suggestions-label">Try a search</span>
+              <div class="suggestion-list">
+                <button type="button" class="suggestion" data-query="I’m a business major and want to understand AI for companies, but I don’t code. Any beginner book with real business examples?">AI for business beginners</button>
+                <button type="button" class="suggestion" data-query="What does Indigenous data sovereignty mean in practice? I’m in anthropology and need a beginner-friendly book, maybe with examples.">Indigenous data rights</button>
+                <button type="button" class="suggestion" data-query="Ocean plastics: where does it all come from and what actually works to reduce it? Need something readable for environmental science.">Ocean plastics</button>
+                <button type="button" class="suggestion" lang="zh" data-language="zh" data-query="我想读关于孔子和儒家伦理的中文书">孔子与儒家伦理</button>
+                <button type="button" class="suggestion" lang="hi" data-language="hi" data-query="मुझे ग्रामीण जीवन और किसानों पर हिंदी उपन्यास चाहिए">ग्रामीण जीवन के उपन्यास</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="results" class="results-section container" aria-labelledby="results-title" hidden>
+        <div class="results-head"><div><h2 id="results-title">Search results</h2><p id="results-subtitle" class="results-subtitle"></p></div><div class="results-model" id="results-model"></div></div>
+        <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+        <div id="results-list" class="results-list"></div>
+        <button id="more-button" type="button" class="more-button" hidden>Show more books</button>
+        <div id="list-feedback"></div>
+      </section>
+
+      <section id="how-it-works" class="about-section container" aria-labelledby="about-title">
+        <div class="about-grid">
+          <h2 id="about-title">How search works</h2>
+          <div class="about-text">
+            <p>Semantic search compares the meaning of your question with book descriptions and subjects. Use “Semantic + key terms” when an exact name or phrase matters.</p>
+            <p>The collection is a sample of open-access books from DOAB, Project Gutenberg, and Wikisource. The language filter applies to the books, so you can ask in one language and read in another.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container footer-inner"><div><strong>Violet Library</strong><p>An independent NYU-inspired student prototype. Not affiliated with or endorsed by NYU Libraries.</p></div><div><a href="https://directory.doabooks.org/" target="_blank" rel="noopener noreferrer">Books from DOAB</a><a href="https://github.com/akshitashah04/Capstone/tree/main/violet-library" target="_blank" rel="noopener noreferrer">Project on GitHub</a></div></div></footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "baseline_index_revision": "b745902168aca10589fd0b376b58eb8019291b37",
+  "books": 1884,
+  "files": {
+    "catalog.json": {
+      "bytes": 2154910,
+      "sha256": "f4609be124611659fe6a6a5424642612ab4cf6a4a04b52161cc0c256694cfed4"
+    },
+    "e5-base.f16": {
+      "bytes": 2893824,
+      "sha256": "a34d1bc3ff4fec19565de10e5b2885d771924390527bbd3e48e6533b538ef11a"
+    },
+    "e5-small.f16": {
+      "bytes": 1446912,
+      "sha256": "e6c1db573b205702d2ddb2ee46ec5291668a4aaa1e805e71a30f781fec4c74f3"
+    },
+    "gte-base.f16": {
+      "bytes": 2893824,
+      "sha256": "e9f0d5ce455dd82bcea76cd937bac500b0541bbf31034943eec16b055435c2f9"
+    },
+    "multilingual.json": {
+      "bytes": 3942,
+      "sha256": "7ccc6fa1922cefa89d3a572f887527c9bcbf2ff1fd686860c8bbb1dd1e5ce578"
+    }
+  },
+  "models": {
+    "e5-base": {
+      "dimensions": 768,
+      "repo": "intfloat/multilingual-e5-base",
+      "revision": "d128750597153bb5987e10b1c3493a34e5a4502a"
+    },
+    "e5-small": {
+      "dimensions": 384,
+      "repo": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+    },
+    "gte-base": {
+      "dimensions": 768,
+      "repo": "Alibaba-NLP/gte-multilingual-base",
+      "revision": "9bbca17d9273fd0d03d5725c7a4b0f6b45142062"
+    }
+  },
+  "schema": 1,
+  "source_parquet_sha256": "2e0c255bb959bcc2afb42f134ede2d3869281ceadf0aca3841fa1f3f5fc449d4",
+  "source_revision": "daba70f6e6de9f7a5c9a1f830fd255415c6d6bb7",
+  "vector_encoding": "float16-le-row-major",
+  "supplemental_books": 7,
+  "catalog_sha256": "675bf0e008198b79f1c4f60a9df4d33301e4a1b92751b42baf78c7af18cb587f"
+}

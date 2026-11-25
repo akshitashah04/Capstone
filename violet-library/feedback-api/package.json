@@ -1,0 +1,11 @@
+{
+  "name": "violet-library-feedback-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "sync:catalog": "node scripts/sync-catalog.mjs",
+    "build": "bash scripts/build.sh",
+    "validate": "node scripts/validate-artifact.mjs"
+  }
+}
