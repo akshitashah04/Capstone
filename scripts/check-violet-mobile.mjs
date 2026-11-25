@@ -6,7 +6,7 @@ import { devices, expect, webkit } from '@playwright/test';
 
 const frontend = fileURLToPath(new URL('../violet-library/frontend/', import.meta.url));
 const site = 'http://127.0.0.1:4175/Capstone/libraries/';
-const preview = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--port', '4175', '--strictPort'], {
+const preview = spawn(process.execPath, ['node_modules/vite/bin/vite.js', 'preview', '--host', '127.0.0.1', '--port', '4175', '--strictPort'], {
   cwd: frontend, stdio: ['ignore', 'pipe', 'inherit'],
 });
 let browser;
