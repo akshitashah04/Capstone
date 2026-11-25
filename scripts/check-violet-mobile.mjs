@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
+import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { setTimeout as delay } from 'node:timers/promises';
 import { devices, expect, webkit } from '@playwright/test';
@@ -34,6 +35,10 @@ try {
   await expect(mobile.locator('#query')).toHaveValue('Veg food');
   await expect(mobile.locator('#model')).toHaveValue('e5-small');
   await expect(mobile.locator('#model option[value="gte-base"]')).toBeDisabled();
+  const filters = mobile.getByRole('group', { name: 'Filter books' });
+  await expect(filters.getByLabel('Published since')).toBeVisible();
+  await expect(filters.getByLabel('Book language')).toBeVisible();
+  await filters.getByLabel('Direct full text only').check();
   await mobile.getByRole('button', { name: 'Find books' }).click();
   const first = mobile.locator('#results-list .book-card').first();
   try {
@@ -45,8 +50,21 @@ try {
   const reader = first.getByRole('link', { name: /read online/i });
   await expect(reader).toHaveAttribute('href', /\/reading\/(cassells|practical)-vegetarian-cookery\//);
   await expect(mobile.locator('#results-model')).toHaveText(/E5 small · Semantic search/);
+  await expect(mobile.locator('#results-subtitle')).toContainText('Direct full text');
   assert.ok(modelRequests.every(url => url.includes('multilingual-e5-small')), 'A larger model loaded on mobile.');
   const title = await first.getByRole('heading').textContent();
+  await first.getByRole('button', { name: 'Save to reading list' }).click();
+  await expect(first.getByRole('button', { name: 'Saved' })).toHaveAttribute('aria-pressed', 'true');
+  await first.getByRole('button', { name: /copy citation/i }).click();
+  await expect(first.locator('.citation-feedback')).toHaveText(/Citation copied|Citation selected for copying/);
+  const shelf = mobile.getByRole('region', { name: 'Reading list' });
+  await expect(shelf.getByRole('link', { name: title })).toBeVisible();
+  const [ris] = await Promise.all([
+    mobile.waitForEvent('download'),
+    shelf.getByRole('button', { name: 'Export citations (RIS)' }).click(),
+  ]);
+  assert.match(await readFile(await ris.path(), 'utf8'), /TI  - .*Vegetarian Cookery/i);
+  console.log('Mobile WebKit filtered results, saved a book, copied its citation, and exported a RIS file.');
   await reader.click();
   await expect(mobile).toHaveURL(/\/reading\/(cassells|practical)-vegetarian-cookery\//);
   await expect(mobile.locator('body')).toContainText(/END OF (?:THE|THIS) PROJECT GUTENBERG EBOOK/i);

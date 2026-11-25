@@ -27,13 +27,16 @@
     </header>
 
     <main id="main">
-      <section class="discovery" aria-labelledby="hero-title">
-        <div class="hero container">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container">
           <h1 id="hero-title">Find open-access books</h1>
-          <p class="hero-subtitle">Search by topic or research question. Save books and export citations for assignments, research, and course reading lists.</p>
+          <p class="hero-subtitle">Search by topic or research question, then build a reading list for your research or course.</p>
         </div>
-        <div class="search-section container">
-          <div class="search-panel">
+      </section>
+
+      <div class="library-workspace container">
+        <div class="search-workspace">
+          <section class="search-panel" aria-labelledby="search-title">
             <div class="search-panel-head">
               <h2 id="search-title" tabindex="-1">Search the collection</h2>
               <span class="sample-badge" id="sample-badge">Loading book sample…</span>
@@ -48,13 +51,32 @@
               </div>
               <div class="query-help"><span id="query-hint">Include your course level or the kind of book you need.</span><span id="query-count">0 / 500</span></div>
               <p id="query-error" class="field-error" role="alert" hidden></p>
-              <div class="search-controls">
-                <div class="control-group">
-                  <label for="language">Book language</label>
-                  <select id="language" name="language">
-                    <option value="">Any language</option>
-                  </select>
+              <fieldset id="search-filters" class="search-filters" tabindex="-1">
+                <legend>Filter books</legend>
+                <div class="filter-controls">
+                  <div class="control-group">
+                    <label for="language">Book language</label>
+                    <select id="language" name="language">
+                      <option value="">Any language</option>
+                    </select>
+                  </div>
+                  <div class="control-group">
+                    <label for="published-since">Published since</label>
+                    <select id="published-since" name="year">
+                      <option value="">Any year</option>
+                      <option value="2020">2020</option>
+                      <option value="2015">2015</option>
+                      <option value="2010">2010</option>
+                      <option value="2000">2000</option>
+                    </select>
+                  </div>
+                  <label class="access-option" for="full-text">
+                    <input id="full-text" name="full-text" type="checkbox">
+                    Direct full text only
+                  </label>
                 </div>
+              </fieldset>
+              <div class="search-controls">
                 <div class="control-group">
                   <label for="model">Search model</label>
                   <select id="model" name="model">
@@ -68,21 +90,6 @@
                   <span>Find books</span>
                 </button>
               </div>
-              <div class="search-refinements" aria-label="Limit results">
-                <label class="access-option" for="full-text">
-                  <input id="full-text" name="full-text" type="checkbox">
-                  Direct full text only
-                </label>
-                <label class="year-option" for="published-since">Published since
-                  <select id="published-since" name="year">
-                    <option value="">Any year</option>
-                    <option value="2020">2020</option>
-                    <option value="2015">2015</option>
-                    <option value="2010">2010</option>
-                    <option value="2000">2000</option>
-                  </select>
-                </label>
-              </div>
             </form>
             <div class="suggestions" aria-label="Example searches">
               <span class="suggestions-label">Try a search</span>
@@ -94,34 +101,34 @@
                 <button type="button" class="suggestion" lang="hi" data-language="hi" data-query="मुझे ग्रामीण जीवन और किसानों पर हिंदी उपन्यास चाहिए">ग्रामीण जीवन के उपन्यास</button>
               </div>
             </div>
-          </div>
+          </section>
+
+          <section id="results" class="results-section" aria-labelledby="results-title" hidden>
+            <div class="results-head">
+              <div><h2 id="results-title">Search results</h2><p id="results-subtitle" class="results-subtitle"></p></div>
+              <a class="edit-filters" href="#search-filters">Edit filters</a>
+            </div>
+            <div class="results-model" id="results-model"></div>
+            <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+            <details id="score-help" class="score-help" hidden>
+              <summary>How relevance is calculated</summary>
+              <p id="score-method"></p>
+            </details>
+            <div id="results-list" class="results-list"></div>
+            <button id="more-button" type="button" class="more-button" hidden>Show more books</button>
+            <div id="list-feedback"></div>
+          </section>
         </div>
-      </section>
 
-      <section id="results" class="results-section container" aria-labelledby="results-title" hidden>
-        <div class="results-head"><div><h2 id="results-title">Search results</h2><p id="results-subtitle" class="results-subtitle"></p></div><div class="results-model" id="results-model"></div></div>
-        <div id="status" class="status" role="status" aria-live="polite" hidden></div>
-        <details id="score-help" class="score-help" hidden>
-          <summary>How relevance is calculated</summary>
-          <p id="score-method"></p>
-        </details>
-        <div id="results-list" class="results-list"></div>
-        <button id="more-button" type="button" class="more-button" hidden>Show more books</button>
-        <div id="list-feedback"></div>
-      </section>
-
-      <section class="reading-list-section container" aria-labelledby="reading-list-title">
-        <div class="reading-list-head">
-          <div>
-            <h2 id="reading-list-title" tabindex="-1">Reading list</h2>
-            <p class="results-subtitle">Save books to revisit in this browser or export for a course or bibliography.</p>
-          </div>
+        <section class="reading-list-section" aria-labelledby="reading-list-title">
+          <h2 id="reading-list-title" tabindex="-1">Reading list</h2>
+          <p class="reading-list-description">Saved in this browser. Export citations to Zotero or another reference manager.</p>
           <button id="export-reading-list" type="button" class="secondary-button" disabled>Export citations (RIS)</button>
-        </div>
-        <p id="reading-list-empty">No saved books yet.</p>
-        <ul id="reading-list-items" class="reading-list-items"></ul>
-        <p id="reading-list-status" class="reading-list-status" role="status"></p>
-      </section>
+          <p id="reading-list-empty">Save a book from your search results to start a list.</p>
+          <ul id="reading-list-items" class="reading-list-items"></ul>
+          <p id="reading-list-status" class="reading-list-status" role="status"></p>
+        </section>
+      </div>
 
       <section id="how-it-works" class="about-section container" aria-labelledby="about-title">
         <div class="about-grid">

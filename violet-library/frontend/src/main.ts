@@ -295,7 +295,9 @@ exportList.addEventListener('click', () => {
   const link = document.createElement('a');
   link.href = url;
   link.download = 'violet-library-reading-list.ris';
+  document.body.append(link);
   link.click();
+  link.remove();
   window.setTimeout(() => URL.revokeObjectURL(url), 30000);
 });
 
@@ -327,8 +329,6 @@ function renderCard(hit: SearchHit): HTMLElement {
   }
   content.append(title, meta, summary, tags);
 
-  const side = document.createElement('div');
-  side.className = 'book-side';
   const access = bookAccess(hit.book);
   const link = document.createElement('a');
   link.className = 'book-link';
@@ -340,15 +340,6 @@ function renderCard(hit: SearchHit): HTMLElement {
   const actions = document.createElement('div');
   actions.className = 'book-actions';
   actions.append(link);
-  if (access.sourceUrl) {
-    const source = document.createElement('a');
-    source.className = 'book-source';
-    source.href = access.sourceUrl;
-    source.referrerPolicy = 'no-referrer';
-    source.textContent = 'Source page';
-    source.setAttribute('aria-label', `Source page: ${hit.book.title}`);
-    actions.append(source);
-  }
   const score = document.createElement('div');
   score.className = 'book-score';
   const scoreLabel = document.createElement('span');
@@ -364,8 +355,16 @@ function renderCard(hit: SearchHit): HTMLElement {
   save.setAttribute('aria-pressed', String(savedIds.has(hit.book.id)));
   save.addEventListener('click', () => toggleSaved(hit.book));
   actions.append(save, citationControl(hit.book));
-  side.append(score, actions);
-  card.append(content, side, createFeedbackWidget(hit.book.id, feedbackState(hit.book.id), feedbackContext));
+  if (access.sourceUrl) {
+    const source = document.createElement('a');
+    source.className = 'book-source';
+    source.href = access.sourceUrl;
+    source.referrerPolicy = 'no-referrer';
+    source.textContent = 'Source page';
+    source.setAttribute('aria-label', `Source page: ${hit.book.title}`);
+    actions.append(source);
+  }
+  card.append(content, score, actions, createFeedbackWidget(hit.book.id, feedbackState(hit.book.id), feedbackContext));
   return card;
 }
 
