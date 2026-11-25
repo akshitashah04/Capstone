@@ -13,8 +13,16 @@ const STOPWORDS = new Set([
 ]);
 
 export function tokens(text: string): string[] {
-  return (text.normalize('NFKD').toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [])
-    .filter(token => token.length > 1 && !STOPWORDS.has(token));
+  const normalized = text.normalize('NFKC').toLowerCase()
+    .replace(/\p{Script=Latin}\p{M}*/gu, letter => letter.normalize('NFD').replace(/\p{M}/gu, ''));
+  const words = normalized.match(/\p{Script=Han}+|(?:(?!\p{Script=Han})[\p{L}\p{M}\p{N}])+/gu) ?? [];
+  return words.flatMap(word => {
+    if (/^\p{Script=Han}{2,}$/u.test(word)) {
+      const chars = Array.from(word);
+      return chars.slice(1).map((char, index) => chars[index] + char);
+    }
+    return word.length > 1 && !STOPWORDS.has(word) ? [word] : [];
+  });
 }
 
 interface IndexedBook {
@@ -33,7 +41,8 @@ export function buildSearchIndex(books: Book[]): SearchIndex {
   const terms = books.map(book => {
     const termWeights = new Map<string, number>();
     for (const [text, weight] of [
-      [book.title, 3], [book.subjects.join(' '), 2], [cleanDescription(book.description), 1],
+      [book.title, 3], [(book.aliases ?? []).join(' '), 3],
+      [book.subjects.join(' '), 2], [cleanDescription(book.description), 1],
     ] as const) {
       for (const term of tokens(text)) {
         termWeights.set(term, (termWeights.get(term) ?? 0) + weight);
@@ -87,15 +96,15 @@ function semanticOrder(queryVector: Float32Array, vectors: Float32Array, count: 
 
 export function rankBooks(
   query: string, queryVector: Float32Array, vectors: Float32Array,
-  index: SearchIndex, mode: SearchMode,
+  index: SearchIndex, mode: SearchMode, keywordWeight = 1,
 ): SearchHit[] {
   if (!query.trim()) throw new Error('Enter a question to search.');
   const { order: meaning, similarities } = semanticOrder(queryVector, vectors, index.books.length);
   const keywords = mode === 'hybrid' ? keywordOrder(query, index) : [];
   const scores = new Map<number, number>();
-  for (const order of [meaning, keywords]) {
+  for (const [order, weight] of [[meaning, 1], [keywords, keywordWeight]] as const) {
     order.forEach((position, indexInOrder) => {
-      scores.set(position, (scores.get(position) ?? 0) + 1 / (RRF_OFFSET + indexInOrder + 1));
+      scores.set(position, (scores.get(position) ?? 0) + weight / (RRF_OFFSET + indexInOrder + 1));
     });
   }
   const ordered = [...scores.entries()].sort((a, b) => b[1] - a[1] || a[0] - b[0]);

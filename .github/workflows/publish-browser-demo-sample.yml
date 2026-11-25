@@ -1,10 +1,6 @@
 name: Publish compact browser sample to project branch
 
 on:
-  push:
-    branches: [build-nyu-search-demo]
-    paths:
-      - '.github/workflows/publish-browser-demo-sample.yml'
   workflow_dispatch:
 
 permissions:
@@ -13,6 +9,7 @@ permissions:
 
 jobs:
   publish:
+    if: github.ref == 'refs/heads/build-nyu-search-demo'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -21,7 +18,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: browser-demo-sample
-          path: frontend/public/data
+          path: sample-artifact
           github-token: ${{ github.token }}
           run-id: 44054267545
       - name: Verify all files against the sample manifest
@@ -31,7 +28,7 @@ jobs:
           import json
           from pathlib import Path
 
-          root = Path('frontend/public/data')
+          root = Path('sample-artifact')
           manifest = json.loads((root / 'manifest.json').read_text())
           assert manifest['schema'] == 1
           assert manifest['books'] == 1884
@@ -51,10 +48,19 @@ jobs:
                   assert len(data) == 2 * len(books) * manifest['models'][key]['dimensions']
           print('Verified 1,884 books and all three aligned vector files')
           PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Commit the small sample as shared project data
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f frontend/public/data
+          cp sample-artifact/* frontend/public/data/
+          node feedback-api/scripts/sync-catalog.mjs --refresh-manifest
+          node --test feedback-api/test/*.test.js
+          git add -f frontend/public/data feedback-api/worker/known-books.js
+          if git diff --cached --quiet; then
+            exit 0
+          fi
           git commit -m 'Publish compact browser demo catalog and vectors'
           git push origin HEAD:build-nyu-search-demo

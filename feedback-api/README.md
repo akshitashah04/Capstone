@@ -11,7 +11,7 @@ This Cloudflare Worker stores voluntary feedback from the public Violet Library 
 | `DELETE /v1/feedback/{id}` | Delete a visitor's submission using the receipt. |
 | `GET /health` | Check database availability and remove feedback older than 90 days. |
 
-The API allows browser writes from `https://veedantbrahmbhatt.github.io`. It accepts only catalog IDs from the pinned 1,884-book demo sample and a matching catalog checksum. It limits request size, validates every field, deduplicates retries, and caps submissions at 20 per IP per UTC day by default. The IP is used to create a secret-keyed daily hash; the raw IP is not stored in the application database. `RATE_PEPPER` is stored as a secret in Sites runtime configuration, never in Git.
+The API allows browser writes from `https://veedantbrahmbhatt.github.io`. It validates book IDs against either the original DOAB sample or the combined demo catalog using the submitted catalog checksum. It limits request size, validates every field, deduplicates retries, and caps submissions at 20 per IP per UTC day by default. The IP is used to create a secret-keyed daily hash; the raw IP is not stored in the application database. `RATE_PEPPER` is stored as a secret in Sites runtime configuration, never in Git.
 
 Anonymous ratings are unverified signals. This release has no bot challenge or automatic model updates. Any ranking change requires human review and an independent evaluation. The service has no public read or export endpoint.
 
@@ -40,7 +40,7 @@ bash scripts/build.sh
 node scripts/validate-artifact.mjs
 ```
 
-If the frontend catalog changes, regenerate `known-books.js`, verify the checksum and both test suites, then deploy the service before the new Pages UI. Old catalog versions cannot submit feedback after a catalog change. Record a versioned compatibility decision before expanding beyond one catalog.
+If the frontend catalog changes, regenerate `known-books.js`, verify the checksum and both test suites, then deploy the service before the new Pages UI. The generated allowlist includes the current combined catalog and its base DOAB catalog. See the [feedback runbook](../Documentation/Feedback/runbook.md) for the private ranking evaluation.
 
 ## Publishing and operations
 

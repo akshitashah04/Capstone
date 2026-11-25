@@ -28,7 +28,7 @@ export function validateSubmission(raw, { catalogSha256, knownBookIds }) {
   requireCondition(UUID_V4.test(raw.submissionId ?? ''), 'Invalid submission ID.');
   requireCondition(typeof raw.query === 'string', 'Question is required.');
   const query = raw.query.replace(/\s+/g, ' ').trim();
-  requireCondition(query.length >= 3 && query.length <= 500 && !EMAIL.test(query),
+  requireCondition((query.length >= 3 || /\p{Script=Han}{2}/u.test(query)) && query.length <= 500 && !EMAIL.test(query),
     'Question is too short, too long, or contains an email address.');
   requireCondition(Array.isArray(raw.results) && raw.results.length >= 1 &&
     raw.results.length <= 10, 'Expected one to ten displayed books.');

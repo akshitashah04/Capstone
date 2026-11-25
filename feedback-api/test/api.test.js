@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import worker from '../worker/index.js';
-import { CATALOG_SHA256, KNOWN_BOOK_IDS } from '../worker/known-books.js';
+import { CATALOG_BOOK_IDS, CATALOG_SHA256, KNOWN_BOOK_IDS } from '../worker/known-books.js';
 
 const origin = 'https://veedantbrahmbhatt.github.io';
 const bookId = KNOWN_BOOK_IDS.values().next().value;
@@ -87,6 +87,24 @@ test('creates, deduplicates, corrects, and deletes one private rating', async ()
   assert.equal(removed.status, 204);
   assert.equal(env.DB.raw.prepare('SELECT COUNT(*) AS n FROM feedback').get().n, 0);
   assert.equal(env.DB.raw.prepare('SELECT COUNT(*) AS n FROM feedback_events').get().n, 0);
+});
+
+test('accepts short Chinese queries and keeps legacy submissions tied to legacy IDs', async () => {
+  const env = environment();
+  const legacySha = [...CATALOG_BOOK_IDS.keys()].find(sha => sha !== CATALOG_SHA256);
+  const newBook = 'gutenberg-23839';
+  const chinese = {
+    ...payload(), query: '论语', results: [{ bookId: newBook, rank: 1 }], targetBookId: newBook,
+  };
+  const mismatched = await worker.fetch(request('POST', '/v1/feedback',
+    { ...chinese, catalogSha256: legacySha }), env);
+  assert.equal(mismatched.status, 400);
+  const combined = await worker.fetch(request('POST', '/v1/feedback', chinese), env);
+  assert.equal(combined.status, 201);
+  const legacy = await worker.fetch(request('POST', '/v1/feedback', {
+    ...payload('44444444-4444-4444-8444-444444444444'), catalogSha256: legacySha,
+  }), env);
+  assert.equal(legacy.status, 201);
 });
 
 test('rejects other origins, malformed ratings, and unauthorized edits', async () => {

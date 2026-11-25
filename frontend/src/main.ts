@@ -4,6 +4,7 @@ import { DEFAULT_MODEL, MODELS } from './model-config';
 import { buildSearchIndex, rankBooks, rankKeywordBooks } from './search';
 import type { Catalog } from './catalog';
 import type { ModelKey, SearchHit, SearchMode } from './types';
+import { appendVectors, passageText } from './passages';
 import { cleanDescription } from './book-text';
 import { createFeedbackWidget } from './feedback/widget';
 import type { FeedbackState } from './feedback/widget';
@@ -31,6 +32,7 @@ const modelLabel = byId<HTMLDivElement>('results-model');
 const more = byId<HTMLButtonElement>('more-button');
 const listFeedback = byId<HTMLDivElement>('list-feedback');
 const voice = byId<HTMLButtonElement>('voice-button');
+const languageLabels = new Intl.DisplayNames(['en'], { type: 'language' });
 
 let catalog: Catalog | null = null;
 let searchIndex: ReturnType<typeof buildSearchIndex> | null = null;
@@ -50,7 +52,7 @@ function feedbackContext(): FeedbackContext {
     model: activeModel,
     mode: activeMode,
     release: import.meta.env.VITE_RELEASE_ID ?? 'local',
-    catalogSha256: catalog.manifest.files['catalog.json'].sha256,
+    catalogSha256: catalog.checksum,
     shownBooks: currentHits.slice(0, visibleCount).map(hit => ({ bookId: hit.book.id, rank: hit.rank })),
   };
 }
@@ -83,7 +85,10 @@ function selectedModel(): ModelKey {
   return value === 'auto' ? DEFAULT_MODEL : value as ModelKey;
 }
 
-function embed(text: string, model: ModelKey): Promise<Float32Array> {
+function embed(text: string, model: ModelKey, source: Catalog): Promise<{
+  vector: Float32Array;
+  supplement: Float32Array;
+}> {
   worker ??= new Worker(new URL('./model-worker.ts', import.meta.url), { type: 'module' });
   const id = nextId++;
   return new Promise((resolve, reject) => {
@@ -92,12 +97,15 @@ function embed(text: string, model: ModelKey): Promise<Float32Array> {
       if (event.data.type === 'progress') setStatus(event.data.message);
       if (event.data.type === 'embedding' || event.data.type === 'error') {
         worker?.removeEventListener('message', onMessage);
-        if (event.data.type === 'embedding') resolve(event.data.vector as Float32Array);
+        if (event.data.type === 'embedding') resolve({ vector: event.data.vector, supplement: event.data.supplement });
         else reject(new Error(event.data.message as string));
       }
     };
     worker!.addEventListener('message', onMessage);
-    worker!.postMessage({ id, text, model });
+    worker!.postMessage({
+      id, text, model, catalog: source.checksum,
+      passages: source.books.slice(source.manifest.books).map(passageText),
+    });
   });
 }
 
@@ -125,7 +133,7 @@ function renderCard(hit: SearchHit): HTMLElement {
   const meta = document.createElement('p');
   meta.className = 'book-meta';
   meta.textContent = [hit.book.authors.slice(0, 2).join(', ') || 'Author not listed',
-    hit.book.year, hit.book.languages.slice(0, 2).join(', ')].filter(Boolean).join(' · ');
+    hit.book.year, hit.book.languages.slice(0, 2).map(language => languageLabels.of(language) ?? language).join(', ')].filter(Boolean).join(' · ');
   const summary = document.createElement('p');
   summary.className = 'book-summary';
   summary.textContent = displaySummary(hit.book.description);
@@ -171,7 +179,7 @@ function renderHits(): void {
 async function search(): Promise<void> {
   const text = query.value.trim();
   queryError.hidden = true;
-  if (text.length < 3) {
+  if (text.length < 3 && !/\p{Script=Han}{2}/u.test(text)) {
     queryError.textContent = 'Write at least a few words about the book you need.';
     queryError.hidden = false;
     query.focus();
@@ -201,10 +209,10 @@ async function search(): Promise<void> {
     catalog ??= await loadCatalog();
     badge.textContent = `${catalog.books.length.toLocaleString()} open-access demo books`;
     searchIndex ??= buildSearchIndex(catalog.books);
-    const [vector, bookVectors] = await Promise.all([
-      embed(text, model), loadVectors(model, catalog),
+    const [{ vector, supplement }, bookVectors] = await Promise.all([
+      embed(text, model, catalog), loadVectors(model, catalog),
     ]);
-    currentHits = rankBooks(text, vector, bookVectors, searchIndex, mode);
+    currentHits = rankBooks(text, vector, appendVectors(bookVectors, supplement), searchIndex, mode);
     visibleCount = 5;
     setStatus('');
     renderHits();

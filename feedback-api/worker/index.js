@@ -1,4 +1,4 @@
-import { CATALOG_SHA256, KNOWN_BOOK_IDS } from './known-books.js';
+import { CATALOG_BOOK_IDS } from './known-books.js';
 import { validateSubmission, validateCorrection, ValidationError } from './validation.js';
 
 const ORIGIN = 'https://veedantbrahmbhatt.github.io';
@@ -55,9 +55,11 @@ function sameSecret(expected, actual) {
 async function submit(request, env, origin) {
   const ip = request.headers.get('CF-Connecting-IP');
   if (!ip) return fail(503, 'visitor_context_unavailable', origin);
-  const item = validateSubmission(await readJson(request), {
-    catalogSha256: CATALOG_SHA256, knownBookIds: KNOWN_BOOK_IDS,
-  });
+  const raw = await readJson(request);
+  const catalogSha256 = raw?.catalogSha256;
+  const knownBookIds = CATALOG_BOOK_IDS.get(catalogSha256);
+  if (!knownBookIds) throw new ValidationError('Catalog version has changed.');
+  const item = validateSubmission(raw, { catalogSha256, knownBookIds });
   const payloadDigest = await hash(JSON.stringify(item));
   const receipt = await hash(`receipt:${item.submissionId}`, env.RATE_PEPPER);
   const existing = await env.DB.prepare('SELECT payload_digest FROM feedback WHERE id = ?')

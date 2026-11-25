@@ -2,9 +2,9 @@
 
 ## What is deployed
 
-The public GitHub Pages site serves a static interface, metadata for 1,884 open-access DOAB books, and three compact, book-aligned vector files. The visitor's browser downloads one selected multilingual model and computes its own query vector. Project-owned JavaScript ranks every book in the demo sample. No outside provider chooses candidates for a visitor's query. The full 91,667-book research index is **not** queried by the public demo.
+The public GitHub Pages site serves a static interface, metadata for 1,884 open-access DOAB books plus seven supplemental titles, and three compact vector files for the DOAB rows. The visitor's browser downloads one selected multilingual model and encodes the query and the supplemental records. Supplemental embeddings are reused while that model is loaded. Project-owned JavaScript ranks every book in the demo sample. No outside provider chooses candidates for a visitor's query. The full 91,667-book research index is **not** queried by the public demo.
 
-The 1,884 records are the union of saved top-ten result pools from the prior 50-question E5 small, E5 base, and GTE comparisons. The source order is preserved and every file is checked against a SHA-256 manifest. Because this sample was selected from evaluated results, it is not representative of the full collection and cannot be used to verify the earlier 17/50, 18/50, or 19/50 quality figures. No book text is copied; the short excerpts come from DOAB metadata.
+The 1,884 records are the union of saved top-ten result pools from the prior 50-question E5 small, E5 base, and GTE comparisons. The source order is preserved and every file is checked against a SHA-256 manifest. Because this sample was selected from evaluated results, it is not representative of the full collection and cannot be used to verify the earlier 17/50, 18/50, or 19/50 quality figures. The index uses book metadata. The four Chinese records come from Project Gutenberg and the three Hindi records from Hindi Wikisource, with original titles, English aliases, and source-linked summaries.
 
 The sample has thin coverage for topics outside those earlier questions. For example, a live Chrome search for `chinese culture` completed but returned broad China-related books because no sampled title directly addresses Chinese culture. Do not demonstrate arbitrary topics as though this sample covers the full catalog. Source placeholder summaries such as `undefined` are treated as missing and books without a usable description are omitted from recommendations.
 
@@ -48,7 +48,7 @@ The fallback was checked on the deployed page with `chinese culture`: five linke
 
 ## Meeting demo
 
-Open `https://veedantbrahmbhatt.github.io/Libraries/` on a laptop with a current Chrome or Edge browser and stable internet. **Before the meeting, complete one actual model query in that same browser** so the default model is cached; a loaded page or the keyword-only preview does not prove semantic inference is ready. Explain that the first five results and their summaries come from metadata, the score is relative within a search, and the 1,884-book sample is a limited prototype. Enter a new natural-language question live; the examples are optional. Compare models only if the meeting connection can handle their separate first-use downloads. The UI has no real student login, profile storage, or NYU catalog access.
+Open `https://veedantbrahmbhatt.github.io/Libraries/` on a laptop with a current Chrome or Edge browser and stable internet. **Before the meeting, complete one actual model query in that same browser** so the default model is cached; a loaded page or the keyword-only preview does not prove semantic inference is ready. Explain that the first five results and their summaries come from metadata, the score is relative within a search, and the 1,891-book catalog is a limited prototype. Enter a new natural-language question live; the examples are optional. Compare models only if the meeting connection can handle their separate first-use downloads. The UI has no real student login, profile storage, or NYU catalog access.
 
 ## Publish and maintain
 
@@ -59,3 +59,8 @@ Update this runbook and the root README when the sample, models, ranking, hostin
 ## Verification on 2026-11-17
 
 The [latest Pages deployment](https://github.com/VeedantBrahmbhatt/Libraries/actions/runs/44174658531) passed frontend tests and the production build; the [dependency-update deployment](https://github.com/VeedantBrahmbhatt/Libraries/actions/runs/44074832303) reported zero known npm vulnerabilities. The public page and its 1,884-book catalog load, and the hosted catalog hash matches the committed manifest. A real E5 small hybrid query completed in Chrome for `chinese culture`, showing ten ranked cards; their topic fit was weak. The Codex in-app browser separately interrupted a large Hugging Face model download, so pre-cache and check the desired model in the exact meeting browser before presenting. This verifies one functional query path, not the relevance of arbitrary results or all three models.
+
+
+## Update the multilingual supplement
+
+Edit `frontend/public/data/multilingual.json` with source links and original-language metadata, then run `node feedback-api/scripts/sync-catalog.mjs --refresh-manifest`. This updates the checksum and backend allowlist. Deploy the feedback service before publishing Pages. The base catalog publish workflow refreshes both files if the compact DOAB artifact changes.

@@ -1,12 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { CATALOG_SHA256, KNOWN_BOOK_IDS } from '../worker/known-books.js';
+import { CATALOG_BOOK_IDS, CATALOG_SHA256, KNOWN_BOOK_IDS } from '../worker/known-books.js';
 
-test('backend book IDs match the exact published browser sample', async () => {
+test('backend validates both catalog versions against their exact book IDs', async () => {
   const root = new URL('../../frontend/public/data/', import.meta.url);
-  const catalog = JSON.parse(await readFile(new URL('catalog.json', root), 'utf8'));
-  const manifest = JSON.parse(await readFile(new URL('manifest.json', root), 'utf8'));
-  assert.equal(CATALOG_SHA256, manifest.files['catalog.json'].sha256);
-  assert.deepEqual(KNOWN_BOOK_IDS, new Set(catalog.map(book => book.id)));
+  const read = async name => JSON.parse(await readFile(new URL(name, root), 'utf8'));
+  const [base, supplement, manifest] = await Promise.all([
+    read('catalog.json'), read('multilingual.json'), read('manifest.json'),
+  ]);
+  assert.equal(CATALOG_SHA256, manifest.catalog_sha256);
+  assert.deepEqual(KNOWN_BOOK_IDS, new Set([...base, ...supplement].map(book => book.id)));
+  assert.deepEqual(CATALOG_BOOK_IDS.get(manifest.files['catalog.json'].sha256),
+    new Set(base.map(book => book.id)));
 });

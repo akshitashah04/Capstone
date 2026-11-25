@@ -2,6 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { buildSearchIndex, rankBooks, rankKeywordBooks, tokens } from './search';
 import type { Book } from './types';
 import { cleanDescription } from './book-text';
+import base from '../public/data/catalog.json';
+import supplement from '../public/data/multilingual.json';
+import { appendVectors } from './passages';
 
 function book(id: string, title: string, description: string): Book {
   return { id, title, description, authors: [], subjects: [], languages: ['en'], year: 2024,
@@ -11,6 +14,24 @@ function book(id: string, title: string, description: string): Book {
 describe('browser ranking', () => {
   it('keeps useful words from natural-language queries', () => {
     expect(tokens('I want a beginner book about AI for business')).toEqual(['beginner', 'ai', 'business']);
+  });
+
+  it('finds supplemental titles with Han bigrams and intact Devanagari words', () => {
+    const index = buildSearchIndex([...base, ...supplement]);
+    expect(tokens('निर्मला दहेज')).toEqual(['निर्मला', 'दहेज']);
+    for (const [query, id] of [
+      ['论语', 'gutenberg-23839'], ['道德經', 'gutenberg-7337'],
+      ['ग्रामीण जीवन के उपन्यास', 'wikisource-hi-godan'], ['निर्मला दहेज', 'wikisource-hi-nirmala'],
+    ]) {
+      expect(rankKeywordBooks(query, index)[0]?.book.id).toBe(id);
+    }
+  });
+
+  it('ranks appended vectors against the matching supplemental book rows', () => {
+    const index = buildSearchIndex([book('base', 'Ocean', 'Marine life'), supplement[4]]);
+    const vectors = appendVectors(new Float32Array([1, 0]), new Float32Array([0, 1]));
+    expect(rankBooks('गोदान', new Float32Array([0, 1]), vectors, index, 'semantic')[0].book.id)
+      .toBe('wikisource-hi-godan');
   });
 
   it('combines semantic and keyword ranks while preserving source alignment', () => {

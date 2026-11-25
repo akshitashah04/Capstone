@@ -4,6 +4,7 @@ import { cleanDescription } from './book-text';
 export interface Catalog {
   books: Book[];
   manifest: SampleManifest;
+  checksum: string;
 }
 
 const root = `${import.meta.env.BASE_URL}data/`;
@@ -15,10 +16,14 @@ async function fetchChecked(name: string, expected: { sha256: string; bytes: num
   if (!response.ok) throw new Error(`Could not load ${name} (${response.status}).`);
   const bytes = await response.arrayBuffer();
   if (bytes.byteLength !== expected.bytes) throw new Error(`${name} has an unexpected size.`);
-  const digest = await crypto.subtle.digest('SHA-256', bytes);
-  const actual = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+  const actual = await sha256(bytes);
   if (actual !== expected.sha256) throw new Error(`${name} did not pass its integrity check.`);
   return bytes;
+}
+
+async function sha256(bytes: ArrayBuffer): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
 export function loadCatalog(): Promise<Catalog> {
@@ -31,15 +36,31 @@ export function loadCatalog(): Promise<Catalog> {
         !manifest.files['catalog.json'] || !Number.isInteger(manifest.books) || manifest.books < 1) {
       throw new Error('The demonstration catalog format is not supported.');
     }
-    const bytes = await fetchChecked('catalog.json', manifest.files['catalog.json']);
-    const books = JSON.parse(new TextDecoder().decode(bytes)) as Book[];
-    if (!Array.isArray(books) || books.length !== manifest.books ||
-        books.some(book => !book.id || !book.title || !book.url?.startsWith('https://'))) {
+    const baseFile = manifest.files['catalog.json'];
+    const supplementFile = manifest.files['multilingual.json'];
+    const [baseBytes, supplementBytes] = await Promise.all([
+      fetchChecked('catalog.json', baseFile),
+      supplementFile ? fetchChecked('multilingual.json', supplementFile) : null,
+    ]);
+    const decoder = new TextDecoder();
+    const base = JSON.parse(decoder.decode(baseBytes)) as Book[];
+    const supplement = supplementBytes ? JSON.parse(decoder.decode(supplementBytes)) as Book[] : [];
+    const checksum = supplementFile
+      ? await sha256(new TextEncoder().encode(baseFile.sha256 + supplementFile.sha256).buffer)
+      : baseFile.sha256;
+    if (!Array.isArray(base) || base.length !== manifest.books || !Array.isArray(supplement) ||
+        supplement.length !== (manifest.supplemental_books ?? 0) ||
+        checksum !== (manifest.catalog_sha256 ?? baseFile.sha256)) {
+      throw new Error('The demonstration catalog is incomplete.');
+    }
+    const books = [...base, ...supplement];
+    if (books.some(book => !book.id || !book.title || !book.url?.startsWith('https://')) ||
+        new Set(books.map(book => book.id)).size !== books.length) {
       throw new Error('The demonstration catalog contains invalid book records.');
     }
     return { books: books.map(book => ({
       ...book, description: cleanDescription(book.description),
-    })), manifest };
+    })), manifest, checksum };
   })().catch(error => { catalogPromise = null; throw error; });
   return catalogPromise;
 }
@@ -71,7 +92,7 @@ export function loadVectors(model: ModelKey, catalog: Catalog): Promise<Float32A
     const expected = catalog.manifest.files[file];
     const dimensions = catalog.manifest.models[model]?.dimensions;
     if (!expected || !Number.isInteger(dimensions) || dimensions < 1 ||
-        expected.bytes !== catalog.books.length * dimensions * 2) {
+        expected.bytes !== catalog.manifest.books * dimensions * 2) {
       throw new Error(`The ${model} vector file is not aligned with the book sample.`);
     }
     const result = decodeHalfVectors(await fetchChecked(file, expected));
