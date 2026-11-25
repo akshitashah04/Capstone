@@ -1,13 +1,16 @@
 import { CATALOG_BOOK_IDS } from './known-books.js';
 import { validateSubmission, validateCorrection, ValidationError } from './validation.js';
 
-const ORIGIN = 'https://akshitashah04.github.io';
+const ALLOWED_ORIGINS = new Set([
+  'https://akshitashah04.github.io',
+  'https://violet-library-capstone-demo.sound-park-7168.chatgpt.site',
+]);
 const encoder = new TextEncoder();
 
 function reply(body, status, origin = null) {
   const headers = new Headers({ 'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff', 'Vary': 'Origin' });
-  if (origin === ORIGIN) headers.set('Access-Control-Allow-Origin', ORIGIN);
+  if (ALLOWED_ORIGINS.has(origin)) headers.set('Access-Control-Allow-Origin', origin);
   return new Response(body === null ? null : JSON.stringify(body), { status, headers });
 }
 
@@ -139,9 +142,9 @@ export default {
     if (path !== '/v1/feedback' && !/^\/v1\/feedback\/[0-9a-f-]{36}$/i.test(path)) {
       return fail(404, 'not_found');
     }
-    if (origin !== ORIGIN) return fail(403, 'origin_not_allowed');
+    if (!ALLOWED_ORIGINS.has(origin)) return fail(403, 'origin_not_allowed');
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: {
-      'Access-Control-Allow-Origin': ORIGIN,
+      'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Methods': 'POST, PUT, DELETE, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, X-Feedback-Receipt',
       'Access-Control-Max-Age': '600', 'Vary': 'Origin',
