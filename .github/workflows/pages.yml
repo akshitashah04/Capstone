@@ -33,7 +33,7 @@ jobs:
       - run: npm run build --prefix violet-library/frontend
         env:
           VITE_RELEASE_ID: ${{ github.sha }}
-          VITE_FEEDBACK_API_URL: ${{ vars.VIOLET_LIBRARY_FEEDBACK_API_URL }}
+          VITE_FEEDBACK_API_URL: https://violet-library-capstone-feedback.sound-park-7168.chatgpt.site
       - run: cp -R violet-library/frontend/dist dist/libraries
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

@@ -1,0 +1,35 @@
+name: Verify and maintain Violet Library feedback
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/violet-feedback.yml'
+      - 'violet-library/feedback-api/**'
+      - 'violet-library/frontend/public/data/**'
+  schedule:
+    - cron: '31 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FEEDBACK_API_URL: https://violet-library-capstone-feedback.sound-park-7168.chatgpt.site
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check database health and expire old feedback
+        run: curl --fail --silent --show-error --retry 3 --retry-delay 5 "$FEEDBACK_API_URL/health"
+      - uses: actions/checkout@v4
+        if: github.event_name != 'schedule'
+      - uses: actions/setup-node@v4
+        if: github.event_name != 'schedule'
+        with:
+          node-version: 22
+      - name: Create and delete a synthetic rating
+        if: github.event_name != 'schedule'
+        run: node violet-library/feedback-api/scripts/smoke-live.mjs
