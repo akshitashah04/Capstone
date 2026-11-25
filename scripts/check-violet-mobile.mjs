@@ -42,10 +42,15 @@ try {
     const status = await mobile.locator('#status').textContent().catch(() => 'Browser closed');
     throw new Error(`Mobile semantic search status: ${status}`, { cause: error });
   }
-  await expect(first.getByRole('link', { name: /read online/i })).toHaveAttribute('href', /gutenberg\.org\/cache\/epub\/(14594|69812)\//);
+  const reader = first.getByRole('link', { name: /read online/i });
+  await expect(reader).toHaveAttribute('href', /\/reading\/(cassells|practical)-vegetarian-cookery\//);
   await expect(mobile.locator('#results-model')).toHaveText(/E5 small · Semantic search/);
   assert.ok(modelRequests.every(url => url.includes('multilingual-e5-small')), 'A larger model loaded on mobile.');
-  console.log(`Mobile WebKit returned ${await first.getByRole('heading').textContent()} for “Veg food”.`);
+  const title = await first.getByRole('heading').textContent();
+  await reader.click();
+  await expect(mobile).toHaveURL(/\/reading\/(cassells|practical)-vegetarian-cookery\//);
+  await expect(mobile.locator('body')).toContainText(/END OF (?:THE|THIS) PROJECT GUTENBERG EBOOK/i);
+  console.log(`Mobile WebKit returned and opened ${title} for “Veg food”.`);
 } finally {
   try {
     await browser?.close();

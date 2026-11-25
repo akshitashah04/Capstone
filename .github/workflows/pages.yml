@@ -73,4 +73,8 @@ jobs:
           grep -i -m 1 'the story of manhattan' manhattan.html
           curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/reading/new-york-metropolis/64572-h.htm" -o metropolis.html
           grep -i -m 1 'The Project Gutenberg eBook of New York, by Peter Marcus' metropolis.html
+          curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/reading/cassells-vegetarian-cookery/14594-h.htm" -o cassells.html
+          grep -i -m 1 "END OF THIS PROJECT GUTENBERG EBOOK CASSELL'S VEGETARIAN COOKERY" cassells.html
+          curl --fail --silent --show-error --retry 3 --retry-all-errors "$demo/reading/practical-vegetarian-cookery/69812-h.htm" -o practical.html
+          grep -i -m 1 'END OF THE PROJECT GUTENBERG EBOOK PRACTICAL VEGETARIAN COOKERY' practical.html
           node -e 'const m=require("./violet-data.json"); if (!m.catalog_sha256 || m.catalog_sha256 !== process.env.CATALOG_SHA) process.exit(1)'

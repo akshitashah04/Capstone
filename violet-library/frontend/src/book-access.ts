@@ -8,6 +8,16 @@ const verifiedEditions: Readonly<Record<string, BookAccess>> = {
     type: 'pdf',
     sourceUrl: 'https://doi.org/10.1017/9781108625227',
   },
+  'gutenberg-14594': {
+    url: `${import.meta.env.BASE_URL}reading/cassells-vegetarian-cookery/14594-h.htm`,
+    type: 'web',
+    sourceUrl: 'https://www.gutenberg.org/ebooks/14594',
+  },
+  'gutenberg-69812': {
+    url: `${import.meta.env.BASE_URL}reading/practical-vegetarian-cookery/69812-h.htm`,
+    type: 'web',
+    sourceUrl: 'https://www.gutenberg.org/ebooks/69812',
+  },
 };
 
 export function bookAccess(book: Book): BookAccess {
